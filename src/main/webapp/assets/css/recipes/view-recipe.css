@@ -1,0 +1,22 @@
+.rate-button,
+.add_shopping_list_button,
+.recipe_comment_reply_button,
+.recipe_comment_add_button{
+    border: 1px solid #56D262;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #56D262;
+}
+
+.rate-button:hover,
+.add_shopping_list_button:hover,
+.recipe_comment_reply_button:hover,
+.recipe_comment_add_button:hover{
+    border: 1px solid #D9D9D9;
+    background-color: #56D262;
+    color: #fff;
+}
+
+li.recipe_supply_title:nth-child(odd){
+    background-color: #D9D9D9;
+}

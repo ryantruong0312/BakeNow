@@ -1,0 +1,26 @@
+/*### StickyFooter_START ###*/
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #F5F5F5;
+    font-size: 18px;
+    font-family: Roboto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar{
+    display: none;  /* Chrome */
+}
+
+/*### StickyFooter_END ###*/
+
+.main-container {
+    position: relative;
+    width: 1440px;
+    margin: 0 auto;
+}

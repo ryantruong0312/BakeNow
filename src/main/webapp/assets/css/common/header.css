@@ -1,0 +1,44 @@
+header{
+    background-color: #56D262;
+}
+
+.nav_icon{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 100px;
+    border: 1px solid #bfa3a3;
+    background-color: #f5f5f5;
+}
+.nav_icon i{
+    font-size: 25px;
+}
+
+.nav_icon:hover{
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+    transform: translateX(1px);
+    background-color: #D9D9D9;
+}
+
+header a, header a:visited{
+    color: #000;
+}
+
+button.subheader:hover{
+    background-color: #F4C82B !important;
+    color: #000 !important;
+}
+
+button.subheader{
+    width: 330px !important;
+    height: 80px !important;
+    background-color:#D9D9D9 !important;
+    font-size: 30px !important;
+    font-weight:bold !important;
+}
+
+input.recipe_search{
+    height: 45px;
+    border: 1px solid #bfa3a3; 
+    border-radius:5px;
+}

@@ -1,0 +1,17 @@
+footer{
+    background-color: #56d262;
+}
+.contact-info li{
+    padding: 5px;
+}
+.contact-info li a{
+    text-decoration: none;
+}
+
+ul{
+    font-weight: bolder;
+}
+ul li{
+    font-weight: normal;
+}
+
