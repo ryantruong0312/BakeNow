@@ -25,12 +25,10 @@ public class MainController extends HttpServlet {
     private static final String DEST_NAV_BLOG_HOME = "RenderBlogHomeController";
     private static final String ACT_NAV_LOGIN = "NavToLogin";
     private static final String DEST_NAV_LOGIN = "/WEB-INF/login.jsp";
+    private static final String ACT_LOGIN = "Login";
+    private static final String DEST_LOGIN = "LoginController";
     private static final String ACT_NAV_REGISTER = "NavToRegister";
     private static final String DEST_NAV_REGISTER = "/WEB-INF/register.jsp";
-    private static final String ACT_NAV_FORGOT_PWD = "NavToForgotPassword";
-    private static final String DEST_NAV_FORGOT_PWD = "/WEB-INF/forgot-password.jsp";
-    private static final String ACT_NAV_RESET_PWD = "NavToResetPassword";
-    private static final String DEST_NAV_RESET_PWD = "/WEB-INF/password-reset.jsp";
 
     private static final String ACT_NAV_VIEW_PROFILE = "NavToViewProfile";
     private static final String DEST_NAV_VIEW_PROFILE = "/WEB-INF/profile/user-profile-view.jsp";
@@ -81,12 +79,10 @@ public class MainController extends HttpServlet {
                     DEST_NAV_BLOG_HOME;
                 case ACT_NAV_LOGIN ->
                     DEST_NAV_LOGIN;
+                case ACT_LOGIN ->
+                    DEST_LOGIN;
                 case ACT_NAV_REGISTER ->
                     DEST_NAV_REGISTER;
-                case ACT_NAV_FORGOT_PWD ->
-                    DEST_NAV_FORGOT_PWD;
-                case ACT_NAV_RESET_PWD ->
-                    DEST_NAV_RESET_PWD;
 
                 case ACT_NAV_VIEW_PROFILE ->
                     DEST_NAV_VIEW_PROFILE;

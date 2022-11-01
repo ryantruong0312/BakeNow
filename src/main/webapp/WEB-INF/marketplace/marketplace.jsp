@@ -97,7 +97,7 @@
 
             </aside>
             <div class="product_list col-9 my-3">
-                <c:forEach begin="1" end="6">
+                <c:forEach begin="1" end="20">
                     <div class="product_card">
                         <div class="product_card_img">
                             <img src="assets/img/bo_Anchor.jpg" alt="product">
