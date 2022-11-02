@@ -4,47 +4,52 @@
  */
 package com.bakenow.core.controller;
 
+import com.bakenow.core.dao.RecipeDAO;
 import com.bakenow.core.dao.UserDAO;
+import com.bakenow.core.model.Recipe;
 import com.bakenow.core.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author tlminh
  */
-public class LoginController extends HttpServlet {
+public class NullController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "home.jsp";
-    
+    private final String ERROR = "home.jsp";
+    private final String SUCCESS = "home.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
-            User loginUser = dao.checkLogin(username, password);
-            if (loginUser != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", loginUser);
-                url = SUCCESS;
-                Cookie cookie = new Cookie(username, password);
-                cookie.setMaxAge(60 * 1);
-                response.addCookie(cookie);
-            } else {
-                request.setAttribute("ERROR", "Incorrect userID or password !!!");
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    String username = cookie.getName();
+                    String password = cookie.getValue();
+                    UserDAO dao = new UserDAO();
+                    User user = dao.checkLogin(username, password);
+                    if (user != null) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("LOGIN_USER", user);
+                        url = SUCCESS;
+                    }
+                }
             }
+            RecipeDAO dao = new RecipeDAO();
+            List<Recipe> recipeList = dao.getRecipeList();
+            request.setAttribute("RECIPE_LIST", recipeList);
         } catch (Exception e) {
-            log("Error at SignInController: " + e.toString());
+            log("Error at NullController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

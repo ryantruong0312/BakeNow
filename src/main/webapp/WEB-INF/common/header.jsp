@@ -18,48 +18,45 @@
             </a>
 
             <!-- SEARCH BAR -->
-            <div class="col-6 py-2 d-flex justify-content-center align-items-center">
+            <div class="col-7 py-2 d-flex justify-content-center align-items-center">
                 <form class="mb-0" action="MainController">
-                    <input type="text" class="py-1 recipe_search" style="width: 550px; padding-left:10px;" name="search" placeholder="Enter a recipe ...">
+                    <input type="text" class="py-1 recipe_search" style="width: 600px; padding-left:20px;" name="search" placeholder="Enter a recipe ...">
                     <input type="submit" class="py-1 recipe_search" name="action" value="Search" >
                 </form>
             </div>
 
             <!-- NAV ICONS-->
-            <nav class="col-2 py-2 d-flex justify-content-space-around align-items-center">
+            <nav class="col-1 py-2 d-flex justify-content-end align-items-center">
                 <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.role == 2}">
                     <a class="nav_icon" href="${pageScope.toCart}">
                         <i class="bi bi-basket"></i>
                     </a>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.role == 3}">
-                    <a id="nav_notification" class="nav_icon" data-bs-toggle="dropdown" data-bs-target="#notification-list">
+                    <a id="nav_icon" class="nav_icon" data-bs-toggle="dropdown" data-bs-target="#notification-list">
                         <i class="bi bi-bell"></i>
                     </a>
                 </c:if>
                 <div class="dropdown-menu">
                     <%@include file="/WEB-INF/popup/notification-list.jsp" %>
                 </div>
-                <a class="nav_icon" data-bs-toggle="dropdown" aria-expanded="false">
-                    <!--<img  src="assets/img/announcement_icon.png" alt="announcement icon" />-->
-                    <i class="bi bi-megaphone"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <%@include file="/WEB-INF/popup/announcement-list.jsp" %>
-                </div>
-
-
-
-
             </nav>
 
             <!-- ROLE ACTION -->
             <div class="col-2 d-flex justify-content-left align-items-center">
-                <div class="py-1 px-2 d-flex" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #f5f5f5;">
-                    <a class="px-2" href="${pageScope.toLogin}">Login</a> |
-                    <a class="px-2" href="${pageScope.toRegister}">Register</a>
-                    <img src="assets/img/profile_icon.png" alt="profile icon" onclick="window.location.href = '${pageScope.toProfile}'" style="border:1px solid; cursor: pointer">
-                </div>
+                <c:if test="${sessionScope.LOGIN_USER == null}">
+                    <div class="authentication py-1 px-2 d-flex justify-content-center align-items-center" style="">
+                        <a class="px-2" href="${pageScope.toLogin}">Login</a> |
+                        <a class="px-2" href="${pageScope.toRegister}">Register</a>
+                        <img src="assets/img/profile_icon.png" alt="profile icon" onclick="window.location.href = '${pageScope.toProfile}'" style="border:1px solid; cursor: pointer">
+                    </div>
+                </c:if>
+                <c:if test="${sessionScope.LOGIN_USER != null}">
+                    <div class="authentication py-1 px-2 d-flex justify-content-center align-items-center" style="">
+                        <a href="${toProfile}">${sessionScope.LOGIN_USER.displayName}</a>
+                        <img src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="border:1px solid; width: 30px; height: 30px;">
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

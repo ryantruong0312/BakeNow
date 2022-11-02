@@ -4,98 +4,146 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
-    border: 1px solid #000;
-    border-radius:15px;
+    border: 1px solid #56D262;
+    background-color: #fff;
+    color: #56D262;
+    border-radius:50px;
+    width: 250px; 
+    height: 70px; 
+    font-size: 25px;
 }
+
+.create_recipe_btn:hover{
+    background-color: #56D262;
+    border-color: #D9D9D9;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+}
+
 .recipe_list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
-.recipe_card {
-    padding: 10px;
-    width: 280px;
-    margin: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 2px solid #56D262;
+.card_row{
+    height: 250px;
 }
-.recipe_card_img{
+
+.card{
+    border: 1px solid #56D262;
+}
+
+.recipe_img{
+    width: 250px;
+    height: 250px;
+}
+
+.recipe_rating_count,
+.recipe_rating_value{
     text-align: center;
-    width: 256px;
-    height: 256px;
-    border: 1px solid #D9D9D9;
-    border-radius: 5px;
-}
-
-.recipe_card_img img{
-    width: 256px;
-    height: 256px;
-}
-
-.recipe_title {
-    font-family: Roboto;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: center;
-    overflow: hidden;
-}
-
-.recipe_body {
-    padding: 12px 12px 12px 12px;
-}
-
-.recipe_more {
-    margin-top: 10px;
-    display: flex;
-}
-
-.recipe-star {
-    margin-left: 10px;
-}
-
-.fa-star-sized {
-    padding: 0 0px;
 }
 
 .checked {
     color: orange;
 }
 
-.recipe_author {
-    width: 100%;
-}
-
 .recipe_author a {
     color: #56D262;
 }
 
-.recipe_text,
-.recipe_author {
-    font-family: Roboto;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: center;
+.see_detail_btn{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    border: 1px solid #56D262;
+    border-radius: 5px;
+    color: #56D262;
+    text-decoration: none;
 }
 
-.recipe_text-published {
-    font-family: Roboto;
-    margin-top: 30px;
-    margin-bottom: 0px;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: left;
+.see_detail_btn:hover{
+    background-color: #56D262;
+    border-color: #D9D9D9;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+}
+
+
+
+.button-like {
+  border: 1px solid #8a8a8a;
+  background-color: transparent;
+  text-decoration: none;
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 3rem;
+  color: #8a8a8a;
+  transition: all ease 0.4s;
+}
+
+.button-like span {
+  margin-left: 0.5rem;
+}
+
+.button-like .fa,
+.button-like span {
+  transition: all ease 0.4s;
+}
+
+.button-like:focus {
+  background-color: transparent;
+}
+
+.button-like:focus .fa,
+.button-like:focus span {
+  color: #8a8a8a;
+}
+
+.button-like:hover {
+  border-color: #cc4b37;
+  background-color: transparent;
+}
+
+.button-like:hover .fa,
+.button-like:hover span {
+  color: #cc4b37;
+}
+
+.liked {
+  background-color: #cc4b37;
+  border-color: #cc4b37;
+}
+
+.liked .fa,
+.liked span {
+  color: #fefefe;
+}
+
+.liked:focus {
+  background-color: #cc4b37;
+}
+
+.liked:focus .fa,
+.liked:focus span {
+  color: #fefefe;
+}
+
+.liked:hover {
+  background-color: #cc4b37;
+  border-color: #cc4b37;
+}
+
+.liked:hover .fa,
+.liked:hover span {
+  color: #fefefe;
 }
 
 

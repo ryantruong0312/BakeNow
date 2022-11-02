@@ -4,66 +4,68 @@
  */
 package com.bakenow.core.model;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author tlminh
  */
 public class Recipe {
-    private Integer id;
-    private Integer authorId;
+    private int id;
+    private int authorId;
     private String authorName;
-    private Timestamp createTime;
-    private Timestamp modifyTime;
-    private Timestamp approvalTime;
-    private Integer approverId;
-    private Integer approverName;
+    private Date createTime;
+    private Date approvalTime;
+    private int approverId;
+    private String approverName;
+    private String imgUrl;
     private String title;
-    private String contents;
+    private String desc;
     private ArrayList<String> steps;
-    private Integer timeToCook;
-    private Double rating;
-    private Integer ratingCount;
-    private Byte statusId;
-    private Boolean available;
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<String> tools;
+    private int cookTime;
+    private double rating;
+    private int ratingCount;
+    private int statusId;
 
     public Recipe() {
     }
 
-    public Recipe(Integer id, Integer authorId, String authorName, Timestamp createTime, Timestamp modifyTime, Timestamp approvalTime, Integer approverId, Integer approverName, String title, String contents, ArrayList<String> steps, Integer timeToCook, Double rating, Integer ratingCount, Byte statusId, Boolean available) {
+    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, ArrayList<String> steps, ArrayList<Ingredient> ingredients, ArrayList<String> tools, int cookTime, double rating, int ratingCount, int statusId) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
         this.createTime = createTime;
-        this.modifyTime = modifyTime;
         this.approvalTime = approvalTime;
         this.approverId = approverId;
         this.approverName = approverName;
+        this.imgUrl = imgUrl;
         this.title = title;
-        this.contents = contents;
+        this.desc = desc;
         this.steps = steps;
-        this.timeToCook = timeToCook;
+        this.ingredients = ingredients;
+        this.tools = tools;
+        this.cookTime = cookTime;
         this.rating = rating;
         this.ratingCount = ratingCount;
         this.statusId = statusId;
-        this.available = available;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Integer authorId) {
+    public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 
@@ -75,43 +77,35 @@ public class Recipe {
         this.authorName = authorName;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Timestamp modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-    public Timestamp getApprovalTime() {
+    public Date getApprovalTime() {
         return approvalTime;
     }
 
-    public void setApprovalTime(Timestamp approvalTime) {
+    public void setApprovalTime(Date approvalTime) {
         this.approvalTime = approvalTime;
     }
 
-    public Integer getApproverId() {
+    public int getApproverId() {
         return approverId;
     }
 
-    public void setApproverId(Integer approverId) {
+    public void setApproverId(int approverId) {
         this.approverId = approverId;
     }
 
-    public Integer getApproverName() {
+    public String getApproverName() {
         return approverName;
     }
 
-    public void setApproverName(Integer approverName) {
+    public void setApproverName(String approverName) {
         this.approverName = approverName;
     }
 
@@ -123,12 +117,12 @@ public class Recipe {
         this.title = title;
     }
 
-    public String getContents() {
-        return contents;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public ArrayList<String> getSteps() {
@@ -139,44 +133,60 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public Integer getTimeToCook() {
-        return timeToCook;
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setTimeToCook(Integer timeToCook) {
-        this.timeToCook = timeToCook;
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    public Double getRating() {
+    public ArrayList<String> getTools() {
+        return tools;
+    }
+
+    public void setTools(ArrayList<String> tools) {
+        this.tools = tools;
+    }
+
+    public int getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(int cookTime) {
+        this.cookTime = cookTime;
+    }
+
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public Integer getRatingCount() {
+    public int getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(Integer ratingCount) {
+    public void setRatingCount(int ratingCount) {
         this.ratingCount = ratingCount;
     }
 
-    public Byte getStatusId() {
+    public int getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(Byte statusId) {
+    public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
     
     

@@ -8,9 +8,17 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>LoginController</servlet-name>
         <servlet-class>com.bakenow.core.controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NullController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.NullController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NullController</servlet-name>
+        <url-pattern>/NullController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -24,7 +32,7 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <res-auth>Container</res-auth>
     </resource-ref>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>MainController</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>401</error-code>

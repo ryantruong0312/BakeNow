@@ -4,8 +4,7 @@
  */
 package com.bakenow.core.model;
 
-import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.Date;
 
 /**
  *
@@ -13,95 +12,83 @@ import java.util.Objects;
  */
 public class Product {
 
-    private Integer id;
-    private Integer categoryId;
-    private Integer shopId;
-    private Timestamp createTime;
-    private Timestamp approveTime;
+    private int id;
+    private int categoryId;
+    private int shopId;
+    private Date createTime;
+    private Date approveTime;
     private String name;
     private String description;
-    private Double price;
-    private Integer stock;
-    private Double rating;
-    private Boolean available;
-    private Byte statusId;
+    private double price;
+    private int stock;
+    private double rating;
+    private int reviewCount;
+    private int statusId;
 
     private Product() {
     }
     
-    public Product(Integer id) {
+    public Product(int id, String name, double price, double rating, int reviewCount){
         this.id = id;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+        this.reviewCount = reviewCount;
     }
 
-    public Product(Integer id, Integer categoryId, Integer shopId, Timestamp creationTime, Timestamp approvalTime, String name, String description, Double price, Integer stock, Double rating, Boolean available, Byte statusId) {
+    public Product(int id, int categoryId, int shopId, Date createTime, Date approveTime, String name, String description, double price, int stock, double rating, int reviewCount, int statusId) {
         this.id = id;
         this.categoryId = categoryId;
         this.shopId = shopId;
-        this.createTime = creationTime;
-        this.approveTime = approvalTime;
+        this.createTime = createTime;
+        this.approveTime = approveTime;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
         this.rating = rating;
-        this.available = available;
+        this.reviewCount = reviewCount;
         this.statusId = statusId;
     }
-    
-    public static Product aProduct() {
-        return new Product();
-    }
-    
-    public Product withId(Integer id) {
-        this.id = id;
-        return this;
-    }
-    
-    public Product withPrice(Double price) {
-        this.price = price;
-        return this;
-    }
-        
-    //TODO: Finish Builder pattern
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Integer getShopId() {
+    public int getShopId() {
         return shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public void setShopId(int shopId) {
         this.shopId = shopId;
     }
 
-    public Timestamp getCreationTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreationTime(Timestamp creationTime) {
-        this.createTime = creationTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Timestamp getApprovalTime() {
+    public Date getApproveTime() {
         return approveTime;
     }
 
-    public void setApprovalTime(Timestamp approvalTime) {
-        this.approveTime = approvalTime;
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
     }
 
     public String getName() {
@@ -120,64 +107,46 @@ public class Product {
         this.description = description;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
-    public Double getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public int getReviewCount() {
+        return reviewCount;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
-    public Byte getStatusId() {
+    public int getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(Byte statusId) {
+    public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
-
-    /**
-     *
-     * @param that
-     * @return
-     */
-    @Override
-    public boolean equals(Object that) {
-        if (that == this) return true;
-        if (!(that instanceof Product)) return false;
-        Product p = (Product) that;
-        return Objects.equals(p.id, this.id);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
+    
+    
 
 }

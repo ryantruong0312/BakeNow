@@ -18,7 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
 
-    private static final String ERROR_404 = "/WEB-INF/errorpages/error404.jsp";
+    private static final String ERROR = "/WEB-INF/errorpages/error404.jsp";
+    private static final String NULL_CONTROLLER = "NullController";
+    
 
     //TODO?: read these from file?
     private static final String ACT_NAV_BLOG_HOME = "NavToBlogHome";
@@ -43,7 +45,7 @@ public class MainController extends HttpServlet {
     private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
     private static final String DEST_NAV_EDIT_RECIPE = "/WEB-INF/recipes/recipe-edit.jsp";
-    
+
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     private static final String DEST_NAV_MARKETPLACE = "/WEB-INF/marketplace/marketplace.jsp";
     private static final String ACT_NAV_VIEW_PRODUCT = "NavToViewProduct";
@@ -69,50 +71,53 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String dest = ERROR_404;
+        String dest = ERROR;
 
         try {
             String action = request.getParameter("action");
+            if (action == null) {
+                dest = NULL_CONTROLLER;
+            } else {
+                dest = switch (action) {
+                    case ACT_NAV_BLOG_HOME ->
+                        DEST_NAV_BLOG_HOME;
+                    case ACT_NAV_LOGIN ->
+                        DEST_NAV_LOGIN;
+                    case ACT_LOGIN ->
+                        DEST_LOGIN;
+                    case ACT_NAV_REGISTER ->
+                        DEST_NAV_REGISTER;
 
-            dest = switch (action) {
-                case ACT_NAV_BLOG_HOME ->
-                    DEST_NAV_BLOG_HOME;
-                case ACT_NAV_LOGIN ->
-                    DEST_NAV_LOGIN;
-                case ACT_LOGIN ->
-                    DEST_LOGIN;
-                case ACT_NAV_REGISTER ->
-                    DEST_NAV_REGISTER;
+                    case ACT_NAV_VIEW_PROFILE ->
+                        DEST_NAV_VIEW_PROFILE;
+                    case ACT_NAV_VIEW_SHOP ->
+                        DEST_NAV_VIEW_SHOP;
 
-                case ACT_NAV_VIEW_PROFILE ->
-                    DEST_NAV_VIEW_PROFILE;
-                case ACT_NAV_VIEW_SHOP ->
-                    DEST_NAV_VIEW_SHOP;
+                    case ACT_NAV_VIEW_RECIPE ->
+                        DEST_NAV_VIEW_RECIPE;
+                    case ACT_NAV_RATE_RECIPE ->
+                        DEST_NAV_RATE_RECIPE;
+                    case ACT_NAV_CREATE_RECIPE ->
+                        DEST_NAV_CREATE_RECIPE;
+                    case ACT_NAV_EDIT_RECIPE ->
+                        DEST_NAV_EDIT_RECIPE;
 
-                case ACT_NAV_VIEW_RECIPE ->
-                    DEST_NAV_VIEW_RECIPE;
-                case ACT_NAV_RATE_RECIPE ->
-                    DEST_NAV_RATE_RECIPE;
-                case ACT_NAV_CREATE_RECIPE ->
-                    DEST_NAV_CREATE_RECIPE;
-                case ACT_NAV_EDIT_RECIPE ->
-                    DEST_NAV_EDIT_RECIPE;
-
-                case ACT_NAV_MARKETPLACE ->
-                    DEST_NAV_MARKETPLACE;
-                case ACT_NAV_VIEW_PRODUCT ->
-                    DEST_NAV_VIEW_PRODUCT;
-                case ACT_NAV_ADD_PRODUCT ->
-                    DEST_NAV_ADD_PRODUCT;
-                case ACT_NAV_EDIT_PRODUCT ->
-                    DEST_NAV_EDIT_PRODUCT;
-                case ACT_ADD_TO_CART ->
-                    DEST_ADD_TO_CART;
-                case ACT_NAV_CART ->
-                    DEST_NAV_CART;
-                default ->
-                    ERROR_404;
-            };
+                    case ACT_NAV_MARKETPLACE ->
+                        DEST_NAV_MARKETPLACE;
+                    case ACT_NAV_VIEW_PRODUCT ->
+                        DEST_NAV_VIEW_PRODUCT;
+                    case ACT_NAV_ADD_PRODUCT ->
+                        DEST_NAV_ADD_PRODUCT;
+                    case ACT_NAV_EDIT_PRODUCT ->
+                        DEST_NAV_EDIT_PRODUCT;
+                    case ACT_ADD_TO_CART ->
+                        DEST_ADD_TO_CART;
+                    case ACT_NAV_CART ->
+                        DEST_NAV_CART;
+                    default ->
+                        ERROR;
+                };
+            }
         } catch (Exception ex) {
 //            Logger.getLogger().log();
         } finally {

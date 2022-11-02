@@ -29,19 +29,13 @@
         <div class="main-container">
             <div class="loginform_container">
                 <div class="page_title">Sign In</div>
-                <form method="post" class="login_form">
+                <form method="post" class="login_form" action="MainController">
                     <label for="username">User name</label>
                     <input id="username" type="text">
                     <label for="password">Password</label>
                     <input id="password" type="password">
                     <div class="loginError" >
-                        <%
-                            String error = (String) request.getAttribute("ERROR");
-                            if (error == null) {
-                                error = "<br>";
-                            }
-                        %>
-                        <%= error%>
+                        ${requestScope.ERROR}
                     </div>
                     <input class="login_btn" type="submit" name="action" value="Login">
 

@@ -22,8 +22,8 @@
         <c:url var="toViewProfile" value="MainController?action=NavToViewProfile"/>
         <c:url var="toCreateRecipe" value="MainController?action=NavToCreateRecipe"/>
         <div class="main-container">
-            <div class="d-flex my-2 justify-content-end">
-                <a class="create_recipe_btn" href="${toCreateRecipe}" style="width: 200px; height: 60px;">
+            <div class="d-flex justify-content-end" style="margin: 20px 80px;">
+                <a class="create_recipe_btn" href="${toCreateRecipe}">
                     <div>
                         <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
                     </div>
@@ -33,48 +33,49 @@
                 </a>
             </div>
             <div class="recipe_list">
-                
-                    <div class="recipe_card">
-                        <div class="recipe_card_img">
-                            <img src="assets/img/img_10.png" alt="recipe">
-                        </div>
-                        <div class="recipe_body">
-                            <a href="${toViewRecipe}"><div class="recipe_title">Bánh Cupcake Nho Khô</div></a>
-                            <p class="recipe_author">By: <a href="${toViewProfile}">Peter Parking</a></p><br>
-                            <div class="recipe_more">
-                                <i class="bi bi-clock" style="font-size: 25px;"></i>
-                                <span class="recipe_cookTime" style="margin-top: 0px; padding-left: 3px;">35m</span>
-                                <div class="recipe-star">
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized"></span>
-                                    <span class="fa fa-star fa-star-sized"></span>
-                                    <span class="recipe_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(19)</span>
+                <c:forEach var="recipe" items="${requestScope.RECIPE_LIST}"> 
+                <%--<c:forEach begin="1" end="10">--%>
+                    <div class="card mb-3 col-9">
+                        <div class="row card_row d-flex">
+                            <div class="col-3">
+                                <img src="${recipe.imgUrl}" class="img-fluid rounded-start recipe_img" alt="recipe image">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <div class="row d-flex">
+                                        <div class="col-10">
+                                            <h5 class="recipe_title">${recipe.title}</h5>
+                                            <p class="recipe_author">By: <a href="${toViewProfile}">${recipe.authorName}</a></p>
+                                        </div>
+                                        <div class="col-2 p-0 d-flex justify-content-center">
+                                            <button class="button button-like" onclick="toggleLikeButton(this)">
+                                                <i class="fa fa-heart"></i>
+                                                <span>Like</span>
+                                                <span class="recipe_vote_count">${recipe.voteCount}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="recipe_desc my-1" style="height: 80px;">
+                                        ${recipe.desc}
+                                    </div>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="recipe_time col-10"><small class="text-muted">${recipe.approvalTime}</small></div>
+                                        <a class="col-2 see_detail_btn" href="MainController?action=NavToViewRecipe&recipeId=${recipe.id}">See details</a>
+                                    </div>
                                 </div>
                             </div>
-                            <p class="recipe_text-published">Published: 11/7/2022</p>
                         </div>
                     </div>
-               
-                <c:forEach begin="1" end="12">
-                <div class="card mb-3">
-                    <div class="row d-flex">
-                        <div class="col-4">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 </c:forEach>
+                </c:forEach>
             </div>
         </div>
         <%@include file="/WEB-INF/common/footer.jsp"%>
+        <script>
+            function toggleLikeButton(x) {
+                x.classList.toggle("liked");
+            }
+
+
+        </script>
     </body>
 </html>
