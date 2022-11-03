@@ -1,25 +1,30 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package com.bakenow.core.controller;
 
+
+import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
 import com.bakenow.core.model.Product;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class LoadProductController extends HttpServlet {
-    private static final String ERROR="marketplace.jsp";
+public class RenderProductMarketPlaceController extends HttpServlet {
+    private static final String ERROR="oh-snap.jsp";
     private static final String SUCCESS="marketplace.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +35,31 @@ public class LoadProductController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //SERVLET NAY DE LOAD PRODUCT THEO CAI GI ???? LOAD HẾT TẤT CẢ 
+    //LOAD product 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String url= ERROR;
+            ProductCategoryDAO CDao = new ProductCategoryDAO();
+            ProductDAO PDao = new ProductDAO();
+            //VAN CHUA BIET CACH MA CAI SERVLET NAY DUOC GOI DEN 1 CACH AUMOTATICALLY
+            String url = ERROR;
         try {
-            ProductDAO dao = new ProductDAO();
-            List<Product> listProduct = dao.getAllProduct();
-            if (listProduct.size()>0) {
-                request.setAttribute("LIST_PRODUCT", listProduct);
-               url= SUCCESS;
-            }
+            String category = request.getParameter("category");
+            HttpSession session = request.getSession();
+            List<Product> listProduct = PDao.getProductByCategory(category);
+            session.setAttribute("SEARCH_CATALOG", listProduct);
+            url = SUCCESS;
+
         } catch (Exception e) {
-            log("Error at LoadTeaController: "+ e.toString());
-        }
-        finally{
+            log("Error at SearchCatalogController: " + toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
-        
+            
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -47,7 +47,7 @@ public class CategoryGroupDAO implements DAO<CategoryGroup> {
             while (rs.next()) {
                 String id = rs.getString("groupId");
                 String name = rs.getString("groupName");
-                result.add(new CategoryGroup(id, name));
+//                result.add(new CategoryGroup(id, name));
             }
         } catch (SQLException //                |ClassNotFoundException 
                 ex) {

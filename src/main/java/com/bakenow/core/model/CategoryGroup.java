@@ -9,22 +9,29 @@ package com.bakenow.core.model;
  * @author Admin
  */
 public class CategoryGroup {
-    private String id;
+    private int id;
     private String name;
+    private int parentId; 
 
     public CategoryGroup() {
     }
 
-    public CategoryGroup(String id, String name) {
+    public CategoryGroup(int id, String name, int parentId) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+    }
+
+    public CategoryGroup(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,6 +41,14 @@ public class CategoryGroup {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
 }

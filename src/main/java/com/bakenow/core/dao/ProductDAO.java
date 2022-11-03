@@ -92,6 +92,7 @@ public class ProductDAO {
                 }
             }
         } catch (Exception e) {
+             e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
