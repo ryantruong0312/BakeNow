@@ -8,6 +8,9 @@
     <c:url var="toBlogHome" value="MainController?action=NavToBlogHome"/>
     <c:url var="toMarketplace" value="MainController?action=NavToMarketplace"/>
     <c:url var="toProfile" value="MainController?action=NavToProfile"/>
+    <c:url var="toManagement" value="MainController?action=NavToManagement"/>
+    <c:url var="toShop" value="MainController?action=NavToShop"/>
+    <c:url var="logout" value="MainController?action=Logout"/>
 
     <div style="width:1440px; margin:0 auto;">
         <div class="row" style="height: 120px;">
@@ -29,7 +32,7 @@
             <nav class="col-1 py-2 d-flex justify-content-end align-items-center">
                 <c:if test="${sessionScope['LOGIN_USER'] == null || sessionScope['LOGIN_USER'].roleId == 2}">
                     <a class="nav_icon" href="${pageScope.toCart}">
-                        <i class="bi bi-basket"></i>
+                        <i class="bi bi-cart3"></i>
                     </a>
                 </c:if>
                 <c:if test="${sessionScope['LOGIN_USER'].roleId == 2 || sessionScope['LOGIN_USER'].roleId == 3}">
@@ -53,14 +56,33 @@
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER != null}">
-                    <div class="authentication dropdown-profile py-1 px-2 d-flex justify-content-center align-items-center" style="">
-                        <span class="col-9" style="text-align: center;">${sessionScope.LOGIN_USER.displayName}</span>
-                        <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 30px; height: 30px;">
-                            <div class="dropdown-profile-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                            </div>
+                    <div class="authentication dropdown-profile py-1 d-flex justify-content-center align-items-center" style="">
+                        <span class="col-9">Hi, ${sessionScope.LOGIN_USER.displayName}</span>
+                        <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
+                        <div class="dropdown-profile-content">
+                            <c:if test="${sessionScope.LOGIN_USER != null}">
+                                <a href="${toProfile}" class="account-nav">
+                                    <i class="bi bi-person-square"></i>
+                                    <span>My Page</span>
+                                </a>
+                            </c:if>
+                            <c:if test="${sessionScope['LOGIN_USER'].roleId == 3}">   
+                                <a href="${toShop}" class="account-nav">
+                                    <i class="bi bi-shop"></i>
+                                    <span>My Shop</span>
+                                </a>
+                            </c:if>
+                            <c:if test="${sessionScope['LOGIN_USER'].roleId == 0 || sessionScope['LOGIN_USER'].roleId == 1}">   
+                                <a href="${toManagement}" class="account-nav">
+                                    <i class="bi bi-clipboard-check"></i>
+                                    <span>Management</span>
+                                </a>
+                            </c:if>
+                            <a href="${logout}" class="account-nav">
+                                <i class="bi bi-box-arrow-right" ></i>
+                                <span>Log out</span>
+                            </a>
+                        </div>
 
                     </div>
                 </c:if>

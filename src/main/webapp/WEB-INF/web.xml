@@ -9,34 +9,32 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-class>com.bakenow.core.controller.LoginController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-        <servlet-name>NullController</servlet-name>
-        <servlet-class>com.bakenow.core.controller.NullController</servlet-class>
-=======
         <servlet-name>LoadProductController</servlet-name>
         <servlet-class>com.bakenow.core.controller.LoadProductController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoadAllCategory</servlet-name>
         <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
->>>>>>> f729096d0a9de61c052d9e6bcbf27b59a2279dd7
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>NullController</servlet-name>
-        <url-pattern>/NullController</url-pattern>
-=======
         <servlet-name>LoadProductController</servlet-name>
         <url-pattern>/LoadProductController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoadAllCategory</servlet-name>
         <url-pattern>/LoadAllCategory</url-pattern>
->>>>>>> f729096d0a9de61c052d9e6bcbf27b59a2279dd7
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/LogoutController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class RecipeDAO {
 
-    private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, title, [desc], cookTime, imgUrl, voteCount"
+    private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, approverId, title, [desc], cookTime, imgUrl, voteCount"
             + " FROM Recipe WHERE statusId = 1";
     private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
 
