@@ -56,7 +56,7 @@
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER != null}">
-                    <div class="authentication dropdown-profile py-1 d-flex justify-content-center align-items-center" style="">
+                    <div class="authentication dropdown-profile py-1 d-flex justify-content-center align-items-center">
                         <span class="col-9">Hi, ${sessionScope.LOGIN_USER.displayName}</span>
                         <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
                         <div class="dropdown-profile-content">

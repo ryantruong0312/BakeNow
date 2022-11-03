@@ -10,17 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>An exception has occurred</title>
+        <title>An error has occurred</title>
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
         <div class="main-container container">
-            <h1 class="error_title">An Exception has occurred</h1>
+            <h1 class="error_title">An Error has occurred</h1>
             <h3>If you could spare some time, please send the error log below to the developers, and we'll hopefully look into it</h3>
-            <%=exception.getMessage() %>
-            Server Version: <%= application.getServerInfo() %><br>
-            Servlet Version: <%= application.getMajorVersion() %>.<%= application.getMinorVersion() %>
-            JSP Version: <%= JspFactory.getDefaultFactory().getEngineInfo().getSpecificationVersion() %> <br>
         </div>
         <%@include file="/WEB-INF/common/footer.jsp"%>
     </body>

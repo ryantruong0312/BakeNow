@@ -8,18 +8,16 @@ package com.bakenow.core.model;
  *
  * @author tlminh
  */
-public class Ingredient {
+public class Tool {
     private int productCategoryId;
     private String alias;
-    private String amount;
 
-    public Ingredient() {
+    public Tool() {
     }
 
-    public Ingredient(int productCategoryId, String alias, String amount) {
+    public Tool(int productCategoryId, String alias) {
         this.productCategoryId = productCategoryId;
         this.alias = alias;
-        this.amount = amount;
     }
 
     public int getProductCategoryId() {
@@ -37,15 +35,6 @@ public class Ingredient {
     public void setAlias(String alias) {
         this.alias = alias;
     }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
     
     
 }

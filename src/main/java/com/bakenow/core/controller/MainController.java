@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
 
-    private static final String ERROR = "/WEB-INF/errorpage.jsp";
+    private static final String ERROR = "/WEB-INF/errorpages/error.jsp";
 
     private static final String ACT_NAV_BLOG_HOME = "NavToBlogHome";
     private static final String DEST_NAV_BLOG_HOME = "RenderBlogHomeController";
@@ -34,8 +34,8 @@ public class MainController extends HttpServlet {
     private static final String ACT_NAV_VIEW_SHOP = "NavToShop";
     private static final String DEST_NAV_VIEW_SHOP = "/WEB-INF/profile/shop-profile-view.jsp";
 
-    private static final String ACT_NAV_VIEW_RECIPE = "NavToViewRecipe";
-    private static final String DEST_NAV_VIEW_RECIPE = "/WEB-INF/recipes/recipe-view.jsp";
+    private static final String ACT_VIEW_RECIPE = "ViewRecipe";
+    private static final String DEST_VIEW_RECIPE = "ViewRecipeController";
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
     private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
@@ -85,8 +85,8 @@ public class MainController extends HttpServlet {
                 case ACT_NAV_VIEW_SHOP:
                     url = DEST_NAV_VIEW_SHOP;
                     break;
-                case ACT_NAV_VIEW_RECIPE:
-                    url = DEST_NAV_VIEW_RECIPE;
+                case ACT_VIEW_RECIPE:
+                    url = DEST_VIEW_RECIPE;
                     break;
                 case ACT_NAV_CREATE_RECIPE:
                     url = DEST_NAV_CREATE_RECIPE;

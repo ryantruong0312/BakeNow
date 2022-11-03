@@ -4,42 +4,37 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.UserDAO;
-import com.bakenow.core.model.User;
+import com.bakenow.core.dao.RecipeDAO;
+import com.bakenow.core.model.Recipe;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author tlminh
  */
-public class LoginController extends HttpServlet {
+public class ViewRecipeController extends HttpServlet {
 
-    private static final String ERROR = "/WEB-INF/authentication/login.jsp";
-    private static final String SUCCESS = "RenderBlogHomeController";
+    public static final String ERROR = "/WEB-INF/errorpages/error.jsp";
+    public static final String SUCCESS = "/WEB-INF/recipes/recipe-view.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
-            User loginUser = dao.checkLogin(username, password);
-            if (loginUser != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", loginUser);
+            int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+            RecipeDAO dao = new RecipeDAO();
+            Recipe recipe = dao.getRecipeById(recipeId);
+            if (recipe != null) {
+                request.setAttribute("RECIPE", recipe);
                 url = SUCCESS;
-            } else {
-                request.setAttribute("ERROR", "Incorrect userID or password !!!");
             }
         } catch (Exception e) {
-            log("Error at SignInController: " + e.toString());
+            log("Error at ViewRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

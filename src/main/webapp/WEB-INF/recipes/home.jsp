@@ -12,13 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Blog Home - BakeNow</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="assets/css/recipes/home.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
-        <c:url var="toViewRecipe" value="MainController?action=NavToViewRecipe"/>
         <c:url var="toViewProfile" value="MainController?action=NavToViewProfile"/>
         <c:url var="toCreateRecipe" value="MainController?action=NavToCreateRecipe"/>
         <div class="main-container">
@@ -41,11 +39,14 @@
                                 <img src="${recipe.imgUrl}" class="img-fluid rounded-start recipe_img" alt="recipe image">
                             </div>
                             <div class="col-9">
-                                <div class="card-body">
+                                <div class="card-body py-2">
                                     <div class="row d-flex">
-                                        <div class="col-10">
-                                            <h5 class="recipe_title">${recipe.title}</h5>
-                                            <p class="recipe_author">By: <a href="${toViewProfile}">${recipe.authorName}</a></p>
+                                        <div class="col-10 p-0">
+                                            <div class="recipe_title" style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">${recipe.title}</div>
+                                            <p class="recipe_author">
+                                                <img class="col-3" src="${recipe.authorAvatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
+                                                <a href="${toViewProfile}">${recipe.authorName}</a>
+                                            </p>
                                         </div>
                                         <div class="col-2 p-0 d-flex justify-content-center">
                                             <button class="button button-like" onclick="toggleLikeButton(this)">
@@ -55,12 +56,12 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="recipe_desc my-1" style="height: 80px;">
+                                    <div class="row recipe_desc my-" style="height: 80px; overflow: hidden; text-overflow: ellipsis;">
                                         ${recipe.desc}
                                     </div>
-                                    <div class="row d-flex align-items-center">
-                                        <div class="recipe_time col-10"><small class="text-muted">${recipe.approvalTime}</small></div>
-                                        <a class="col-2 see_detail_btn" href="MainController?action=NavToViewRecipe&recipeId=${recipe.id}">See details</a>
+                                    <div class="row d-flex align-items-center my-2">
+                                        <div class="recipe_time col-10 p-0"><small class="text-muted">${recipe.approvalTime}</small></div>
+                                        <a class="col-2 see_detail_btn" href="MainController?action=ViewRecipe&recipeId=${recipe.id}">See details</a>
                                     </div>
                                 </div>
                             </div>
