@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="recipe_list">
-                <c:forEach var="recipe" items="${requestScope.RECIPE_LIST}"> 
+                <c:forEach var="recipe" items="${sessionScope.RECIPE_LIST}"> 
                 <%--<c:forEach begin="1" end="10">--%>
                     <div class="card mb-3 col-9">
                         <div class="row card_row d-flex">
@@ -74,8 +74,6 @@
             function toggleLikeButton(x) {
                 x.classList.toggle("liked");
             }
-
-
         </script>
     </body>
 </html>

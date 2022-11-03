@@ -19,7 +19,7 @@
 
             <!-- SEARCH BAR -->
             <div class="col-7 py-2 d-flex justify-content-center align-items-center">
-                <form class="mb-0" action="MainController">
+                <form class="mb-0 search_box" action="MainController">
                     <input type="text" class="py-1 recipe_search" style="width: 600px; padding-left:20px;" name="search" placeholder="Enter a recipe ...">
                     <input type="submit" class="py-1 recipe_search" name="action" value="Search" >
                 </form>
@@ -27,19 +27,20 @@
 
             <!-- NAV ICONS-->
             <nav class="col-1 py-2 d-flex justify-content-end align-items-center">
-                <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.role == 2}">
+                <c:if test="${sessionScope['LOGIN_USER'] == null || sessionScope['LOGIN_USER'].roleId == 2}">
                     <a class="nav_icon" href="${pageScope.toCart}">
                         <i class="bi bi-basket"></i>
                     </a>
                 </c:if>
-                <c:if test="${sessionScope.LOGIN_USER == null || sessionScope.LOGIN_USER.role == 3}">
+                <c:if test="${sessionScope['LOGIN_USER'].roleId == 2 || sessionScope['LOGIN_USER'].roleId == 3}">
                     <a id="nav_icon" class="nav_icon" data-bs-toggle="dropdown" data-bs-target="#notification-list">
                         <i class="bi bi-bell"></i>
                     </a>
+                    <div class="dropdown-menu">
+                        <%@include file="/WEB-INF/popup/notification-list.jsp" %>
+                    </div>
                 </c:if>
-                <div class="dropdown-menu">
-                    <%@include file="/WEB-INF/popup/notification-list.jsp" %>
-                </div>
+
             </nav>
 
             <!-- ROLE ACTION -->
@@ -52,9 +53,15 @@
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER != null}">
-                    <div class="authentication py-1 px-2 d-flex justify-content-center align-items-center" style="">
-                        <a href="${toProfile}">${sessionScope.LOGIN_USER.displayName}</a>
-                        <img src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="border:1px solid; width: 30px; height: 30px;">
+                    <div class="authentication dropdown-profile py-1 px-2 d-flex justify-content-center align-items-center" style="">
+                        <span class="col-9" style="text-align: center;">${sessionScope.LOGIN_USER.displayName}</span>
+                        <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 30px; height: 30px;">
+                            <div class="dropdown-profile-content">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                            </div>
+
                     </div>
                 </c:if>
             </div>

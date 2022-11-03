@@ -4,47 +4,35 @@
  */
 package com.bakenow.core.controller;
 
+import com.bakenow.core.dao.RecipeDAO;
+import com.bakenow.core.model.Recipe;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.annotation.Resource;
-import javax.sql.DataSource;
-
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 /**
  *
  * @author Admin
  */
 @WebServlet(name = "RenderBlogHomeController", urlPatterns = {"/RenderBlogHomeController"})
 public class RenderBlogHomeController extends HttpServlet {
-
-    @Resource(name = "jdbc/AzureSQLDB")
-    private DataSource dataSource;
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String dest = "/WEB-INF/recipes/home.jsp";
-
+        String url = "/WEB-INF/recipes/home.jsp";
         try {
-//            DAO dao = new CategoryGroupDAO(dataSource);
-//            List<CategoryGroup> listRecipes = dao.getAll();
-//            request.setAttribute("LIST_RECIPES", listRecipes);
-        } catch (Exception ex) {
-//            Logger.getLogger().log();
+            RecipeDAO dao = new RecipeDAO();
+            List<Recipe> recipeList = dao.getRecipeList();
+            HttpSession session = request.getSession();
+            session.setAttribute("RECIPE_LIST", recipeList);
+        } catch (Exception e) {
+            log("Error at RenderBlogHomeController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(dest).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

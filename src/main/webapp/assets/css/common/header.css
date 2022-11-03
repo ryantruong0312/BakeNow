@@ -26,6 +26,7 @@ header{
     border-radius: 5px; 
     background-color: #fff; 
     height: 45px;
+    width: 200px;
 }
 
 .authentication a{
@@ -66,14 +67,52 @@ input.recipe_search{
     border-radius:50px;
 }
 
-input[type=submit]{
+.search_box input[type=submit]{
     width: 100px;
 }
 
-input[type=submit]:hover{
+.search_box input[type=submit]:hover{
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-1px);
     background-color: #F4C82B;
     color: #fff;
 }
 
+/* Dropdown Button */
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown-profile {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-profile-content {
+  display: none;
+  position: absolute;
+  top: 45px;
+  width: 200px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border: 1px solid #D9D9D9;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-profile-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-profile-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown-profile:hover .dropdown-profile-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown-profile:hover .drop-icon {background-color: #3e8e41;}

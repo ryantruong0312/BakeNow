@@ -17,7 +17,7 @@ import java.util.Date;
  * @author tlminh
  */
 public class UserDAO {
-    private static final String LOGIN = "SELECT id, displayName, dob, email, phone, address, roleId, createTime, avatarUrl FROM User "
+    private static final String LOGIN = "SELECT id, displayName, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User] "
             + " WHERE username=? AND password=?";
     
     public User checkLogin(String username, String password) throws SQLException {
@@ -35,6 +35,7 @@ public class UserDAO {
                 if (rs.next()) {
                     int id = rs.getInt("id");
                     String displayName = rs.getString("displayName");
+                    System.out.println(displayName);
                     Date dob = rs.getDate("dob");
                     String email = rs.getString("email");
                     String phone = rs.getString("phone");

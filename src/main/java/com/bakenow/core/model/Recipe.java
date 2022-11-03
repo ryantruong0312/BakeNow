@@ -26,14 +26,13 @@ public class Recipe {
     private ArrayList<Ingredient> ingredients;
     private ArrayList<String> tools;
     private int cookTime;
-    private double rating;
-    private int ratingCount;
+    private int voteCount;
     private int statusId;
 
     public Recipe() {
     }
 
-    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, ArrayList<String> steps, ArrayList<Ingredient> ingredients, ArrayList<String> tools, int cookTime, double rating, int ratingCount, int statusId) {
+    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, ArrayList<String> steps, ArrayList<Ingredient> ingredients, ArrayList<String> tools, int cookTime, int voteCount, int statusId) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -48,8 +47,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.tools = tools;
         this.cookTime = cookTime;
-        this.rating = rating;
-        this.ratingCount = ratingCount;
+        this.voteCount = voteCount;
         this.statusId = statusId;
     }
 
@@ -157,20 +155,12 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
-    public double getRating() {
-        return rating;
+    public int getVoteCount() {
+        return voteCount;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public int getRatingCount() {
-        return ratingCount;
-    }
-
-    public void setRatingCount(int ratingCount) {
-        this.ratingCount = ratingCount;
+    public void setVoteCount(int ratingCount) {
+        this.voteCount = ratingCount;
     }
 
     public int getStatusId() {

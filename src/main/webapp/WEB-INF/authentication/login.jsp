@@ -17,7 +17,6 @@
     <body>
         <c:url var="toBlogHome" value="MainController?action=NavToBlogHome"/>
         <c:url var="toRegister" value="MainController?action=NavToRegister"/>
-        <c:url var="ToForgotPassword" value="MainController?action=NavToForgotPassword"/>
         <header style="background-color: #56D262; height: 120px;">
             <div style="width:1440px; margin:0 auto;">
                 <a href="${toBlogHome}" aria-label="home" class="col-2 d-flex justify-content-left align-items-center">
@@ -30,10 +29,10 @@
             <div class="loginform_container">
                 <div class="page_title">Sign In</div>
                 <form method="post" class="login_form" action="MainController">
-                    <label for="username">User name</label>
-                    <input id="username" type="text">
-                    <label for="password">Password</label>
-                    <input id="password" type="password">
+                    <label>User name</label>
+                    <input name="username" type="text">
+                    <label>Password</label>
+                    <input name="password" type="password">
                     <div class="loginError" >
                         ${requestScope.ERROR}
                     </div>

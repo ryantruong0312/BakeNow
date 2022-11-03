@@ -21,8 +21,8 @@ import jakarta.servlet.http.HttpSession;
  */
 public class LoginController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "home.jsp";
+    private static final String ERROR = "/WEB-INF/authentication/login.jsp";
+    private static final String SUCCESS = "RenderBlogHomeController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,9 +37,6 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("LOGIN_USER", loginUser);
                 url = SUCCESS;
-                Cookie cookie = new Cookie(username, password);
-                cookie.setMaxAge(60 * 1);
-                response.addCookie(cookie);
             } else {
                 request.setAttribute("ERROR", "Incorrect userID or password !!!");
             }

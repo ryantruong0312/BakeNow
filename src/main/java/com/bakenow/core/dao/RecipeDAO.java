@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class RecipeDAO {
 
-    private static final String GET_RECIPE_LIST = "SELECT id, authorId, approvalTime, title, desc, cookTime, imgUrl, rating, ratingCount"
-            + "FROM Recipe WHERE statusId = 1";
-    private static final String GET_AUTHOR_NAME_BY_ID = "SELECT displayName FROM User WHERE id = ?";
+    private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, title, [desc], cookTime, imgUrl, voteCount"
+            + " FROM Recipe WHERE statusId = 1";
+    private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
 
     public List<Recipe> getRecipeList() throws SQLException {
         List<Recipe> recipeList = new ArrayList<>();
@@ -37,18 +37,21 @@ public class RecipeDAO {
                 while (rs.next()) {
                     int id = rs.getInt("id");
                     int authorId = rs.getInt("authorId");
+                    Date createTime = rs.getDate("createTime");
                     Date approvalTime = rs.getDate("approvalTime");
+                    int approverId = rs.getInt("approverId");
                     String title = rs.getString("title");
                     String desc = rs.getString("desc");
                     int cookTime = rs.getInt("cookTime");
                     String imgUrl = rs.getString("imgUrl");
-                    double rating = rs.getDouble("rating");
-                    int ratingCount = rs.getInt("ratingCount");
-                    recipeList.add(new Recipe(id, authorId, "", null, approvalTime, 0, "", imgUrl, title, desc, null, null, null, cookTime, rating, ratingCount, 0));
+                    int voteCount = rs.getInt("voteCount");
+                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0));
                 }
                 for(Recipe recipe : recipeList){
-                    String authorName = getAuthorNameById(recipe.getAuthorId());
+                    String authorName = getDisplayNameById(recipe.getAuthorId());
+                    String approverName = getDisplayNameById(recipe.getApproverId());
                     recipe.setAuthorName(authorName);
+                    recipe.setApproverName(approverName);
                 }
             }
         } catch (Exception e) {
@@ -67,7 +70,7 @@ public class RecipeDAO {
         return recipeList;
     }
 
-    public String getAuthorNameById(int id) throws SQLException {
+    public String getDisplayNameById(int id) throws SQLException {
         String name = "";
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -75,7 +78,7 @@ public class RecipeDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_AUTHOR_NAME_BY_ID);
+                ptm = conn.prepareStatement(GET_DISPLAY_NAME_BY_ID);
                 ptm.setInt(1, id);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
