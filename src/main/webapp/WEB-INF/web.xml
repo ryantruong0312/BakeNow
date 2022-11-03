@@ -8,9 +8,17 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>LoginController</servlet-name>
         <servlet-class>com.bakenow.core.controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadProductController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LoadProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadProductController</servlet-name>
+        <url-pattern>/LoadProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
