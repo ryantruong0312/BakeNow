@@ -4,7 +4,7 @@
     Author     : Admin
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/common/shared.jsp"%>
 <!DOCTYPE html>
@@ -96,14 +96,16 @@
                     </div>
 
             </aside>
+       <!--/ đây là đoạn thêm product vào -->
             <div class="product_list col-9 my-3">
-                <c:forEach begin="1" end="20">
+                <c:forEach var="product" items="${LIST_PRODUCT}">
                     <div class="product_card">
                         <div class="product_card_img">
-                            <img src="assets/img/bo_Anchor.jpg" alt="product">
+                            <img src="${product.getImgUrl()}" alt="product">
                         </div>
                         <div class="product_body">
-                            <a href="${toViewProduct}"><div class="product_title">Bơ Anchor cắt sẵn</div></a>
+                            <a href="${toViewProduct}"><div class="product_title">${product.getName()}</div></a>
+                            <!<!-- cai cho toviewProduct la gi v -->
                             <p class="product_author">By: <a href="${toViewShop}">Asian Store</a></p><br>
                             <div class="product_info">
                                 <div class="product-star">
@@ -112,10 +114,10 @@
                                     <span class="fa fa-star fa-star-sized checked"></span>
                                     <span class="fa fa-star fa-star-sized"></span>
                                     <span class="fa fa-star fa-star-sized"></span>
-                                    <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(19)</span>
+                                    <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${product.getReviewCount()})</span>
                                 </div>
                             </div>
-                            <div class="price">35.000 đ</div>
+                            <div class="price">${product.getPrice()} $</div>
                             <form action="" class="d-flex">
                                 <div class="col-1"></div>
                                 <div class="col-5">

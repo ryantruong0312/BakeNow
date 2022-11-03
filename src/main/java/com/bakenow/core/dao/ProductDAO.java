@@ -19,15 +19,17 @@ import java.util.List;
  */
 public class ProductDAO {
     // nhớ là chưa có check kết nối giữa db với netbean nha
-     private static final String GET_PRODUCT = "";
-        private static final String LOAD="select id,title,price,rating,reviewCount from product where statusID = 1";
-     
+    private static final String GET_PRODUCT = "";
+    private static final String LOAD="select id,title,price,rating,reviewCount,imgUrl from product where statusID = 1";
+    private static final String GET_PRODUCT_BY_CATEGORY = """
+                                                          SELECT p.id,p.title,p.price,p.rating,p.reviewCount,p.imgUrl
+                                                                      FROM Product p JOIN ProductCategory c ON c.id = p.categoryId
+                                                                      WHERE (c.name) like ?""";
      public List<Product> getAllProduct() throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -41,7 +43,8 @@ public class ProductDAO {
                     double price = rs.getDouble("price");
                     double rating = rs.getDouble("rating");
                     int reviewCount = rs.getInt("reviewCount");
-                    listProduct.add(new Product(id, name, price, rating, reviewCount));
+                    String imgUrl = rs.getString("imgUrl");
+                    listProduct.add(new Product(id, name,imgUrl, price, rating, reviewCount));
                 }
             }
         } catch (Exception e) {
@@ -62,8 +65,46 @@ public class ProductDAO {
                 conn.close();
             }
         }
-
         return listProduct;
     }
-}
+    
+    // query bằng id hay bằng tên nhờ nếu nó chọn 1 cái cate bất kỳ thì lấy được cái gì của cate đó tên
+    public List<Product> getProductByCategory(String category) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<Product> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PRODUCT_BY_CATEGORY);
+                ptm.setString(1, "%" + category + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("title");
+                    double price = rs.getDouble("price");
+                    double rating = rs.getDouble("rating");
+                    int reviewCount = rs.getInt("reviewCount");
+                    String imgUrl = rs.getString("imgUrl");
+                    list.add(new Product(id, name,imgUrl, price, rating, reviewCount));
+                }
+            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
 
+        return list;
+    }
+   
+}

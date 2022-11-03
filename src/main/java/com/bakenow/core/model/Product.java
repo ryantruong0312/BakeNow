@@ -5,6 +5,7 @@
 package com.bakenow.core.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Product {
     private Date approveTime;
     private String name;
     private String description;
+    private String imgUrl;
     private double price;
     private int stock;
     private double rating;
@@ -31,6 +33,15 @@ public class Product {
     public Product(int id, String name, double price, double rating, int reviewCount){
         this.id = id;
         this.name = name;
+        this.price = price;
+        this.rating = rating;
+        this.reviewCount = reviewCount;
+    }
+
+    public Product(int id, String name, String imgUrl, double price, double rating, int reviewCount) {
+        this.id = id;
+        this.name = name;
+        this.imgUrl = imgUrl;
         this.price = price;
         this.rating = rating;
         this.reviewCount = reviewCount;
@@ -146,7 +157,13 @@ public class Product {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
-    
-    
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
 
 }
