@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register - BakeNow</title>
-        <link rel="stylesheet" href="assets/css/register.css">
+        <link rel="stylesheet" href="assets/css/authentication/register.css">
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     </head>
     <body>
@@ -28,10 +28,10 @@
         <div class="main-container">
             <div class="register_form_container">
                 <div class="page_title">Sign Up</div>
-                <form method="post" class="register_form">
-                    <label for="username">User name</label>
+                <form method="post" class="register_form" action="MainController">
+                    <span>User name</span><span style="margin-left: 20px; color: red;">${USER_ERROR.username}</span>
                     <input type="text" name="username" required>
-                    <label for="password">Password</label>
+                    <span>Password</span>
                     <input type="password" id="psw" name="password" required pattern="(?=.*\d)(?=.*[a-z]).{8,}" 
                            title="Must contain at least one number and one lowercase letter, and at least 8 or more characters">
                     <div id="message">
@@ -40,20 +40,21 @@
                         <p id="number" class="invalid">A <b>number</b></p>
                         <p id="length" class="invalid">Minimum <b>8 characters</b></p>
                     </div>
-                    <label for="confirm">Confirm password</label>
+                    <span>Confirm password</span> <span style="margin-left: 20px; color: red;">${USER_ERROR.confirm}</span>
                     <input type="password" name="confirm" required>
                     <div id="role">
                         <label for="role">Register as</label>
-                        <div style="margin: 10px 0; text-align: center;">
-                            <input type="radio" name="roleId" required>
+                        <div style="margin: 10px 0;">
+                            <input type="radio" name="roleId" value="2" style="margin-left: 70px;" required>
                             <span>Baker</span>
-                            <input type="radio" name="roleId">
+                            <input type="radio" name="roleId" value="3" style="margin-left: 70px;">
                             <span>Retailer</span>
                         </div>
                     </div>
                     <input class="register_btn" type="submit" name="action" value="Register">
                     <div class="login_link" style="text-align: center;">
                         Already have an account? <a href="${toLogin}">Sign in</a>
+                        ${USER_ERROR.error}
                     </div>
                 </form>
             </div>

@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login - BakeNow</title>
-        <link rel="stylesheet" href="assets/css/login.css">
+        <link rel="stylesheet" href="assets/css/authentication/login.css">
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     </head>
     <body>
@@ -34,12 +34,15 @@
                     <label>Password</label>
                     <input name="password" type="password">
                     <div class="loginError" >
+                        <c:if test="${requestScope.ERROR == null}">
+                            <br>
+                        </c:if>
                         ${requestScope.ERROR}
                     </div>
                     <input class="login_btn" type="submit" name="action" value="Login">
 
                     <div class="register_link" style="text-align: center; margin: 20px 0;">
-                        Don't have an account? <a href="${toRegister}">Register</a>
+                        Don't have an account? <a href="${toRegister}">Register now</a>
                     </div>
                 </form>
             </div>

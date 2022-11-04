@@ -36,6 +36,8 @@ public class MainController extends HttpServlet {
 
     private static final String ACT_VIEW_RECIPE = "ViewRecipe";
     private static final String DEST_VIEW_RECIPE = "ViewRecipeController";
+    private static final String ACT_COMMENT_RECIPE = "Comment";
+    private static final String DEST_COMMENT_RECIPE = "CommentRecipeController";
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
     private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
@@ -87,6 +89,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_VIEW_RECIPE:
                     url = DEST_VIEW_RECIPE;
+                    break;
+                case ACT_COMMENT_RECIPE:
+                    url = DEST_COMMENT_RECIPE;
                     break;
                 case ACT_NAV_CREATE_RECIPE:
                     url = DEST_NAV_CREATE_RECIPE;

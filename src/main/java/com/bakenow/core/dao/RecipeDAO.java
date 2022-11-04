@@ -4,6 +4,7 @@
  */
 package com.bakenow.core.dao;
 
+import com.bakenow.core.model.Comment;
 import com.bakenow.core.model.Ingredient;
 import com.bakenow.util.DBUtils;
 import com.bakenow.core.model.Recipe;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +34,8 @@ public class RecipeDAO {
     private static final String GET_TOOLS_BY_ID = "SELECT productCategoryId, alias FROM RecipeItem WHERE recipeId = ? AND isIngredient = 0";
     private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
     private static final String GET_AVATAR_URL_BY_ID = "SELECT avatarUrl FROM [User] WHERE id = ?";
+    private static final String GET_RECIPE_COMMENTS_BY_ID = "SELECT userId, createTime, contents FROM Comment WHERE recipeId = ?";
+    private static final String ADD_RECIPE_COMMENT = "INSERT INTO Comment(userId, contents, createTime, recipeId) VALUES (?,?,?,?)";
 
     public List<Recipe> getRecipeList() throws SQLException {
         List<Recipe> recipeList = new ArrayList<>();
@@ -54,7 +58,7 @@ public class RecipeDAO {
                     int cookTime = rs.getInt("cookTime");
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
-                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, ""));
+                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, "", null));
                 }
                 for (Recipe recipe : recipeList) {
                     String authorName = getDisplayNameById(recipe.getAuthorId());
@@ -68,15 +72,9 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return recipeList;
     }
@@ -99,15 +97,9 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return name;
     }
@@ -131,15 +123,9 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return url;
     }
@@ -166,7 +152,7 @@ public class RecipeDAO {
                     int cookTime = rs.getInt("cookTime");
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
-                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, "");
+                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, "",null);
                 }
                 recipe.setAuthorName(getDisplayNameById(recipe.getAuthorId()));
                 recipe.setApproverName(getDisplayNameById(recipe.getApproverId()));
@@ -174,21 +160,16 @@ public class RecipeDAO {
                 recipe.setSteps(getRecipeStepsById(recipeId));
                 recipe.setIngredients(getRecipeIngredientsById(recipeId));
                 recipe.setTools(getRecipeToolsById(recipeId));
+                recipe.setComments(getRecipeCommentsById(recipeId));
                 
                 System.out.println(recipe.getTitle());
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return recipe;
     }
@@ -214,15 +195,9 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return steps;
     }
@@ -249,15 +224,9 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return ingredients;
     }
@@ -283,16 +252,67 @@ public class RecipeDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
         }
         return tools;
+    }
+    
+    //Get all comments of a recipe by providing recipeId
+    public ArrayList<Comment> getRecipeCommentsById(int recipeId) throws SQLException{
+        ArrayList<Comment> comments = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_RECIPE_COMMENTS_BY_ID);
+                ptm.setInt(1, recipeId);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int userId = rs.getInt("userId");
+                    Timestamp createTime = rs.getTimestamp("createTime");
+                    String contents = rs.getString("contents");
+                    String displayName = getDisplayNameById(userId);
+                    String avatarUrl = getAvatarUrlOfUserById(userId);
+                    comments.add(new Comment(userId, displayName, avatarUrl, createTime, contents));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
+        }
+        return comments;
+    }
+    
+    //Add comment to a recipe
+    public boolean addRecipeComment(int recipeId, int userId, String contents) throws SQLException{
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(ADD_RECIPE_COMMENT);
+                ptm.setInt(1, recipeId);
+                ptm.setString(2, contents);
+                ptm.setTimestamp(3, new Timestamp(new Date().getTime()));
+                ptm.setInt(4, userId);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (rs != null) rs.close();
+            if (ptm != null) ptm.close();
+            if (conn != null) conn.close();
+        }
+        return result;
     }
 }

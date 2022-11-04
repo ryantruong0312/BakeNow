@@ -24,6 +24,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>ViewRecipeController</servlet-name>
         <servlet-class>com.bakenow.core.controller.ViewRecipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CommentRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.CommentRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -43,6 +51,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>ViewRecipeController</servlet-name>
         <url-pattern>/ViewRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentRecipeController</servlet-name>
+        <url-pattern>/CommentRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

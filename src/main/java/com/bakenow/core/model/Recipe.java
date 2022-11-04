@@ -30,11 +30,12 @@ public class Recipe {
     private int voteCount;
     private int statusId;
     private String authorAvatarUrl;
+    private ArrayList<Comment> comments;
 
     public Recipe() {
     }
 
-    public Recipe(int id, int authorId, String authorName, Timestamp createTime, Timestamp approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer,String> steps, ArrayList<Ingredient> ingredients, ArrayList<Tool> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl) {
+    public Recipe(int id, int authorId, String authorName, Timestamp createTime, Timestamp approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer,String> steps, ArrayList<Ingredient> ingredients, ArrayList<Tool> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl, ArrayList<Comment> comments) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -52,6 +53,7 @@ public class Recipe {
         this.voteCount = voteCount;
         this.statusId = statusId;
         this.authorAvatarUrl = authorAvatarUrl;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -189,6 +191,15 @@ public class Recipe {
     public void setAuthorAvatarUrl(String authorAvatarUrl) {
         this.authorAvatarUrl = authorAvatarUrl;
     }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+    
     
     
 }
