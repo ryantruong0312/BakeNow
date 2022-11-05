@@ -4,26 +4,26 @@
  */
 package com.bakenow.core.controller;
 
-
 import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
+import com.bakenow.core.model.CategoryGroup;
 import com.bakenow.core.model.Product;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.ArrayList;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
  * @author Admin
  */
 public class RenderProductMarketPlaceController extends HttpServlet {
-    private static final String ERROR="oh-snap.jsp";
-    private static final String SUCCESS="marketplace.jsp";
+    final static String SUCCESS ="/WEB-INF/marketplace/marketplace.jsp";
+     final static String ERROR ="/WEB-INF/errorpages/error.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,30 +33,27 @@ public class RenderProductMarketPlaceController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //LOAD product 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            ProductCategoryDAO CDao = new ProductCategoryDAO();
+        ProductCategoryDAO CDao = new ProductCategoryDAO();
             ProductDAO PDao = new ProductDAO();
             //VAN CHUA BIET CACH MA CAI SERVLET NAY DUOC GOI DEN 1 CACH AUMOTATICALLY
             String url = ERROR;
         try {
-            String category = request.getParameter("category");
             HttpSession session = request.getSession();
-            List<Product> listProduct = PDao.getProductByCategory(category);
-            session.setAttribute("SEARCH_CATALOG", listProduct);
+            List<Product> listProduct = PDao.getAllProduct();
+            List<CategoryGroup> listICategoryGroup = CDao.getAllOfABigCategory(1);
+            List<CategoryGroup> listTCategoryGroup = CDao.getAllOfABigCategory(2);
+            session.setAttribute("LIST_PRODUCT", listProduct);
+            session.setAttribute("GET_I_CATEGORY", listICategoryGroup);
+            session.setAttribute("GET_T_CATEGORY", listTCategoryGroup);
             url = SUCCESS;
 
         } catch (Exception e) {
             log("Error at SearchCatalogController: " + toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
-        }
-            
-            
         }
     }
 

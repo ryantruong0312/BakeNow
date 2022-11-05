@@ -15,7 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "/WEB-INF/errorpages/error.jsp";
-
+    // để gọi đến 1 cái nào đó thì action là cái ở trên nè
+    // dòng ngay dưới action sẽ tạo request nha. ví dụ nếu để là rederbloghome thì có nghĩa là 
+    // gọi đến servlet renderblock home để xử lý đó
+    // còn nếu để /..../..../ gì đó thì nav thẳng đến trang mà hình như là ko nên như vậy
+    // vì chưa được servlet xử lý qua
     private static final String ACT_NAV_BLOG_HOME = "NavToBlogHome";
     private static final String DEST_NAV_BLOG_HOME = "RenderBlogHomeController";
     private static final String ACT_NAV_LOGIN = "NavToLogin";
@@ -42,7 +46,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_NAV_EDIT_RECIPE = "/WEB-INF/recipes/recipe-edit.jsp";
 
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
-    private static final String DEST_NAV_MARKETPLACE = "/WEB-INF/marketplace/marketplace.jsp";
+    // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
+    private static final String DEST_NAV_MARKETPLACE = "RenderProductMarketPlaceController"; //vì tránh thay đổi trong web.xml sr vì tên ko được chuẩn
     private static final String ACT_NAV_VIEW_PRODUCT = "NavToViewProduct";
     private static final String DEST_NAV_VIEW_PRODUCT = "/WEB-INF/marketplace/product-view.jsp";
     private static final String ACT_NAV_ADD_PRODUCT = "NavToAddProduct";

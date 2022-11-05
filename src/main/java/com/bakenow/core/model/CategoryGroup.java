@@ -4,6 +4,10 @@
  */
 package com.bakenow.core.model;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Admin
@@ -12,8 +16,23 @@ public class CategoryGroup {
     private int id;
     private String name;
     private int parentId; 
+    private List<CategoryGroup> smallerCatgory; 
 
     public CategoryGroup() {
+    }
+
+    public CategoryGroup(int id, String name, List<CategoryGroup> smallerCatgory) {
+        this.id = id;
+        this.name = name;
+        this.smallerCatgory = smallerCatgory;
+    }
+
+    public void setSmallerCatgory(List<CategoryGroup> smallerCatgory) {
+        this.smallerCatgory = smallerCatgory;
+    }
+
+    public List<CategoryGroup> getSmallerCatgory() {
+        return smallerCatgory;
     }
 
     public CategoryGroup(int id, String name, int parentId) {
@@ -25,6 +44,7 @@ public class CategoryGroup {
     public CategoryGroup(int id, String name) {
         this.id = id;
         this.name = name;
+        this.smallerCatgory = new ArrayList<>();
     }
 
     public int getId() {

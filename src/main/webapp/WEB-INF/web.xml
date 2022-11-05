@@ -9,14 +9,6 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-class>com.bakenow.core.controller.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadProductController</servlet-name>
-        <servlet-class>com.bakenow.core.controller.LoadProductController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoadAllCategory</servlet-name>
-        <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.bakenow.core.controller.LogoutController</servlet-class>
     </servlet>
@@ -24,17 +16,17 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>ViewRecipeController</servlet-name>
         <servlet-class>com.bakenow.core.controller.ViewRecipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RenderProductMarketPlaceController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadProductByCategory</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LoadProductByCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoadProductController</servlet-name>
-        <url-pattern>/LoadProductController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoadAllCategory</servlet-name>
-        <url-pattern>/LoadAllCategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
@@ -43,6 +35,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>ViewRecipeController</servlet-name>
         <url-pattern>/ViewRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderProductMarketPlaceController</servlet-name>
+        <url-pattern>/RenderProductMarketPlaceController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadProductByCategory</servlet-name>
+        <url-pattern>/LoadProductByCategory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

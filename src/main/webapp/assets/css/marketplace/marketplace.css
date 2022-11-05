@@ -1,3 +1,85 @@
+.body_container--home {
+    margin: auto;
+    width: 1277px;
+}
+
+.page_title {
+    position: relative;
+    width: 1277px;
+    display: flex;
+}
+
+.page_title h1 {
+    height: 71px;
+    width: 620px;
+    text-decoration: underline;
+    text-decoration-color: #56D262;
+    color: #5F6440;
+}
+
+.body_product_search {
+    position: relative;
+    margin-top: 21.440px;
+    width: 700px;
+    height: 54px;
+}
+
+.body_product_search svg {
+    position: absolute;
+    right: 470px;
+    padding: 11.5px 10px 0px 16px;
+}
+
+.product_search {
+    padding: 0px 0px 0px 55px;
+    position: absolute;
+    right: 110px;
+    width: 360px;
+    border-radius: 15px;
+    border: 1px solid #56D262;
+    height: 50px;
+}
+
+.product_search:focus {
+    border: 3px solid #56D262;
+}
+
+.body_search_button {
+    position: absolute;
+    border-radius: 15px;
+    width: 95px;
+    height: 50px;
+    right: 0px;
+    color: #56D262;
+    background-color: #fff;
+    border: 1px solid #56D262;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
+}
+
+.body_search_button:hover {
+    background-color: #56D262;
+    color: #fff;
+    border: 1px solid #56D262;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
+}
+
+.link_modify{
+    text-decoration: none;
+    color: #000 ;
+}
+
+.link_modify--Product{
+  color:#56D262; 
+}
+
 .sidebar{
     background-color: #fff;
     border: 1px solid #56D262;
@@ -83,10 +165,15 @@
     letter-spacing: 0em;
     text-align: center;
     overflow: hidden;
+    height: 42px;
+    text-overflow: ellipsis;
 }
 
 .product_body {
     padding: 12px 12px 12px 12px;
+}
+.product_body a{
+    text-decoration: none !important;
 }
 
 .product_more {
@@ -94,9 +181,6 @@
     display: flex;
 }
 
-.product-star {
-    margin-left: 10px;
-}
 
 .fa-star-sized {
     padding: 0 0px;
@@ -108,16 +192,20 @@
 
 .product_author {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .product_author a {
     color: #56D262;
 }
-
+.price{
+    font-size: 25px;
+    color: #FFD700;
+    
+}
 .product_text,
 .product_author {
     font-family: Roboto;
-    margin-top: 10px;
     margin-bottom: 0px;
     font-size: 18px;
     font-weight: 400;
