@@ -24,6 +24,18 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>com.bakenow.core.controller.RegisterController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewShopProfileController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.ViewShopProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadProductByCategoryController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LoadProductByCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderProductMarketPlaceController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -37,12 +49,16 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <url-pattern>/ViewRecipeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RenderProductMarketPlaceController</servlet-name>
-        <url-pattern>/RenderProductMarketPlaceController</url-pattern>
+        <servlet-name>ViewShopProfileController</servlet-name>
+        <url-pattern>/ViewShopProfileController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoadProductByCategory</servlet-name>
-        <url-pattern>/LoadProductByCategory</url-pattern>
+        <servlet-name>LoadProductByCategoryController</servlet-name>
+        <url-pattern>/LoadProductByCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderProductMarketPlaceController</servlet-name>
+        <url-pattern>/RenderProductMarketPlaceController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

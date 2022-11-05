@@ -20,7 +20,8 @@
         <c:url var="toAddProduct" value="MainController?action=NavToAddProduct"/>
         <c:url var="toViewShop" value="MainController?action=NavToViewShop"/>
         <c:url var="toViewProductByCategory" value="MainController?action=NavToViewProductByCategory"/>
-        <div class="page_title">
+        <div class="main-container">
+            <div class="page_title">
             <h1>RECENT PRODUCT</h1>
             <form class="body_product_search" action="MainController">
                 <input type="text" class="product_search" name="search" placeholder="Enter a product ...">
@@ -37,6 +38,8 @@
                 <input type="submit" class="body_search_button" name="action" value="Search">
             </form>
         </div>
+        </div>
+        
         <div class="main-container d-flex">
             <aside class="sidebar col-3 my-3">
                 <button type="button" class="main-category">Ingredient</button>
@@ -68,7 +71,7 @@
                         <div class="product_body">
                             <a href="${toViewProduct}"><div class="product_title link_modify--Product">${product.getName()}</div></a>
                             <!<!-- cai cho toviewProduct la gi v -->
-                            <p class="product_author">By: <a href="${toViewShop}">Asian Store</a></p>
+                            <p class="product_author">By: <a href="${toViewShopProfile}">Asian Store</a></p>
                             <div class="product_info">
                                 <div class="product-star">
                                     <span class="fa fa-star fa-star-sized checked"></span>

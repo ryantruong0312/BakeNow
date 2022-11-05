@@ -25,6 +25,7 @@ public class ProductDAO {
                                                           SELECT p.id,p.title,p.price,p.rating,p.reviewCount,p.imgUrl
                                                                       FROM Product p JOIN ProductCategory c ON c.id = p.categoryId
                                                                       WHERE (c.name) like ?""";
+    
      public List<Product> getAllProduct() throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection conn = null;
@@ -105,6 +106,49 @@ public class ProductDAO {
         }
 
         return list;
+    }
+    
+    public List<Product> getProductsByCategory(int categoryID) throws SQLException {
+        List<Product> listProduct = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LOAD);
+//                ptm.setInt(1, offset);
+//                ptm.setInt(2, noOfProducts);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("title");
+                    double price = rs.getDouble("price");
+                    double rating = rs.getDouble("rating");
+                    int reviewCount = rs.getInt("reviewCount");
+                    String imgUrl = rs.getString("imgUrl");
+                    listProduct.add(new Product(id, name,imgUrl, price, rating, reviewCount));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            if (rs != null) {
+//                ptm = conn.prepareStatement(NUMBER_OF_ALL_PRODUCT);
+//                rs = ptm.executeQuery();
+//                if (rs.next()) {
+//                    this.numberOfProduct = rs.getInt("ROW_COUNT");
+//                }
+//                rs.close();
+//            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listProduct;
     }
    
 }

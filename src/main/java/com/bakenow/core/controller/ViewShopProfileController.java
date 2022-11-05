@@ -4,26 +4,22 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.ProductCategoryDAO;
-import com.bakenow.core.dao.ProductDAO;
-import com.bakenow.core.model.CategoryGroup;
-import com.bakenow.core.model.Product;
+
+import com.bakenow.core.dao.RecipeDAO;
+import com.bakenow.core.model.Recipe;
 import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 
 /**
  *
  * @author Admin
  */
-public class RenderProductMarketPlaceController extends HttpServlet {
-    public  static String SUCCESS="/WEB-INF/marketplace/marketplace.jsp";
-    public  static String ERROR="/WEB-INF/errorpages/error.jsp";
+public class ViewShopProfileController extends HttpServlet {
+    public static final String ERROR = "/WEB-INF/errorpages/error.jsp";
+    public static final String SUCCESS = "/WEB-INF/recipes/shop-profile-view.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,18 +34,15 @@ public class RenderProductMarketPlaceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            ProductDAO pDao = new ProductDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
-            List<Product> pList = pDao.getAllProduct();
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-            HttpSession session = request.getSession();
-            session.setAttribute("LIST_PRODUCT", pList);
-            session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
-            url = SUCCESS;
+            int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+            RecipeDAO dao = new RecipeDAO();
+            Recipe recipe = dao.getRecipeById(recipeId);
+            if (recipe != null) {
+                request.setAttribute("RECIPE", recipe);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
+            log("Error at ViewRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

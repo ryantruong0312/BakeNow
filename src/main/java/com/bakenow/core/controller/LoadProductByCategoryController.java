@@ -6,21 +6,20 @@ package com.bakenow.core.controller;
 
 import com.bakenow.core.dao.ProductDAO;
 import com.bakenow.core.model.Product;
+import java.io.IOException;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class LoadProductByCategory extends HttpServlet {
-    public static final String SUCCESS="";
-    public static final String ERROR="";
+public class LoadProductByCategoryController extends HttpServlet {
+    public  static String SUCCESS="";
+    public  static String ERROR="";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,9 +32,7 @@ public class LoadProductByCategory extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String url = ERROR;
+        String url = ERROR;
             try {
                 ProductDAO dao = new ProductDAO();
                 List<Product> listProduct = dao.getAllProduct();
@@ -48,7 +45,6 @@ public class LoadProductByCategory extends HttpServlet {
             } finally {
                 request.getRequestDispatcher(url).forward(request, response);
             }
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

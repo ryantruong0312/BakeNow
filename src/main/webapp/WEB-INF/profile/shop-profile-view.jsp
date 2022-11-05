@@ -13,7 +13,6 @@
     </head>
     <body>
         <div id="page_profile_shop" class="main-container container">
-
             <div>
                 <ul class="tab-nav">
                     <li class="tab-btn">

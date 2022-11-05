@@ -60,6 +60,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_ADD_TO_CART = "AddToCartController";
     private static final String ACT_NAV_CART = "NavToCart";
     private static final String DEST_NAV_CART = "/WEB-INF/marketplace/cart-view.jsp";
+    private static final String ACT_NAV_SHOPPROFILE = "toViewShopProfile";
+    private static final String DEST_NAV_SHOPPROFILE = "/WEB-INF/marketplace/cart-view.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
