@@ -17,12 +17,12 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-class>com.bakenow.core.controller.ViewRecipeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RenderProductMarketPlaceController</servlet-name>
-        <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
+        <servlet-name>CommentRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.CommentRecipeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadProductByCategory</servlet-name>
-        <servlet-class>com.bakenow.core.controller.LoadProductByCategory</servlet-class>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RegisterController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>

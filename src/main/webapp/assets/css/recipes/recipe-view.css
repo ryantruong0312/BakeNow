@@ -1,15 +1,14 @@
 .add_shopping_list_button,
-.recipe_comment_reply_button,
-.recipe_comment_add_button{
+.recipe_comment_button{
     border: 1px solid #56D262;
-    border-radius: 15px;
+    border-radius: 50px;
     background-color: #fff;
     color: #56D262;
+    transition: all ease 0.4s;
 }
 
 .add_shopping_list_button:hover,
-.recipe_comment_reply_button:hover,
-.recipe_comment_add_button:hover{
+.recipe_comment_button:hover{
     border: 1px solid #D9D9D9;
     background-color: #56D262;
     color: #fff;
@@ -21,76 +20,76 @@ li.recipe_supply_item:nth-child(odd){
 /* LIKE BUTTON -----------------------------*/
 
 .button-like {
-  border: 1px solid #8a8a8a;
-  background-color: #fff;
-  text-decoration: none;
-  width: 150px;
-  height: 50px;
-  padding: 10px;
-  position: relative;
-  vertical-align: middle;
-  text-align: center;
-  display: inline-block;
-  border-radius: 3rem;
-  color: #8a8a8a;
-  transition: all ease 0.4s;
+    border: 1px solid #8a8a8a;
+    background-color: #fff;
+    text-decoration: none;
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    border-radius: 3rem;
+    color: #8a8a8a;
+    transition: all ease 0.4s;
 }
 
 .button-like span {
-  margin-left: 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .button-like .fa,
 .button-like span {
-  transition: all ease 0.4s;
+    transition: all ease 0.4s;
 }
 
 .button-like:focus {
-  background-color: transparent;
+    background-color: #fff;
 }
 
 .button-like:focus .fa,
 .button-like:focus span {
-  color: #8a8a8a;
+    color: #8a8a8a;
 }
 
 .button-like:hover {
-  border-color: #cc4b37;
-  background-color: transparent;
+    border-color: #cc4b37;
+    background-color: #fff;
 }
 
 .button-like:hover .fa,
 .button-like:hover span {
-  color: #cc4b37;
+    color: #cc4b37;
 }
 
 .liked {
-  background-color: #cc4b37;
-  border-color: #cc4b37;
+    background-color: #cc4b37;
+    border-color: #cc4b37;
 }
 
 .liked .fa,
 .liked span {
-  color: #fefefe;
+    color: #fefefe;
 }
 
 .liked:focus {
-  background-color: #cc4b37;
+    background-color: #cc4b37;
 }
 
 .liked:focus .fa,
 .liked:focus span {
-  color: #fefefe;
+    color: #fefefe;
 }
 
 .liked:hover {
-  background-color: #cc4b37;
-  border-color: #cc4b37;
+    background-color: #cc4b37;
+    border-color: #cc4b37;
 }
 
 .liked:hover .fa,
 .liked:hover span {
-  color: #fefefe;
+    color: #fefefe;
 }
 
 /*---------------------------------*/
@@ -113,15 +112,15 @@ li.recipe_supply_item:nth-child(odd){
 .dropdown_action_content {
     display: none;
     position: absolute;
-    top: 45px;
-    width: 200px;
+    top: 30px;
+    right: 10px;
+    width: 100px;
     background-color: #fff;
     color: #56D262;
-    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border: 1px solid #D9D9D9;
-    border-radius: 5px;
     z-index: 1;
+    font-size: 18px;
+    text-align: center;
 }
 
 /* Links inside the dropdown */
@@ -130,6 +129,8 @@ li.recipe_supply_item:nth-child(odd){
     padding: 10px;
     text-decoration: none;
     display: block;
+    border: 1px solid #D9D9D9;
+    transition: all ease 0.4s;
 }
 
 /* Change color of dropdown links on hover */
