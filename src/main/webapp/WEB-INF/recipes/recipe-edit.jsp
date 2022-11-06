@@ -46,7 +46,14 @@
                                     <div style="font-size: 20px; padding-left: 10px">
                                         <span class="recipe_create_form_step_counter">Step ${step.key}</span>
                                     </div>
-                                    <textarea class="my-2 py-2" type="text" style=" padding-left: 10px; width: 100%; min-height: 100px;" name="title" required="">${step.value}</textarea>
+                                    <div class="d-flex">
+                                        <div class="col-11">
+                                            <textarea class="my-2 py-2" type="text" style=" padding-left: 10px; width: 100%; min-height: 130px;" name="title" required="">${step.value}</textarea>
+                                        </div>
+                                        <div class="col-1 d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-dash-circle" style="font-size: 30px;"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </c:forEach>
                             <div id="add_step" class="my-2 supply_add_button">+ Add</div>
@@ -56,25 +63,17 @@
                                     <div class="p-2 my-2" style="border: 1px solid #D9D9D9; border-radius: 5px;">
                                         <div class="d-flex">
                                             <div class="col-7 mx-1 d-flex justify-content-center" style="font-size: 20px;">Name</div>
-                                            <div class="col-3 mx-1 d-flex justify-content-center" style="font-size: 20px;">Amount</div>
-                                            <div class="col-2"></div>
+                                            <div class="col-4 mx-1 d-flex justify-content-center" style="font-size: 20px;">Amount</div>
+                                            <div class="col-1 d-flex align-items-center"></div>
                                         </div>
                                         <c:forEach var="ingredient" items="${RECIPE.ingredients}">
                                             <div class="d-flex">
-
-                                                <input type="text" class="supply col-7 mx-1" style="padding-left: 10px;" name="alias" value="${ingredient.alias}" required="">
-                                                <input type="text" class="supply col-3 mx-1" style="padding-left: 10px;" name="amount" value="${ingredient.amount}">
-                                                <a class="col-2 d-flex justify-content-center align-items-center"><svg width="30" height="30" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <g opacity="0.35">
-                                                    <path d="M21 38.4375C16.1266 38.4375 11.4529 36.5477 8.00691 33.1837C4.56093 29.8198 2.625 25.2573 2.625 20.5C2.625 15.7427 4.56093 11.1802 8.00691 7.81627C11.4529 4.45234 16.1266 2.5625 21 2.5625C25.8734 2.5625 30.5471 4.45234 33.9931 7.81627C37.4391 11.1802 39.375 15.7427 39.375 20.5C39.375 25.2573 37.4391 29.8198 33.9931 33.1837C30.5471 36.5477 25.8734 38.4375 21 38.4375ZM21 41C26.5695 41 31.911 38.8402 35.8492 34.9957C39.7875 31.1512 42 25.9369 42 20.5C42 15.0631 39.7875 9.84881 35.8492 6.00431C31.911 2.15982 26.5695 0 21 0C15.4305 0 10.089 2.15982 6.15076 6.00431C2.21249 9.84881 0 15.0631 0 20.5C0 25.9369 2.21249 31.1512 6.15076 34.9957C10.089 38.8402 15.4305 41 21 41Z" fill="black"/>
-                                                    <rect x="11" y="20" width="20" height="2.5" rx="1.25" fill="black"/>
-                                                    </g>
-                                                    </svg>
-                                                </a>
-
+                                                <input type="text" class="supply col-7 mx-1 my-2" style="padding-left: 10px;" name="ingredientName" value="${ingredient.alias}" required="">
+                                                <input type="text" class="supply col-4 mx-1 my-2" style="padding-left: 10px;" name="amount" value="${ingredient.amount}">
+                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center" style="font-size: 30px;"></i>
                                             </div>
                                         </c:forEach>
-                                        <div class="mx-1 my-2 supply_add_button">+ Add</div>
+                                        <div class="mx-1 my-2 supply_add_button" id="add_ingredient">+ Add</div>
                                     </div>
                                 </div>
                                 <div class="edit_recipe_form_supply_tool col-5 my-4 mx-2">
@@ -82,18 +81,12 @@
                                     <div class="p-2 my-2" style="border: 1px solid #D9D9D9; border-radius: 5px;">
                                         <div class="col-10 mx-1 d-flex justify-content-center" style="font-size: 20px;">Name</div>
                                         <c:forEach var="tool" items="${RECIPE.tools}">
-                                        <div class="d-flex">
-                                            <input type="text" class="supply col-10 mx-1" style="padding-left: 10px;" name="toolName" value="${tool.alias}" required="">
-                                            <a class="col-2 d-flex justify-content-center align-items-center"><svg width="30" height="30" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g opacity="0.35">
-                                                <path d="M21 38.4375C16.1266 38.4375 11.4529 36.5477 8.00691 33.1837C4.56093 29.8198 2.625 25.2573 2.625 20.5C2.625 15.7427 4.56093 11.1802 8.00691 7.81627C11.4529 4.45234 16.1266 2.5625 21 2.5625C25.8734 2.5625 30.5471 4.45234 33.9931 7.81627C37.4391 11.1802 39.375 15.7427 39.375 20.5C39.375 25.2573 37.4391 29.8198 33.9931 33.1837C30.5471 36.5477 25.8734 38.4375 21 38.4375ZM21 41C26.5695 41 31.911 38.8402 35.8492 34.9957C39.7875 31.1512 42 25.9369 42 20.5C42 15.0631 39.7875 9.84881 35.8492 6.00431C31.911 2.15982 26.5695 0 21 0C15.4305 0 10.089 2.15982 6.15076 6.00431C2.21249 9.84881 0 15.0631 0 20.5C0 25.9369 2.21249 31.1512 6.15076 34.9957C10.089 38.8402 15.4305 41 21 41Z" fill="black"/>
-                                                <rect x="11" y="20" width="20" height="2.5" rx="1.25" fill="black"/>
-                                                </g>
-                                                </svg>
-                                            </a>
-                                        </div>
+                                            <div class="d-flex">
+                                                <input type="text" class="supply col-10 mx-1 my-2" style="padding-left: 10px;" name="toolName" value="${tool.alias}" required="">
+                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center" style="font-size: 30px;"></i>
+                                            </div>
                                         </c:forEach>
-                                        <div class="mx-1 my-2 supply_add_button">+ Add</div>
+                                        <div class="mx-1 my-2 supply_add_button" id="add_tool">+ Add</div>
                                     </div>
                                 </div>
                             </div>
@@ -131,6 +124,46 @@
                 $('.recipe_create_form_step_counter').each((index, el) => {
                     $(el).text('Step ' + (index + 1));
                 });
+            };
+
+            document.getElementById("add_ingredient").onclick = () => {
+                var ingredient = document.createElement('div');
+                ingredient.setAttribute("class", "d-flex");
+                var name = document.createElement('input');
+                name.setAttribute("type", "text");
+                name.setAttribute("class", "supply col-7 m-1 my-2");
+                name.setAttribute("style", "padding-left: 10px;");
+                name.setAttribute("name", "ingredientName");
+                name.setAttribute("required", "");
+                var amount = document.createElement('input');
+                amount.setAttribute("type", "text");
+                amount.setAttribute("class", "supply col-4 m-1 my-2");
+                amount.setAttribute("style", "padding-left: 10px;");
+                amount.setAttribute("name", "amount");
+                var removeBtn = document.createElement('i');
+                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center");
+                removeBtn.setAttribute("style", "font-size: 30px;");
+                ingredient.appendChild(name);
+                ingredient.appendChild(amount);
+                ingredient.appendChild(removeBtn);
+                document.getElementById("add_ingredient").previousElementSibling.insertAdjacentElement('afterend', ingredient);
+            };
+
+            document.getElementById("add_tool").onclick = () => {
+                var tool = document.createElement('div');
+                tool.setAttribute("class", "d-flex");
+                var name = document.createElement('input');
+                name.setAttribute("type", "text");
+                name.setAttribute("class", "supply col-10 mx-1 my-2");
+                name.setAttribute("style", "padding-left: 10px;");
+                name.setAttribute("name", "toolName");
+                name.setAttribute("required", "");
+                var removeBtn = document.createElement('i');
+                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center");
+                removeBtn.setAttribute("style", "font-size: 30px;");
+                tool.appendChild(name);
+                tool.appendChild(removeBtn);
+                document.getElementById("add_tool").previousElementSibling.insertAdjacentElement('afterend', tool);
             };
         </script>
     </body>
