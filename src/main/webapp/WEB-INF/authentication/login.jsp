@@ -24,6 +24,8 @@
                 </a>
             </div>
         </header>
+        <div class="row align-items-center" style="width:100%; height:150px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;">
+        </div>
         <div class="subheader" style="width:100%; height:180px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;"></div>
         <div class="main-container">
             <div class="loginform_container">

@@ -41,7 +41,7 @@
                                             <a href="">Hide</a>
                                             </c:if>
                                             <c:if test="${sessionScope.LOGIN_USER.id == RECIPE.authorId}">
-                                                <a href="">Edit</a>
+                                                <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
                                             </c:if>
                                             <a href="">Delete</a>
                                         </div>

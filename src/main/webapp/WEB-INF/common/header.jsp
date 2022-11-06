@@ -90,7 +90,7 @@
         </div>
     </div>
     <div style="width:100%;">
-        <div class="row align-items-center" style="width:100%; height:180px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;">
+        <div class="row align-items-center" style="width:100%; height:150px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;">
             <div class="row_subheader d-flex" style="justify-content:space-around">
                 <button type="button" class="btn btn-outline-dark col-6 subheader" onclick="window.location.href = '${toBlogHome}';"
                         style="margin-left:30%; border-radius: 50px;">RECIPES</button>

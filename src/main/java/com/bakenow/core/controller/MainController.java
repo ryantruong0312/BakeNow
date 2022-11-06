@@ -45,7 +45,7 @@ public class MainController extends HttpServlet {
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
     private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
-    private static final String DEST_NAV_EDIT_RECIPE = "/WEB-INF/recipes/recipe-edit.jsp";
+    private static final String DEST_NAV_EDIT_RECIPE = "RenderEditRecipeController";
 
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
@@ -60,8 +60,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_ADD_TO_CART = "AddToCartController";
     private static final String ACT_NAV_CART = "NavToCart";
     private static final String DEST_NAV_CART = "/WEB-INF/marketplace/cart-view.jsp";
-    private static final String ACT_NAV_SHOPPROFILE = "toViewShopProfile";
-    private static final String DEST_NAV_SHOPPROFILE = "/WEB-INF/marketplace/cart-view.jsp";
+    private static final String ACT_NAV_SHOP_PROFILE = "toViewShopProfile";
+    private static final String DEST_NAV_SHOP_PROFILE = "/WEB-INF/profile/shop-profile-view.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -123,6 +123,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_CART:
                     url = DEST_NAV_CART;
+                    break;
+                case ACT_NAV_SHOP_PROFILE:
+                    url = DEST_NAV_SHOP_PROFILE;
                     break;
                 default:
                     break;
