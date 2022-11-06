@@ -5,7 +5,7 @@
 
 .page_title {
     position: relative;
-    width: 1277px;
+    width: 1350px;
     display: flex;
 }
 
@@ -15,19 +15,22 @@
     text-decoration: underline;
     text-decoration-color: #56D262;
     color: #5F6440;
+    margin-top: 27px
 }
 
 .body_product_search {
-    position: relative;
+    position: absolute;
+    right: 0px;
     margin-top: 21.440px;
     width: 700px;
     height: 54px;
 }
-
-.body_product_search svg {
+.PageTitle_search_icon{
+    display: block;
     position: absolute;
-    right: 470px;
-    padding: 11.5px 10px 0px 16px;
+    right: 424px;
+    padding-top: 9px;
+    color: #4eb321;
 }
 
 .product_search {
@@ -224,4 +227,51 @@
     line-height: 21px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+.Product_addToCart{
+    width: 256px !important;
+}
+.addToCartButton {
+    background-color: #fff;
+    height: 50px;
+    width: 135px;
+    color: #56D262;
+    fill: #56D262;
+    border: 1px solid #56D262;
+    border-radius: 5px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-align: center;
+    overflow: hidden;
+}
+
+.addToCartButton iconify-icon {
+    display: inline-block;
+    margin-top: 3.5px;
+}
+
+.addToCartButton p {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+}
+
+.addToCartButton:hover {
+    background-color: #56D262;
+    color: #fff;
+    fill: #fff;
+}
+.order_quantity_holder{
+    width: 80px;
+    height: 50px; 
+    text-align: center;
+    margin-right: 20px;
 }

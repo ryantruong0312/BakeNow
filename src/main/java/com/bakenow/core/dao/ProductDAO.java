@@ -20,7 +20,7 @@ import java.util.List;
 public class ProductDAO {
     // nhớ là chưa có check kết nối giữa db với netbean nha
     private static final String GET_PRODUCT = "";
-    private static final String LOAD="select id,title,price,rating,reviewCount,imgUrl from product where statusID = 1";
+    private static final String LOAD="select id,title,price,rating,reviewCount,imgUrl,shopId from product where statusID = 1";
     private static final String GET_PRODUCT_BY_CATEGORY = """
                                                           SELECT p.id,p.title,p.price,p.rating,p.reviewCount,p.imgUrl
                                                                       FROM Product p JOIN ProductCategory c ON c.id = p.categoryId
@@ -40,12 +40,13 @@ public class ProductDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    String name = rs.getString("title");
+                    String name = rs.getString("title").toUpperCase();
                     double price = rs.getDouble("price");
                     double rating = rs.getDouble("rating");
                     int reviewCount = rs.getInt("reviewCount");
                     String imgUrl = rs.getString("imgUrl");
-                    listProduct.add(new Product(id, name,imgUrl, price, rating, reviewCount));
+                    int shopID = rs.getInt("shopId");
+                    listProduct.add(new Product(id, shopID, name,imgUrl, price, rating, reviewCount));
                 }
             }
         } catch (Exception e) {
@@ -83,7 +84,7 @@ public class ProductDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    String name = rs.getString("title");
+                    String name = rs.getString("title").toUpperCase();
                     double price = rs.getDouble("price");
                     double rating = rs.getDouble("rating");
                     int reviewCount = rs.getInt("reviewCount");
@@ -122,7 +123,7 @@ public class ProductDAO {
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    String name = rs.getString("title");
+                    String name = rs.getString("title").toUpperCase();
                     double price = rs.getDouble("price");
                     double rating = rs.getDouble("rating");
                     int reviewCount = rs.getInt("reviewCount");

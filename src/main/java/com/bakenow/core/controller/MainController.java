@@ -50,6 +50,8 @@ public class MainController extends HttpServlet {
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
     private static final String DEST_NAV_MARKETPLACE = "RenderProductMarketPlaceController"; //vì tránh thay đổi trong web.xml sr vì tên ko được chuẩn
+    private static final String ACT_NAV_VIEW_PRODUCT_BY_CATE = "NavToViewProductByCategory";
+    private static final String DEST_NAV_VIEW_PRODUCT_BY_CATE = "/WEB-INF/marketplace/product-search-result.jsp";
     private static final String ACT_NAV_VIEW_PRODUCT = "NavToViewProduct";
     private static final String DEST_NAV_VIEW_PRODUCT = "/WEB-INF/marketplace/product-view.jsp";
     private static final String ACT_NAV_ADD_PRODUCT = "NavToAddProduct";
@@ -123,6 +125,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_CART:
                     url = DEST_NAV_CART;
+                    break;
+                case ACT_NAV_VIEW_PRODUCT_BY_CATE:
+                    url = DEST_NAV_VIEW_PRODUCT_BY_CATE;
                     break;
                 default:
                     break;

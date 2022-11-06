@@ -6,8 +6,10 @@ package com.bakenow.core.controller;
 
 import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
+import com.bakenow.core.dao.ShopDAO;
 import com.bakenow.core.model.CategoryGroup;
 import com.bakenow.core.model.Product;
+import com.bakenow.core.model.Shop;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.ServletException;
@@ -40,13 +42,16 @@ public class RenderProductMarketPlaceController extends HttpServlet {
         try {
             ProductDAO pDao = new ProductDAO();
             ProductCategoryDAO cDao = new ProductCategoryDAO();
+            ShopDAO sDa0 = new ShopDAO();
             List<Product> pList = pDao.getAllProduct();
             List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
             List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
+            List<Shop> sList = sDa0.getAllShop();
             HttpSession session = request.getSession();
             session.setAttribute("LIST_PRODUCT", pList);
             session.setAttribute("GET_I_CATEGORY", cIList);
             session.setAttribute("GET_T_CATEGORY", cTList);
+            session.setAttribute("LIST_SHOP", sList);   
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at RenderBlogHomeController: " + e.toString());

@@ -29,6 +29,16 @@ public class Product {
 
     private Product() {
     }
+
+    public Product(int id, int shopId, String name, String imgUrl, double price, double rating, int reviewCount) {
+        this.id = id;
+        this.shopId = shopId;
+        this.name = name;
+        this.imgUrl = imgUrl;
+        this.price = price;
+        this.rating = rating;
+        this.reviewCount = reviewCount;
+    }
     
     public Product(int id, String name, double price, double rating, int reviewCount){
         this.id = id;
