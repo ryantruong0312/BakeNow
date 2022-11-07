@@ -61,6 +61,10 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <url-pattern>/CommentRecipeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ViewShopProfileController</servlet-name>
         <url-pattern>/ViewShopProfileController</url-pattern>
     </servlet-mapping>

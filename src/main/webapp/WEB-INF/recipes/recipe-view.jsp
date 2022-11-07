@@ -130,9 +130,6 @@
                                 </c:forEach>
                             </ul>
                         </div>
-                        <div class="add_shopping_list py-2 d-flex justify-content-center">
-                            <button type="button" class="add_shopping_list_button btn" onclick="window.location.href = '${toShoppingList}';">Add to shopping list</button>
-                        </div>
                     </div>
                 </div>
             </div>
