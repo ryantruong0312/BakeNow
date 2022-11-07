@@ -4,7 +4,7 @@
  */
 package com.bakenow.core.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  *
@@ -14,13 +14,13 @@ public class Comment {
     private int userId;
     private String userName;
     private String avatarUrl;
-    private Timestamp createTime;
+    private Date createTime;
     private String contents;
 
     public Comment() {
     }
 
-    public Comment(int userId, String userName, String avatarUrl, Timestamp createTime, String contents) {
+    public Comment(int userId, String userName, String avatarUrl, Date createTime, String contents) {
         this.userId = userId;
         this.userName = userName;
         this.avatarUrl = avatarUrl;
@@ -52,11 +52,11 @@ public class Comment {
         this.avatarUrl = avatarUrl;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

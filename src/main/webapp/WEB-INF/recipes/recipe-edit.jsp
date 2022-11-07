@@ -25,7 +25,10 @@
                     <div class="d-flex justify-content-center my-3 py-3" style="background-color: #fff;">
                         <form action="" class="edit_recipe_form col-10">
                             <div class="py-2" > 
-                                <span style="font-size: 24px; font-weight: bold;">Title</span> <input type="text" style="width: 500px; padding-left: 10px;" name="title" required="" value="${RECIPE.title}">
+                                <span style="font-size: 24px; font-weight: bold;">Title</span> <input type="text" style="width: 100%; padding-left: 10px;" name="title" required="" value="${RECIPE.title}">
+                            </div>
+                            <div class="py-2" > 
+                                <span style="font-size: 24px; font-weight: bold;">Description</span> <textarea type="text" style="padding-left: 10px; width: 100%; height: 120px;" name="desc" required="">${RECIPE.desc}</textarea>
                             </div>
                             <div class="py-2" > 
                                 <span style="font-size: 24px; font-weight: bold;">Cook time</span> <input type="number" style="width: 75px; padding-left: 10px;" name="cookTime" required="" value="${RECIPE.cookTime}">
@@ -33,8 +36,8 @@
                             <div class="py-2 d-flex justify-content-center">
                                 <div class="col-4 py-2">
                                     <image src="${RECIPE.imgUrl}" style="height: 256px; width: 256px; display: block; margin: 0 auto; border-radius: 5px;">
-                                    <div style="text-align: center;">
-                                        <span>Image URL</span><input style="width: 300px; border: none;" type="text" name="imgUrl" value="${RECIPE.imgUrl}">
+                                    <div style="text-align: center; margin-top: 10px;">
+                                        <span>Image URL</span><input style="width: 300px; margin: 10px;" type="text" name="imgUrl" value="${RECIPE.imgUrl}">
                                     </div>
                                 </div>
                             </div>
@@ -48,10 +51,10 @@
                                     </div>
                                     <div class="d-flex">
                                         <div class="col-11">
-                                            <textarea class="my-2 py-2" type="text" style=" padding-left: 10px; width: 100%; min-height: 130px;" name="title" required="">${step.value}</textarea>
+                                            <textarea class="my-2 py-2" type="text" style=" padding-left: 10px; width: 100%; min-height: 130px;" name="stepContent" required="">${step.value}</textarea>
                                         </div>
                                         <div class="col-1 d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-dash-circle" style="font-size: 30px;"></i>
+                                            <i class="bi bi-dash-circle removeStep" style="font-size: 30px;"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -68,9 +71,9 @@
                                         </div>
                                         <c:forEach var="ingredient" items="${RECIPE.ingredients}">
                                             <div class="d-flex">
-                                                <input type="text" class="supply col-7 mx-1 my-2" style="padding-left: 10px;" name="ingredientName" value="${ingredient.alias}" required="">
-                                                <input type="text" class="supply col-4 mx-1 my-2" style="padding-left: 10px;" name="amount" value="${ingredient.amount}">
-                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center" style="font-size: 30px;"></i>
+                                                <input type="text" class="supply col-7 mx-1 my-2" style="padding-left: 10px;" name="ingredientName" value="${ingredient.key}" required="">
+                                                <input type="text" class="supply col-4 mx-1 my-2" style="padding-left: 10px;" name="amount" value="${ingredient.value}">
+                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center removeSupply" style="font-size: 30px;"></i>
                                             </div>
                                         </c:forEach>
                                         <div class="mx-1 my-2 supply_add_button" id="add_ingredient">+ Add</div>
@@ -82,8 +85,8 @@
                                         <div class="col-10 mx-1 d-flex justify-content-center" style="font-size: 20px;">Name</div>
                                         <c:forEach var="tool" items="${RECIPE.tools}">
                                             <div class="d-flex">
-                                                <input type="text" class="supply col-10 mx-1 my-2" style="padding-left: 10px;" name="toolName" value="${tool.alias}" required="">
-                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center" style="font-size: 30px;"></i>
+                                                <input type="text" class="supply col-10 mx-1 my-2" style="padding-left: 10px;" name="toolName" value="${tool}" required="">
+                                                <i class="bi bi-dash-circle col-1 d-flex align-items-center removeSupply" style="font-size: 30px;"></i>
                                             </div>
                                         </c:forEach>
                                         <div class="mx-1 my-2 supply_add_button" id="add_tool">+ Add</div>
@@ -91,8 +94,9 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <input class="last_button mx-2" type="submit" name="action" value="Edit">
-                                <a class="last_button" style="padding-top: 5px;" href="">Cancel</a>
+                                <input type="hidden" name="recipeId" value="${RECIPE.id}">
+                                <input class="last_button mx-2" type="submit" name="action" value="Save">
+                                <a class="last_button" style="padding-top: 5px;" href="MainController?action=ViewRecipe&recipeId=${RECIPE.id}">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -104,21 +108,37 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <c:set var="stepCount" value="1"></c:set>
         <script>
+
             document.getElementById("add_step").onclick = () => {
                 var step = document.createElement('div');
                 step.setAttribute("class", "recipe_create_form_step");
-                step.setAttribute("style", "font-size: 20px; padding-left: 10px; padding: 0;");
+                var stepNumDiv = document.createElement('div');
+                stepNumDiv.setAttribute("style", "font-size: 20px; padding-left: 10px");
                 var counter = document.createElement('span');
                 counter.setAttribute("class", "recipe_create_form_step_counter");
-                step.appendChild(counter);
+                stepNumDiv.appendChild(counter);
+                var contentAndBtnDiv = document.createElement('div');
+                contentAndBtnDiv.setAttribute("class", "d-flex");
+                var contentDiv = document.createElement('div');
+                contentDiv.setAttribute("class", "col-11");
                 var content = document.createElement('textarea');
                 content.setAttribute("class", "my-2 py-2");
                 content.setAttribute("type", "text");
-                content.setAttribute("style", "padding-left: 10px; width: 100%; height: 150px;");
-                content.setAttribute("name", "step_content");
+                content.setAttribute("style", "padding-left: 10px; width: 100%; height: 130px;");
+                content.setAttribute("name", "stepContent");
                 content.setAttribute("placeholder", "Write an instruction...");
                 content.setAttribute("required", "");
-                step.appendChild(content);
+                contentDiv.appendChild(content);
+                var btnDiv = document.createElement('div');
+                btnDiv.setAttribute("class", "col-1 d-flex align-items-center justify-content-center");
+                var removeBtn = document.createElement('i');
+                removeBtn.setAttribute("class", "bi bi-dash-circle removeStep");
+                removeBtn.setAttribute("style", "font-size: 30px;");
+                btnDiv.appendChild(removeBtn);
+                contentAndBtnDiv.appendChild(contentDiv);
+                contentAndBtnDiv.appendChild(btnDiv);
+                step.appendChild(stepNumDiv);
+                step.appendChild(contentAndBtnDiv);
                 document.getElementById("add_step").previousElementSibling.insertAdjacentElement('afterend', step);
 
                 $('.recipe_create_form_step_counter').each((index, el) => {
@@ -141,7 +161,7 @@
                 amount.setAttribute("style", "padding-left: 10px;");
                 amount.setAttribute("name", "amount");
                 var removeBtn = document.createElement('i');
-                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center");
+                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center removeSupply");
                 removeBtn.setAttribute("style", "font-size: 30px;");
                 ingredient.appendChild(name);
                 ingredient.appendChild(amount);
@@ -159,12 +179,23 @@
                 name.setAttribute("name", "toolName");
                 name.setAttribute("required", "");
                 var removeBtn = document.createElement('i');
-                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center");
+                removeBtn.setAttribute("class", "bi bi-dash-circle col-1 d-flex align-items-center removeSupply");
                 removeBtn.setAttribute("style", "font-size: 30px;");
                 tool.appendChild(name);
                 tool.appendChild(removeBtn);
                 document.getElementById("add_tool").previousElementSibling.insertAdjacentElement('afterend', tool);
             };
+
+            $('.removeStep').click(function () {
+                $(this).parent().parent().parent().remove();
+                $('.recipe_create_form_step_counter').each((index, el) => {
+                    $(el).text('Step ' + (index + 1));
+                });
+            });
+            
+            $('.removeSupply').click(function () {
+                $(this).parent().remove();
+            });
         </script>
     </body>
 </html>

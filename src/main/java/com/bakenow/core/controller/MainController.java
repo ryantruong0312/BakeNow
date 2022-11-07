@@ -46,6 +46,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
     private static final String DEST_NAV_EDIT_RECIPE = "RenderEditRecipeController";
+    private static final String ACT_EDIT_RECIPE = "Save";
+    private static final String DEST_EDIT_RECIPE = "EditRecipeController";
 
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
@@ -105,6 +107,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_EDIT_RECIPE:
                     url = DEST_NAV_EDIT_RECIPE;
+                    break;
+                case ACT_EDIT_RECIPE:
+                    url = DEST_EDIT_RECIPE;
                     break;
                 case ACT_NAV_MARKETPLACE:
                     url = DEST_NAV_MARKETPLACE;

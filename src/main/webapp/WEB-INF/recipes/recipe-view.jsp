@@ -24,6 +24,7 @@
                 <div class="recipe_info col-7"">
                     <div class="recipe_info_container">
                         <div class="recipe_title" style="font-size: 30px; font-weight: bold; margin: 10px;">${RECIPE.title}</div>
+                        <div class="recipe_desc" style="margin: 10px;">${RECIPE.desc}</div>
 
                         <div class="recipe_subinfo d-flex">
                             <div class="col-1" style="text-align: center;">
@@ -60,6 +61,9 @@
                                 <span class="recipe_vote_count">${RECIPE.voteCount}</span>
                             </button>
                         </div>
+                            <div>
+                                <i class="bi bi-clock"></i> <span>${RECIPE.cookTime} mins</span>
+                            </div>
                         <div style="font-size: 24px; width: 150px; padding-left: 5px; font-weight: bold; border-bottom: 2px solid #000;">Instructions</div>
                         <div class="recipe_instruction my-2">
                             <c:forEach var="step" items="${RECIPE.steps}">
@@ -110,8 +114,8 @@
                             <ul class="m-0 list-unstyled" style="border: 1px solid #D9D9D9;">
                                 <c:forEach var="ingredient" items="${RECIPE.ingredients}">
                                     <li class="recipe_supply_item d-flex py-1 px-1">
-                                        <div class="col-8">${ingredient.alias}</div>
-                                        <div class="col-4">${ingredient.amount}</div>
+                                        <div class="col-8">${ingredient.key}</div>
+                                        <div class="col-4">${ingredient.value}</div>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -121,7 +125,7 @@
                             <ul class="m-0 list-unstyled" style="border: 1px solid #D9D9D9;">
                                 <c:forEach var="tool" items="${RECIPE.tools}">
                                     <li class="recipe_supply_item py-1 px-1">
-                                        ${tool.alias}
+                                        ${tool}
                                     </li>
                                 </c:forEach>
                             </ul>
