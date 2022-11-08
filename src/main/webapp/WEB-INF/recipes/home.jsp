@@ -18,10 +18,15 @@
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
         <c:url var="toViewProfile" value="MainController?action=NavToViewProfile"/>
-        <c:url var="toCreateRecipe" value="MainController?action=NavToCreateRecipe"/>
         <div class="main-container">
             <div class="d-flex justify-content-end" style="margin: 20px 180px;">
-                <a class="create_recipe_btn" href="${toCreateRecipe}">
+                <c:if test="${sessionScope.LOGIN_USER == NULL}">
+                    <c:set var="userId" scope="page" value="0"></c:set>
+                </c:if>
+                <c:if test="${sessionScope.LOGIN_USER != NULL}">
+                    <c:set var="userId" scope="page" value="${sessionScope.LOGIN_USER.id}"></c:set>
+                </c:if>
+                <a class="create_recipe_btn" href="MainController?action=NavToCreateRecipe&userId=${userId}">
                     <div>
                         <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
                     </div>

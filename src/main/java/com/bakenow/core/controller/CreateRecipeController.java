@@ -15,17 +15,17 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author tlminh
  */
-public class EditRecipeController extends HttpServlet {
+public class CreateRecipeController extends HttpServlet {
 
     private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "ViewRecipeController?recipeId=";
+    private static final String SUCCESS = "RenderBlogHomeController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+            int authorId = Integer.parseInt(request.getParameter("authorId"));
             String title = request.getParameter("title");
             String desc = request.getParameter("desc");
             int cookTime = Integer.parseInt(request.getParameter("cookTime"));
@@ -35,12 +35,12 @@ public class EditRecipeController extends HttpServlet {
             String[] amounts = request.getParameterValues("amount");
             String[] tools = request.getParameterValues("toolName");
             RecipeDAO dao = new RecipeDAO();
-            boolean checkUpdate = dao.updateRecipe(recipeId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
-            if (checkUpdate) {
-                url = SUCCESS + recipeId;
+            boolean checkInsert = dao.addRecipe(authorId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
+            if (checkInsert) {
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at EditRecipeController: " + e.toString());
+            log("Error at CreateRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

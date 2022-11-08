@@ -37,7 +37,7 @@
                                 <div class="col-4 py-2">
                                     <image src="${RECIPE.imgUrl}" style="height: 256px; width: 256px; display: block; margin: 0 auto; border-radius: 5px;">
                                     <div style="text-align: center; margin-top: 10px;">
-                                        <span>Image URL</span><input style="width: 300px; margin: 10px;" type="text" name="imgUrl" value="${RECIPE.imgUrl}">
+                                        <span>Image URL</span><input style="width: 300px; margin: 10px; padding-left: 10px;" type="text" name="imgUrl" value="${RECIPE.imgUrl}">
                                     </div>
                                 </div>
                             </div>

@@ -34,10 +34,15 @@ public class RecipeDAO {
     private static final String GET_RECIPE_COMMENTS_BY_ID = "SELECT userId, createTime, contents FROM Comment WHERE recipeId = ?";
     private static final String ADD_RECIPE_COMMENT = "INSERT INTO Comment(userId, contents, createTime, recipeId) VALUES (?,?,?,?)";
     private static final String UPDATE_RECIPE_INFO = "UPDATE Recipe SET title = ?, [desc] = ?, cookTime = ?, imgUrl = ? WHERE id = ?";
+    private static final String INSERT_RECIPE_INFO = "INSERT INTO Recipe(authorId, createTime, title, [desc], cookTime, imgUrl) OUTPUT Inserted.id VALUES(?,?,?,?,?,?)";
     private static final String DELETE_RECIPE_STEPS = "DELETE FROM RecipeStep WHERE recipeId = ?";
     private static final String ADD_RECIPE_STEP = "INSERT INTO RecipeStep(recipeId,stepNumber,contents) VALUES(?,?,?)";
-    private static final String DELETE_RECIPE_ITEM = "DELETE FROM RecipeItem WHERE recipeId = ?";
+    private static final String DELETE_RECIPE_ITEMS = "DELETE FROM RecipeItem WHERE recipeId = ?";
     private static final String ADD_RECIPE_ITEM = "INSERT INTO RecipeItem(recipeId,name,amount,isIngredient) VALUES(?,?,?,?)";
+    private static final String DELETE_RECIPE_VOTES = "DELETE FROM RecipeVote WHERE recipeId = ?";
+    private static final String DELETE_RECIPE_COMMENTS = "DELETE FROM Comment WHERE recipeId = ?";
+    private static final String DELETE_RECIPE_TODOLIST = "DELETE FROM TodoList WHERE recipeId = ?";
+    private static final String DELETE_RECIPE = "DELETE FROM Recipe WHERE id = ?";
 
     public List<Recipe> getRecipeList() throws SQLException {
         List<Recipe> recipeList = new ArrayList<>();
@@ -349,7 +354,7 @@ public class RecipeDAO {
                 ptm = conn.prepareStatement(ADD_RECIPE_COMMENT);
                 ptm.setInt(1, userId);
                 ptm.setString(2, contents);
-                ptm.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+                ptm.setDate(3, Date.valueOf(java.time.LocalDate.now()));
                 ptm.setInt(4, recipeId);
                 result = ptm.executeUpdate() > 0;
             }
@@ -393,7 +398,7 @@ public class RecipeDAO {
                     result = ptm.executeUpdate() > 0;
                     count++;
                 }
-                ptm = conn.prepareStatement(DELETE_RECIPE_ITEM);
+                ptm = conn.prepareStatement(DELETE_RECIPE_ITEMS);
                 ptm.setInt(1, recipeId);
                 result = ptm.executeUpdate() > 0;
                 count = 0;
@@ -426,5 +431,109 @@ public class RecipeDAO {
             }
         }
         return result;
+    }
+
+    public boolean addRecipe(int authorId, String title, String desc, int cookTime, String imgUrl, String[] stepContents, String[] ingredientNames, String[] amounts, String[] tools) throws SQLException {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        int recipeId = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(INSERT_RECIPE_INFO);
+                ptm.setInt(1, authorId);
+                ptm.setDate(2, Date.valueOf(java.time.LocalDate.now()));
+                ptm.setString(3, title);
+                ptm.setString(4, desc);
+                ptm.setInt(5, cookTime);
+                ptm.setString(6, imgUrl);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    recipeId = rs.getInt("id");
+                }
+                int count = 1;
+                for (String stepContent : stepContents) {
+                    ptm = conn.prepareStatement(ADD_RECIPE_STEP);
+                    ptm.setInt(1, recipeId);
+                    ptm.setInt(2, count);
+                    ptm.setString(3, stepContent);
+                    result = ptm.executeUpdate() > 0;
+                    count++;
+                }
+                count = 0;
+                for (String ingredientName : ingredientNames) {
+                    ptm = conn.prepareStatement(ADD_RECIPE_ITEM);
+                    ptm.setInt(1, recipeId);
+                    ptm.setString(2, ingredientName);
+                    ptm.setString(3, amounts[count]);
+                    ptm.setBoolean(4, true);
+                    result = ptm.executeUpdate() > 0;
+                    count++;
+                }
+                for (String tool : tools) {
+                    ptm = conn.prepareStatement(ADD_RECIPE_ITEM);
+                    ptm.setInt(1, recipeId);
+                    ptm.setString(2, tool);
+                    ptm.setString(3, "");
+                    ptm.setBoolean(4, false);
+                    result = ptm.executeUpdate() > 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean deleteRecipe(int recipeId) throws SQLException {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_RECIPE_STEPS);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(DELETE_RECIPE_ITEMS);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(DELETE_RECIPE_VOTES);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(DELETE_RECIPE_COMMENTS);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(DELETE_RECIPE_TODOLIST);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(DELETE_RECIPE);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+
     }
 }

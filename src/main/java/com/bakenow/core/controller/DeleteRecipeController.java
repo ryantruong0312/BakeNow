@@ -15,32 +15,24 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author tlminh
  */
-public class EditRecipeController extends HttpServlet {
+public class DeleteRecipeController extends HttpServlet {
 
-    private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "ViewRecipeController?recipeId=";
+   private static final String ERROR = "WEB-INF/errorpages/error.jsp";
+    private static final String SUCCESS = "RenderBlogHomeController";
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             int recipeId = Integer.parseInt(request.getParameter("recipeId"));
-            String title = request.getParameter("title");
-            String desc = request.getParameter("desc");
-            int cookTime = Integer.parseInt(request.getParameter("cookTime"));
-            String imgUrl = request.getParameter("imgUrl");
-            String[] stepContents = request.getParameterValues("stepContent");
-            String[] ingredientNames = request.getParameterValues("ingredientName");
-            String[] amounts = request.getParameterValues("amount");
-            String[] tools = request.getParameterValues("toolName");
             RecipeDAO dao = new RecipeDAO();
-            boolean checkUpdate = dao.updateRecipe(recipeId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
-            if (checkUpdate) {
-                url = SUCCESS + recipeId;
+            boolean checkDelete = dao.deleteRecipe(recipeId);
+            if (checkDelete) {
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at EditRecipeController: " + e.toString());
+            log("Error at DeleteRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

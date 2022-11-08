@@ -39,12 +39,12 @@
                                     <div class="bi bi-three-dots-vertical drop_icon" style="font-size: 30px;">
                                         <div class="dropdown_action_content">
                                             <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1}">
-                                            <a href="">Hide</a>
+                                                <a href="">Hide</a>
                                             </c:if>
                                             <c:if test="${sessionScope.LOGIN_USER.id == RECIPE.authorId}">
                                                 <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
                                             </c:if>
-                                            <a href="">Delete</a>
+                                            <a href="" id="confirmDeletion">Delete</a>
                                         </div>
                                     </div>
                                 </div>
@@ -61,9 +61,9 @@
                                 <span class="recipe_vote_count">${RECIPE.voteCount}</span>
                             </button>
                         </div>
-                            <div>
-                                <i class="bi bi-clock"></i> <span>${RECIPE.cookTime} mins</span>
-                            </div>
+                        <div>
+                            <i class="bi bi-clock"></i> <span>${RECIPE.cookTime} mins</span>
+                        </div>
                         <div style="font-size: 24px; width: 150px; padding-left: 5px; font-weight: bold; border-bottom: 2px solid #000;">Instructions</div>
                         <div class="recipe_instruction my-2">
                             <c:forEach var="step" items="${RECIPE.steps}">
@@ -140,6 +140,15 @@
                 x.classList.toggle("liked");
             }
             ;
+
+            document.getElementById("confirmDeletion").onclick = () => {
+                var agree = confirm("Are you sure you want to delete this recipe?");
+                if (agree)
+                    document.getElementById("confirmDeletion").href = "MainController?action=DeleteRecipe&recipeId=${RECIPE.id}";
+                else
+                    document.getElementById("confirmDeletion").href = "#";
+
+            };
         </script>
     </body>
 </html>

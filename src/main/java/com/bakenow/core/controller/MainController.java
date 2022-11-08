@@ -43,11 +43,15 @@ public class MainController extends HttpServlet {
     private static final String ACT_COMMENT_RECIPE = "Comment";
     private static final String DEST_COMMENT_RECIPE = "CommentRecipeController";
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
-    private static final String DEST_NAV_CREATE_RECIPE = "/WEB-INF/recipes/recipe-create.jsp";
+    private static final String DEST_NAV_CREATE_RECIPE = "RenderCreateRecipeController";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
     private static final String DEST_NAV_EDIT_RECIPE = "RenderEditRecipeController";
     private static final String ACT_EDIT_RECIPE = "Save";
     private static final String DEST_EDIT_RECIPE = "EditRecipeController";
+    private static final String ACT_CREATE_RECIPE = "Create";
+    private static final String DEST_CREATE_RECIPE = "CreateRecipeController";
+    private static final String ACT_DELETE_RECIPE = "DeleteRecipe";
+    private static final String DEST_DELETE_RECIPE = "DeleteRecipeController";
 
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
@@ -105,11 +109,17 @@ public class MainController extends HttpServlet {
                 case ACT_NAV_CREATE_RECIPE:
                     url = DEST_NAV_CREATE_RECIPE;
                     break;
+                case ACT_CREATE_RECIPE:
+                    url = DEST_CREATE_RECIPE;
+                    break;
                 case ACT_NAV_EDIT_RECIPE:
                     url = DEST_NAV_EDIT_RECIPE;
                     break;
                 case ACT_EDIT_RECIPE:
                     url = DEST_EDIT_RECIPE;
+                    break;
+                case ACT_DELETE_RECIPE:
+                    url = DEST_DELETE_RECIPE;
                     break;
                 case ACT_NAV_MARKETPLACE:
                     url = DEST_NAV_MARKETPLACE;

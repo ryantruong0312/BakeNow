@@ -4,7 +4,6 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.RecipeDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,32 +14,22 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author tlminh
  */
-public class EditRecipeController extends HttpServlet {
+public class RenderCreateRecipeController extends HttpServlet {
 
-    private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "ViewRecipeController?recipeId=";
+    public static final String ERROR = "MainController?action=NavToLogin";
+    public static final String SUCCESS = "/WEB-INF/recipes/recipe-create.jsp";
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int recipeId = Integer.parseInt(request.getParameter("recipeId"));
-            String title = request.getParameter("title");
-            String desc = request.getParameter("desc");
-            int cookTime = Integer.parseInt(request.getParameter("cookTime"));
-            String imgUrl = request.getParameter("imgUrl");
-            String[] stepContents = request.getParameterValues("stepContent");
-            String[] ingredientNames = request.getParameterValues("ingredientName");
-            String[] amounts = request.getParameterValues("amount");
-            String[] tools = request.getParameterValues("toolName");
-            RecipeDAO dao = new RecipeDAO();
-            boolean checkUpdate = dao.updateRecipe(recipeId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
-            if (checkUpdate) {
-                url = SUCCESS + recipeId;
+            int userId = Integer.parseInt(request.getParameter("userId"));
+            if (userId != 0) {
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at EditRecipeController: " + e.toString());
+            log("Error at RenderCreateRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
