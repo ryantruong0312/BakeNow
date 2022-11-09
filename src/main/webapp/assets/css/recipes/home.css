@@ -42,11 +42,6 @@
     height: 250px;
 }
 
-.recipe_rating_count,
-.recipe_rating_value{
-    text-align: center;
-}
-
 .checked {
     color: orange;
 }

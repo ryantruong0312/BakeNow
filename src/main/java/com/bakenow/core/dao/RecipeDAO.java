@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class RecipeDAO {
 
-    private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, approverId, title, [desc], cookTime, imgUrl, voteCount"
-            + " FROM Recipe WHERE statusId = 1";
+    private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, approverId, title, [desc], cookTime, statusId, imgUrl, voteCount"
+            + " FROM Recipe";
     private static final String GET_RECIPE_BY_ID = "SELECT authorId, createTime, approvalTime, approverId, title, [desc], cookTime, imgUrl, voteCount"
             + " FROM Recipe WHERE id = ?";
     private static final String GET_STEPS_BY_ID = "SELECT stepNumber, contents FROM RecipeStep WHERE recipeId = ?";
@@ -65,7 +65,8 @@ public class RecipeDAO {
                     int cookTime = rs.getInt("cookTime");
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
-                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, "", null));
+                    int statusId = rs.getInt("statusId");
+                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null));
                 }
                 for (Recipe recipe : recipeList) {
                     String authorName = getDisplayNameById(recipe.getAuthorId());

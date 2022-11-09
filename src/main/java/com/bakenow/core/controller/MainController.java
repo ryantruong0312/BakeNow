@@ -33,8 +33,8 @@ public class MainController extends HttpServlet {
     private static final String ACT_LOGOUT = "Logout";
     private static final String DEST_LOGOUT = "LogoutController";
 
-    private static final String ACT_NAV_VIEW_PROFILE = "NavToProfile";
-    private static final String DEST_NAV_VIEW_PROFILE = "/WEB-INF/profile/user-profile-view.jsp";
+    private static final String ACT_NAV_VIEW_PROFILE = "NavToMyPage";
+    private static final String DEST_NAV_VIEW_PROFILE = "/WEB-INF/profile/my-page.jsp";
     private static final String ACT_NAV_VIEW_SHOP = "NavToShop";
     private static final String DEST_NAV_VIEW_SHOP = "/WEB-INF/profile/shop-profile-view.jsp";
 
