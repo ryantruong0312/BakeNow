@@ -4,7 +4,7 @@
  */
 package com.bakenow.core.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,16 +16,16 @@ public class Recipe {
     private int id;
     private int authorId;
     private String authorName;
-    private Timestamp createTime;
-    private Timestamp approvalTime;
+    private Date createTime;
+    private Date approvalTime;
     private int approverId;
     private String approverName;
     private String imgUrl;
     private String title;
     private String desc;
     private HashMap<Integer,String> steps;
-    private ArrayList<Ingredient> ingredients;
-    private ArrayList<Tool> tools;
+    private HashMap<String,String> ingredients;
+    private ArrayList<String> tools;
     private int cookTime;
     private int voteCount;
     private int statusId;
@@ -35,7 +35,7 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(int id, int authorId, String authorName, Timestamp createTime, Timestamp approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer,String> steps, ArrayList<Ingredient> ingredients, ArrayList<Tool> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl, ArrayList<Comment> comments) {
+    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer, String> steps, HashMap<String, String> ingredients, ArrayList<String> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl, ArrayList<Comment> comments) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -80,19 +80,19 @@ public class Recipe {
         this.authorName = authorName;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getApprovalTime() {
+    public Date getApprovalTime() {
         return approvalTime;
     }
 
-    public void setApprovalTime(Timestamp approvalTime) {
+    public void setApprovalTime(Date approvalTime) {
         this.approvalTime = approvalTime;
     }
 
@@ -112,6 +112,14 @@ public class Recipe {
         this.approverName = approverName;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -128,27 +136,27 @@ public class Recipe {
         this.desc = desc;
     }
 
-    public HashMap<Integer,String> getSteps() {
+    public HashMap<Integer, String> getSteps() {
         return steps;
     }
 
-    public void setSteps(HashMap<Integer,String> steps) {
+    public void setSteps(HashMap<Integer, String> steps) {
         this.steps = steps;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public HashMap<String, String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
+    public void setIngredients(HashMap<String, String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<Tool> getTools() {
+    public ArrayList<String> getTools() {
         return tools;
     }
 
-    public void setTools(ArrayList<Tool> tools) {
+    public void setTools(ArrayList<String> tools) {
         this.tools = tools;
     }
 
@@ -164,8 +172,8 @@ public class Recipe {
         return voteCount;
     }
 
-    public void setVoteCount(int ratingCount) {
-        this.voteCount = ratingCount;
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
     public int getStatusId() {
@@ -176,14 +184,6 @@ public class Recipe {
         this.statusId = statusId;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-    
     public String getAuthorAvatarUrl() {
         return authorAvatarUrl;
     }
@@ -199,6 +199,9 @@ public class Recipe {
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
+
+    
+    
     
     
     

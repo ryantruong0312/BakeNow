@@ -24,6 +24,7 @@
                 <div class="recipe_info col-7"">
                     <div class="recipe_info_container">
                         <div class="recipe_title" style="font-size: 30px; font-weight: bold; margin: 10px;">${RECIPE.title}</div>
+                        <div class="recipe_desc" style="margin: 10px;">${RECIPE.desc}</div>
 
                         <div class="recipe_subinfo d-flex">
                             <div class="col-1" style="text-align: center;">
@@ -38,12 +39,12 @@
                                     <div class="bi bi-three-dots-vertical drop_icon" style="font-size: 30px;">
                                         <div class="dropdown_action_content">
                                             <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1}">
-                                            <a href="">Hide</a>
+                                                <a href="">Hide</a>
                                             </c:if>
                                             <c:if test="${sessionScope.LOGIN_USER.id == RECIPE.authorId}">
-                                                <a href="">Edit</a>
+                                                <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
                                             </c:if>
-                                            <a href="">Delete</a>
+                                            <a href="" id="confirmDeletion">Delete</a>
                                         </div>
                                     </div>
                                 </div>
@@ -59,6 +60,9 @@
                                 <span>Like</span>
                                 <span class="recipe_vote_count">${RECIPE.voteCount}</span>
                             </button>
+                        </div>
+                        <div>
+                            <i class="bi bi-clock"></i> <span>${RECIPE.cookTime} mins</span>
                         </div>
                         <div style="font-size: 24px; width: 150px; padding-left: 5px; font-weight: bold; border-bottom: 2px solid #000;">Instructions</div>
                         <div class="recipe_instruction my-2">
@@ -110,8 +114,8 @@
                             <ul class="m-0 list-unstyled" style="border: 1px solid #D9D9D9;">
                                 <c:forEach var="ingredient" items="${RECIPE.ingredients}">
                                     <li class="recipe_supply_item d-flex py-1 px-1">
-                                        <div class="col-8">${ingredient.alias}</div>
-                                        <div class="col-4">${ingredient.amount}</div>
+                                        <div class="col-8">${ingredient.key}</div>
+                                        <div class="col-4">${ingredient.value}</div>
                                     </li>
                                 </c:forEach>
                             </ul>
@@ -121,13 +125,10 @@
                             <ul class="m-0 list-unstyled" style="border: 1px solid #D9D9D9;">
                                 <c:forEach var="tool" items="${RECIPE.tools}">
                                     <li class="recipe_supply_item py-1 px-1">
-                                        ${tool.alias}
+                                        ${tool}
                                     </li>
                                 </c:forEach>
                             </ul>
-                        </div>
-                        <div class="add_shopping_list py-2 d-flex justify-content-center">
-                            <button type="button" class="add_shopping_list_button btn" onclick="window.location.href = '${toShoppingList}';">Add to shopping list</button>
                         </div>
                     </div>
                 </div>
@@ -139,6 +140,15 @@
                 x.classList.toggle("liked");
             }
             ;
+
+            document.getElementById("confirmDeletion").onclick = () => {
+                var agree = confirm("Are you sure you want to delete this recipe?");
+                if (agree)
+                    document.getElementById("confirmDeletion").href = "MainController?action=DeleteRecipe&recipeId=${RECIPE.id}";
+                else
+                    document.getElementById("confirmDeletion").href = "#";
+
+            };
         </script>
     </body>
 </html>

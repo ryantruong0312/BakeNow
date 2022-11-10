@@ -60,6 +60,26 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>LoadAProductBeforeEditController</servlet-name>
         <servlet-class>com.bakenow.core.controller.LoadAProductBeforeEditController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RenderEditRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RenderEditRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.EditRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.CreateRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderCreateRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RenderCreateRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.DeleteRecipeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -71,6 +91,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>ViewRecipeController</servlet-name>
         <url-pattern>/ViewRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentRecipeController</servlet-name>
+        <url-pattern>/CommentRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewShopProfileController</servlet-name>
@@ -107,6 +135,26 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>LoadAProductBeforeEditController</servlet-name>
         <url-pattern>/LoadAProductBeforeEditController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderEditRecipeController</servlet-name>
+        <url-pattern>/RenderEditRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRecipeController</servlet-name>
+        <url-pattern>/EditRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateRecipeController</servlet-name>
+        <url-pattern>/CreateRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderCreateRecipeController</servlet-name>
+        <url-pattern>/RenderCreateRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRecipeController</servlet-name>
+        <url-pattern>/DeleteRecipeController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

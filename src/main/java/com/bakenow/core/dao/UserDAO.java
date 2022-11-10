@@ -18,7 +18,7 @@ import java.util.Date;
  * @author tlminh
  */
 public class UserDAO {
-    private static final String LOGIN = "SELECT id, displayName, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User] "
+    private static final String LOGIN = "SELECT id, displayName, bio, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User] "
             + " WHERE username=? AND password=?";
     private static final String CHECK_DUPLICATE = "SELECT id FROM [User] WHERE username = ?";
     private static final String INSERT_USER = "INSERT INTO [User](username, displayname, password, roleId, createTime) VALUES(?,?,?,?,?)";
@@ -37,7 +37,7 @@ public class UserDAO {
                 if (rs.next()) {
                     int id = rs.getInt("id");
                     String displayName = rs.getString("displayName");
-                    System.out.println(displayName);
+                    String bio = rs.getString("bio");
                     Date dob = rs.getDate("dob");
                     String email = rs.getString("email");
                     String phone = rs.getString("phone");
@@ -45,7 +45,7 @@ public class UserDAO {
                     int roleId = rs.getInt("roleId");
                     Date createTime = rs.getDate("createTime");
                     String avatarUrl = rs.getString("avatarUrl");
-                    user = new User(id, username, password, displayName, dob, email, phone, address, roleId, phone, createTime, avatarUrl);
+                    user = new User(id, username, password, displayName, dob, email, phone, address, roleId, bio, createTime, avatarUrl);
                 }
             }
         } catch (Exception e) {

@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.bakenow.util.imgUrlUtil;
 /**
  *
  * @author Admin
@@ -43,10 +42,6 @@ public class ProductDAO {
                                                  	(?,?,?,
                                                   ?,?,?,
                                                   ?,?,?,?,?,0)""";
-    //for check img and proces
-    imgUrlUtil imgUtil = new imgUrlUtil();
-    
-    
     public List<Product> getAllProductByShopId(String shopID,int statusId) throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection conn = null;

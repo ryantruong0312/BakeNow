@@ -1,13 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header>
-    <c:url var="toHome" value="/"/>
     <c:url var="toCart" value="MainController?action=NavToCart"/>
     <c:url var="toLogin" value="MainController?action=NavToLogin"/>
     <c:url var="toRegister" value="MainController?action=NavToRegister"/>
     <c:url var="toBlogHome" value="MainController?action=NavToBlogHome"/>
     <c:url var="toMarketplace" value="MainController?action=NavToMarketplace"/>
-    <c:url var="toProfile" value="MainController?action=NavToProfile"/>
+    <c:url var="toMyPage" value="MainController?action=NavToMyPage"/>
     <c:url var="toManagement" value="MainController?action=NavToManagement"/>
     <c:url var="toShop" value="MainController?action=NavToViewShopProfile"/>
     <c:url var="logout" value="MainController?action=Logout"/>
@@ -16,7 +15,7 @@
         <div class="row" style="height: 120px;">
 
             <!-- BRAND LOGO -->
-            <a href="${toHome}" aria-label="home" class="col-2 d-flex justify-content-left align-items-center">
+            <a href="${toBlogHome}" aria-label="home" class="col-2 d-flex justify-content-left align-items-center">
                 <img src="assets/img/logo.png" height="100" width="250" alt="BakeNow logo"/>
             </a>
 
@@ -52,7 +51,7 @@
                     <div class="authentication py-1 px-2 d-flex justify-content-center align-items-center" style="">
                         <a class="px-2" href="${pageScope.toLogin}">Login</a> |
                         <a class="px-2" href="${pageScope.toRegister}">Register</a>
-                        <img src="assets/img/profile_icon.png" alt="profile icon" onclick="window.location.href = '${pageScope.toProfile}'" style="border:1px solid; cursor: pointer">
+                        <img src="assets/img/profile_icon.png"">
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER != null}">
@@ -61,7 +60,7 @@
                         <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 40px; height: 40px; border-radius: 50px;">
                         <div class="dropdown-profile-content">
                             <c:if test="${sessionScope.LOGIN_USER != null}">
-                                <a href="${toProfile}" class="account-nav">
+                                <a href="${toMyPage}" class="account-nav">
                                     <i class="bi bi-person-square"></i>
                                     <span>My Page</span>
                                 </a>
@@ -72,7 +71,7 @@
                                     <span>My Shop</span>
                                 </a>
                             </c:if>
-                            <c:if test="${sessionScope['LOGIN_USER'].roleId == 0 || sessionScope['LOGIN_USER'].roleId == 1}">   
+                            <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1}">   
                                 <a href="${toManagement}" class="account-nav">
                                     <i class="bi bi-clipboard-check"></i>
                                     <span>Management</span>
@@ -90,7 +89,7 @@
         </div>
     </div>
     <div style="width:100%;">
-        <div class="row align-items-center" style="width:100%; height:180px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;">
+        <div class="row align-items-center" style="width:100%; height:150px; margin:0 auto; background-image: url('assets/img/subheader.jpg'); background-size:cover;">
             <div class="row_subheader d-flex" style="justify-content:space-around">
                 <button type="button" class="btn btn-outline-dark col-6 subheader" onclick="window.location.href = '${toBlogHome}';"
                         style="margin-left:30%; border-radius: 50px;">RECIPES</button>
