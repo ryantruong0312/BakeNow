@@ -4,49 +4,55 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.ProductCategoryDAO;
-import com.bakenow.core.dao.RecipeDAO;
-import com.bakenow.core.model.CategoryGroup;
-import com.bakenow.core.model.Recipe;
+import com.bakenow.core.dao.ProductDAO;
+import com.bakenow.core.model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "RenderBlogHomeController", urlPatterns = {"/RenderBlogHomeController"})
-public class RenderBlogHomeController extends HttpServlet {
+public class DeleteProductByIdController extends HttpServlet {
     private static final String ERROR="/WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS="/WEB-INF/recipes/home.jsp"; //dang le edit cac kieu trong trang prodouct list ma ???
+    private static final String SUCCESS="/WEB-INF/profile/shop-profile-view.jsp"; //dang le edit cac kieu trong trang prodouct list ma ???
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            RecipeDAO dao = new RecipeDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
-            List<Recipe> recipeList = dao.getRecipeList();
+            String pid = request.getParameter("productId");
+            ProductDAO dao = new ProductDAO();
+            dao.deleteProductsById(pid);
             HttpSession session = request.getSession();
-            session.setAttribute("RECIPE_LIST", recipeList);
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-             session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
+            User user =(User) session.getAttribute("LOGIN_USER");
             url = SUCCESS;
+            if(user.getRoleId()==0 || user.getRoleId()==1 ){
+                url = "/WEB-INF/marketplace/marketplace.jsp";
+            }
         } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
+            log("Error at LoadProductByCategoryController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

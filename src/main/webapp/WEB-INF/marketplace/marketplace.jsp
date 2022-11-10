@@ -20,26 +20,26 @@
         <c:url var="toAddProduct" value="MainController?action=NavToAddProduct"/>
         <c:url var="toViewShop" value="MainController?action=NavToViewShop"/>
         <c:url var="toViewProductByCategory" value="MainController?action=NavToViewProductByCategory"/>
+        <!--url?name1=value1&name2=value2&??  nếu ko làm đc cái kia thì dùng cái này--> 
         <div class="main-container">
-            <c:set var="shopList" value="${sessionScope.LIST_SHOP}" />
             <div style="width: 1390px" class="page_title">
                 <h1>RECENT PRODUCT</h1>
                 <form class="body_product_search" action="MainController">
-                    <input type="text" class="product_search" name="search" placeholder="Enter a product ...">
+                    <input type="text" class="product_search" name="searchTxt" placeholder="Enter a product ...">
                     <iconify-icon class="PageTitle_search_icon" icon="akar-icons:search" width="34" height="34"></iconify-icon>
                     <input type="submit" class="body_search_button" name="action" value="Search">
                 </form>
             </div>
         </div>
 
-            <div class="main-container d-flex">
+        <div class="main-container d-flex">
             <aside class="sidebar col-3 my-3">
                 <button type="button" class="main-category">Ingredient</button>
                 <c:forEach var="subICate" items="${sessionScope.GET_I_CATEGORY}" >
                     <button type="button" class="collapsible category">${subICate.getName()}</button>
                     <div class="content">
                         <c:forEach var="smallerICate" items="${subICate.getSmallerCatgory()}">
-                            <li><a class="link_modify" href="${toViewProductByCategory}">${smallerICate.getName()}</a></li>                          
+                            <li><a class="link_modify" href="MainController?action=NavToViewProductByCategory&categoryId=${smallerICate.getId()}">${smallerICate.getName()}</a></li>
                             </c:forEach>
                     </div>
                 </c:forEach>    
@@ -48,20 +48,33 @@
                     <button type="button" class="collapsible category">${subTCate.getName()}</button>
                     <div class="content">
                         <c:forEach var="smallerTCate" items="${subTCate.getSmallerCatgory()}">
-                            <li><a class="link_modify" href="${toViewProductByCategory}">${smallerTCate.getName()}</a></li>
+                            <li><a class="link_modify" href="MainController?action=NavToViewProductByCategory&categoryId=${smallerICate.getId()}">${smallerTCate.getName()}</a></li>
                             </c:forEach>
                     </div>
                 </c:forEach>    
             </aside>
             <!--/ đây là đoạn thêm product vào -->
+            
             <div class="product_list col-9 my-3">
-                <c:forEach var="product" items="${sessionScope.LIST_PRODUCT}">
+                <c:forEach var="product" items="${requestScope.LIST_PRODUCT}">
                     <div class="product_card" style="margin-top: 0px;">
                         <div class="product_card_img">
-                            <img src="${product.getImgUrl()}" alt="product">
+                            <c:set var = "salary" scope = "page" value = "${product.checkimgUrl()}"/>
+                            <c:choose>
+                                <c:when test = "${salary == true}">
+                                    <img src="assets/img/${product.getImgName()}" alt="product">
+                                </c:when>
+                                <c:when test = "${salary == false}">
+                                    <img src="${product.getImgUrl()}" alt="product">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${product.getImgUrl()}" alt="product">
+                                </c:otherwise>
+                            </c:choose>   
                         </div>
                         <div class="product_body">
-                            <a href="${toViewProduct}"><div class="product_title link_modify--Product">${product.getName()}</div></a>
+                            <!--dang lam product profile-->
+                            <a href="MainController?action=NavToViewProduct&txtID=${product.getId()}"><div class="product_title link_modify--Product">${product.getName()}</div></a>
                             <!<!-- cai cho toviewProduct la gi v -->
                             <p class="product_author"><iconify-icon inline style="color:#56D262;" icon="clarity:store-line" width="22" height="22"></iconify-icon><a href="${toViewShopProfile}">${product.getShopId()}</a></p>
                             <div class="product_info">
@@ -76,8 +89,7 @@
                             </div>
                             <div class="price">${product.getPrice()} $</div>
                             <form action="Product_addToCart" class="d-flex" >                                                                                                   
-                                    <input type="number" class="order_quantity_holder" name="orderQuantity" value="1">                                                                                                              
-                                <!--cái này thiệt sự là bỏ đi dùng cái input bình thường được rồi mà-->
+                                <input type="number" class="order_quantity_holder" name="orderQuantity" value="1">  
                                 <button class="addToCartButton" type="submit" formaction="CartController?action=Add" id="createRecipeButton" value="Add to Cart">
                                     <iconify-icon icon="lucide:shopping-cart" width="35" ></iconify-icon>
                                     <p>Add to Cart</p>

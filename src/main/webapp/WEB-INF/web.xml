@@ -36,6 +36,30 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>RenderProductMarketPlaceController</servlet-name>
         <servlet-class>com.bakenow.core.controller.RenderProductMarketPlaceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProductByIdController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.ViewProductByIdController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.AddProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductByNameController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.SearchProductByNameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductByIdController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.DeleteProductByIdController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadProductForShopController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LoadProductForShopController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadAProductBeforeEditController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.LoadAProductBeforeEditController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -59,6 +83,30 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>RenderProductMarketPlaceController</servlet-name>
         <url-pattern>/RenderProductMarketPlaceController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProductByIdController</servlet-name>
+        <url-pattern>/ViewProductByIdController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductController</servlet-name>
+        <url-pattern>/AddProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductByNameController</servlet-name>
+        <url-pattern>/SearchProductByNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductByIdController</servlet-name>
+        <url-pattern>/DeleteProductByIdController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadProductForShopController</servlet-name>
+        <url-pattern>/LoadProductForShopController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAProductBeforeEditController</servlet-name>
+        <url-pattern>/LoadAProductBeforeEditController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

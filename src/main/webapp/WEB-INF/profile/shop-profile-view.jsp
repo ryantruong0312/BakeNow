@@ -4,47 +4,269 @@
     Author     : Admin
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/common/shared.jsp"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${requestScope.SHOP.displayName} - BakeNow</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/profile/shop-profile-view.css">
+        <title>View Shop Profile - BakeNow</title>
     </head>
-    <body>
-        <div id="page_profile_shop" class="main-container container">
-            <div>
-                <ul class="tab-nav">
-                    <li class="tab-btn">
-                        <p class="tab-btn_link"></p>
-                    </li>
-                    <li class="tab-btn"></li>
-                    <li class="tab-btn"></li>
-                    <li class="tab-btn"></li>
-                </ul>
-            </div>
+    <body>  
+        <%@include file="/WEB-INF/common/header.jsp"%>
+        <div class="container">
+            <div class="row">
+                <div class="col-9 pb-5">
+                    <h3>MY STORE</h3>
+                </div>
+                <div class="col-3" style="">
+                    <a class="create_recipe_btn" style="" href="MainController?action=NavToAddProduct&shopId=${sessionScope.LOGIN_SHOP.id}">
+                        <div>
+                            <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
+                        </div>
+                        <div class="create_recipe_btn_text d-inline-block mx-2">
+                            Add a Product 
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3">
 
-            <div>
-                <section id="tab1" class="tab-content">
-                    <h1>My Profile</h1>
-                    <%@include file="./profile-info.jsp" %>
-                </section>
+                    <div class="card">
 
-                <section id="tab2" class="tab-content">
-                    <h1>My Recipes</h1>
-                    <%@include file="./profile-recipes.jsp" %>
-                </section>
+                        <div class="d-flex align-items-start">
+                            <div class="nav flex-column nav-pills me-3" id="nav-tab" role="tablist" aria-orientation="vertical">
+                                <div class="card-header">
+                                    <div class="col-12 d-flex justify-content-start align-items-center">
+                                        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                                             width="50px">
+                                        <div class="ps-2">
+                                            <h5>${requestScope.SHOP_PROFILE.getName()}</h5>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <section id="tab3" class="tab-content">
-                    <h1>My Orders</h1>
-                    <%@include file="./profile-shoppinglist.jsp" %>
-                </section>
+                                <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                        data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="true">Profile</button>
 
-                <section id="tab4" class="tab-content">
-                    <h1>My Shopping List</h1>
-                    <%@include file="./profile-orders.jsp" %>
-                </section>
-            </div>
-        </div>
-    </body>
-</html>
+                                <button class="nav-link" id="v-pills-inventory-tab" data-bs-toggle="pill"
+                                        data-bs-target="#v-pills-inventory" type="button" role="tab" aria-controls="v-pills-inventory"
+                                        aria-selected="false">Inventory</button>
+
+                                <button class="nav-link" id="v-pills-order-tab" data-bs-toggle="pill" data-bs-target="#v-pills-order"
+                                        type="button" role="tab" aria-controls="v-pills-order" aria-selected="false">Order</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-9">
+
+                    <div class="row">
+                        <div class="tab-content" id="v-pills-tabContent">
+
+                            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                                 aria-labelledby="v-pills-profile-tab">
+                                <div class="col-12">
+                                    <div class="row">
+
+                                        <div class="col-3">
+                                            <div class="card">
+                                                <!--tai shop deo co hinh nen moi bi loi-->
+                                                <img src="${requestScope.SHOP_PROFILE.getAvatarUrl()}"
+                                                     width="200px">
+                                            </div>
+                                            <input type="file" class="form-control">
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row pb-5">
+                                                <div class="col-9">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+
+                                                </div>
+                                                <div class="col-3">
+                                                    products: 99
+                                                </div>
+                                            </div>
+                                            <label for="about">About</label>
+                                            <textarea class="form-control" rows="5" id="comment" name="text"
+                                                      placeholder="Describe about your store">${requestScope.SHOP_PROFILE.getDescription()}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row pt-2">
+
+                                        <div class="col-6">
+                                            <label for="name" class="form-label">Display name</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="${requestScope.SHOP_PROFILE.name}">
+                                            <label for="name" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" value="${requestScope.SHOP_PROFILE.email}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="date" class="form-label">Date</label>
+                                            <input type="text" class="form-control" id="date" name="date">
+                                            <label for="name" class="form-label">Phone</label>
+                                            <input type="text" class="form-control" id="phone" name="phone" value="${requestScope.SHOP_PROFILE.phone}">
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center pt-2">
+                                            <p>Memeber since</p>
+                                        </div>
+                                        <div class="col-12 pt-5 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-outline-dark">Edits</button>
+                                            <button type="button" class="btn btn-outline-dark ms-2">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-inventory" role="tabpanel" aria-labelledby="v-pills-inventory-tab">
+
+                            <div class="card">
+                                <nav class="nav justify-content-center">
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-published-tab" data-bs-toggle="tab"
+                                                data-bs-target="#nav-published" type="button" role="tab" aria-controls="nav-published"
+                                                aria-selected="true">Published</button>
+                                        <button class="nav-link" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending"
+                                                type="button" role="tab" aria-controls="nav-pending" aria-selected="false">Pending</button>
+                                        <button class="nav-link" id="nav-restricted-tab" data-bs-toggle="tab" data-bs-target="#nav-restricted"
+                                                type="button" role="tab" aria-controls="nav-restricted" aria-selected="false">Restricted</button>
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-published" role="tabpanel"
+                                         aria-labelledby="nav-published-tab">
+                                        <div style="margin-top: 0px" class="row row-cols-1 row-cols-md-3 g-4">
+                                            <c:forEach var="product" items="${requestScope.SHOP_PRODUCTS_LIST}">
+                                                <div class="col">
+                                                    <div class="card h-100">
+                                                        <c:set var = "salary" scope = "page" value = "${product.checkimgUrl()}"/>
+                                                        <c:choose>
+                                                            <c:when test = "${salary == true}">
+                                                                <img src="assets/img/${product.getImgName()}" alt="product">
+                                                            </c:when>
+                                                            <c:when test = "${salary == false}">
+                                                                <img src="${product.getImgUrl()}" alt="product">
+                                                            </c:when>
+                                                        </c:choose> 
+                                                        <div class="card-body"> 
+                                                            <a href="MainController?action=NavToViewProduct&txtID=${product.getId()}"><h5 class="card-title">${product.getName()}</h5></a>
+                                                            <h6 class="card-rating">
+                                                                <div class="product_info">
+                                                                    <div class="product-star">
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized"></span>
+                                                                        <span class="fa fa-star fa-star-sized"></span>
+                                                                        <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${product.getReviewCount()})</span>
+                                                                    </div>
+                                                                </div>
+                                                            </h6>
+                                                            <p class="card-text">${product.getPrice()} $</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+
+                                        <div style="margin-top: 0px"  class="row row-cols-1 row-cols-md-3 g-4">
+                                            <c:forEach var="pProduct" items="${requestScope.SHOP_PENDING_PRODUCTS_LIST}">
+                                                <div class="col">
+                                                    <div class="card h-100">
+                                                        <c:set var = "salary" scope = "page" value = "${pProduct.checkimgUrl()}"/>
+                                                        <c:choose>
+                                                            <c:when test = "${salary == true}">
+                                                                <img src="assets/img/${pProduct.getImgName()}" alt="product">
+                                                            </c:when>
+                                                            <c:when test = "${salary == false}">
+                                                                <img src="${pProduct.getImgUrl()}" alt="product">
+                                                            </c:when>
+                                                        </c:choose> 
+                                                        <div class="card-body"> 
+                                                            <a href="MainController?action=NavToViewProduct&txtID=${pProduct.getId()}"><h5 class="card-title">${pProduct.getName()}</h5></a>
+                                                            <h6 class="card-rating">
+                                                                <div class="product_info">
+                                                                    <div class="product-star">
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized checked"></span>
+                                                                        <span class="fa fa-star fa-star-sized"></span>
+                                                                        <span class="fa fa-star fa-star-sized"></span>
+                                                                        <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${pProduct.getReviewCount()})</span>
+                                                                    </div>
+                                                                </div>
+                                                            </h6>
+                                                            <p class="card-text">${pProduct.getPrice()} $</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+
+
+                                            <div class="tab-pane fade" id="nav-restricted" role="tabpanel" aria-labelledby="nav-restricted-tab">
+
+                                                <div style="margin-top: 0px"  class="row row-cols-1 row-cols-md-3 g-4">
+                                                    <c:forEach var="rProduct" items="${requestScope.SHOP_RESTRICTED_PRODUCTS_LIST}">
+                                                        <div class="col">
+                                                            <div class="card h-100">
+                                                                <c:set var = "salary" scope = "page" value = "${pProduct.checkimgUrl()}"/>
+                                                                <c:choose>
+                                                                    <c:when test = "${salary == true}">
+                                                                        <img src="assets/img/${pProduct.getImgName()}" alt="product">
+                                                                    </c:when>
+                                                                    <c:when test = "${salary == false}">
+                                                                        <img src="${pProduct.getImgUrl()}" alt="product">
+                                                                    </c:when>
+                                                                </c:choose> 
+                                                                <div class="card-body"> 
+                                                                    <a href="MainController?action=NavToViewProduct&txtID=${rProduct.getId()}"><h5 class="card-title">${rProduct.getName()}</h5></a>
+                                                                    <h6 class="card-rating">
+                                                                        <div class="product_info">
+                                                                            <div class="product-star">
+                                                                                <span class="fa fa-star fa-star-sized checked"></span>
+                                                                                <span class="fa fa-star fa-star-sized checked"></span>
+                                                                                <span class="fa fa-star fa-star-sized checked"></span>
+                                                                                <span class="fa fa-star fa-star-sized"></span>
+                                                                                <span class="fa fa-star fa-star-sized"></span>
+                                                                                <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${rProduct.getReviewCount()})</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </h6>
+                                                                    <p class="card-text">${rProduct.getPrice()} $</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <%@include file="/WEB-INF/common/footer.jsp"%>
+                    </body>
+                    </html>

@@ -51,26 +51,30 @@ public class MainController extends HttpServlet {
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
     private static final String DEST_NAV_MARKETPLACE = "RenderProductMarketPlaceController"; //vì tránh thay đổi trong web.xml sr vì tên ko được chuẩn
     private static final String ACT_NAV_VIEW_PRODUCT_BY_CATE = "NavToViewProductByCategory";
-    private static final String DEST_NAV_VIEW_PRODUCT_BY_CATE = "/WEB-INF/marketplace/product-search-result.jsp";
+    private static final String DEST_NAV_VIEW_PRODUCT_BY_CATE = "LoadProductByCategoryController";
     private static final String ACT_NAV_VIEW_PRODUCT = "NavToViewProduct";
-    private static final String DEST_NAV_VIEW_PRODUCT = "/WEB-INF/marketplace/product-view.jsp";
-    private static final String ACT_NAV_ADD_PRODUCT = "NavToAddProduct";
-    private static final String DEST_NAV_ADD_PRODUCT = "/WEB-INF/marketplace/product-add.jsp";
+    private static final String DEST_NAV_VIEW_PRODUCT = "ViewProductByIdController";
+    private static final String ACT_TO_ADD_PRODUCT = "NavToAddProduct";
+    private static final String DEST_TO_ADD_PRODUCT = "/WEB-INF/marketplace/product_add.jsp";
     private static final String ACT_NAV_EDIT_PRODUCT = "NavToEditProduct";
-    private static final String DEST_NAV_EDIT_PRODUCT = "/WEB-INF/marketplace/product-edit.jsp";
+    private static final String DEST_NAV_EDIT_PRODUCT = "LoadAProductBeforeEditController";
     private static final String ACT_ADD_TO_CART = "AddToCart";
     private static final String DEST_ADD_TO_CART = "AddToCartController";
     private static final String ACT_NAV_CART = "NavToCart";
     private static final String DEST_NAV_CART = "/WEB-INF/marketplace/cart-view.jsp";
-    private static final String ACT_NAV_SHOPPROFILE = "toViewShopProfile";
-    private static final String DEST_NAV_SHOPPROFILE = "/WEB-INF/marketplace/cart-view.jsp";
-
+    private static final String ACT_NAV_SHOPPROFILE = "NavToViewShopProfile";
+    private static final String DEST_NAV_SHOPPROFILE = "ViewShopProfileController";
+    private static final String ACT_SEARCH_PRODUCT_BY_NAME = "Search";
+    private static final String DEST_SEARCH_PRODUCT_BY_NAME = "SearchProductByNameController";
+    private static final String ACT_DELETE_PRODUCT_BY_ID = "ToDeleteProduct";
+    private static final String DEST_DELETE_PRODUCT_BY_ID = "DeleteProductByIdController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String action = request.getParameter("action");
+            System.out.println(request.getQueryString());
             switch (action) {
                 case ACT_NAV_BLOG_HOME:
                     url = DEST_NAV_BLOG_HOME;
@@ -114,8 +118,8 @@ public class MainController extends HttpServlet {
                 case ACT_NAV_VIEW_PRODUCT:
                     url = DEST_NAV_VIEW_PRODUCT;
                     break;
-                case ACT_NAV_ADD_PRODUCT:
-                    url = DEST_NAV_ADD_PRODUCT;
+                case ACT_TO_ADD_PRODUCT:
+                    url = DEST_TO_ADD_PRODUCT;
                     break;
                 case ACT_NAV_EDIT_PRODUCT:
                     url = DEST_NAV_EDIT_PRODUCT;
@@ -128,6 +132,15 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_VIEW_PRODUCT_BY_CATE:
                     url = DEST_NAV_VIEW_PRODUCT_BY_CATE;
+                    break;
+                case ACT_NAV_SHOPPROFILE:
+                    url = DEST_NAV_SHOPPROFILE;
+                    break;
+                case ACT_SEARCH_PRODUCT_BY_NAME:
+                    url = DEST_SEARCH_PRODUCT_BY_NAME;
+                    break;
+                case ACT_DELETE_PRODUCT_BY_ID:
+                    url = DEST_DELETE_PRODUCT_BY_ID;
                     break;
                 default:
                     break;

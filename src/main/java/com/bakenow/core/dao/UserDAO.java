@@ -22,7 +22,6 @@ public class UserDAO {
             + " WHERE username=? AND password=?";
     private static final String CHECK_DUPLICATE = "SELECT id FROM [User] WHERE username = ?";
     private static final String INSERT_USER = "INSERT INTO [User](username, displayname, password, roleId, createTime) VALUES(?,?,?,?,?)";
-    
     public User checkLogin(String username, String password) throws SQLException {
         User user = null;
         Connection conn = null;
@@ -115,4 +114,5 @@ public class UserDAO {
         }
         return check;
     }
+    
 }

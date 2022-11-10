@@ -1,0 +1,274 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Nov 8, 2022, 9:25:07 AM
+    Author     : Admin
+*/
+.body_container--home {
+    margin: auto;
+    width: 1277px;
+}
+.page_title {
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.page_title h1 {
+    height: 71px;
+    width: 620px;
+    text-decoration: underline;
+    text-decoration-color: #56D262;
+    color: #5F6440;
+}
+
+.create_recipe_btn{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: 1px solid #56D262;
+    background-color: #fff;
+    color: #56D262;
+    border-radius:15px;
+    width: 300px;
+    height: 70px;
+    font-size: 25px;
+    transition: all ease 0.4s;
+}
+
+.create_recipe_btn:hover{
+    background-color: #56D262;
+    border-color: #D9D9D9;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+}
+.link_modify{
+    text-decoration: none;
+    color: #000 ;
+}
+
+.link_modify--Product{
+  color:#56D262; 
+}
+
+.sidebar{
+    background-color: #fff;
+    border: 1px solid #56D262;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+    padding: 20px;
+}
+
+.collapsible,
+.main-category{
+  cursor: pointer;
+  padding: 10px 40px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  background-color: #fff;
+}
+
+.main-category{
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.category{
+    margin-top: 10px;
+}
+
+.active, .collapsible:hover {
+  background-color: #D9D9D9;
+}
+
+.content {
+  display: none;
+  overflow: hidden;
+  background-color: #D9D9D9;
+}
+
+.content li{
+    list-style-type: none;
+    padding-left: 60px;
+}
+
+.content li:hover{
+    background-color: #777;
+}
+
+.product_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.product_card {
+    position: relative;
+    padding: 10px;
+    width: 280px;
+    height: 500px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #56D262;
+}
+.product_card_img{
+    text-align: center;
+}
+
+.product_card_img img{
+    width: 256px;
+    height: 256px;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+}
+
+.product_title {
+    font-family: Roboto;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+    overflow: hidden;
+    height: 42px;
+    text-overflow: ellipsis;
+}
+
+.product_body {
+    padding: 12px 12px 12px 12px;
+}
+.product_body a{
+    text-decoration: none !important;
+}
+
+.product_more {
+    margin-top: 10px;
+    display: flex;
+}
+
+
+.fa-star-sized {
+    padding: 0 0px;
+}
+
+.checked {
+    color: orange;
+}
+
+
+
+.product_author a {
+    color: #56D262;
+}
+.price{
+    font-size: 25px;
+    color: #FFD700;
+    
+}
+.product_text,
+.product_author {
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+.product_author {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;   
+}
+
+.product_text-published {
+    font-family: Roboto;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.Product_addToCart{
+    width: 256px !important;
+}
+.addToCartButton {
+    background-color: #fff;
+    height: 50px;
+    width: 135px;
+    color: #56D262;
+    fill: #56D262;
+    border: 1px solid #56D262;
+    border-radius: 5px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-align: center;
+    overflow: hidden;
+}
+
+.addToCartButton iconify-icon {
+    display: inline-block;
+    margin-top: 3.5px;
+}
+
+.addToCartButton p {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+}
+
+.addToCartButton:hover {
+    background-color: #56D262;
+    color: #fff;
+    fill: #fff;
+}
+.order_quantity_holder{
+    width: 80px;
+    height: 50px; 
+    text-align: center;
+    margin-right: 20px;
+}
+
+.nav-link{
+    color: black;
+}
+.nav-pills .nav-link.active{
+    background-color: white;
+    color: #56D262;
+  }
+
+
+  .nav-link:hover{
+      color: #56D262 ;
+      background-color: white;
+    }
+  .nav-link:hover{
+      border-left: #56D262 solid 5px;
+      border-top: #56D262 solid 1px;
+      border-bottom: #56D262 solid 1px;
+      border-right: #56D262 solid 2px; 
+  
+      color: #56D262 ;
+  
+    }
+

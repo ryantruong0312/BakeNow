@@ -4,45 +4,42 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.ProductCategoryDAO;
-import com.bakenow.core.dao.RecipeDAO;
-import com.bakenow.core.model.CategoryGroup;
-import com.bakenow.core.model.Recipe;
 import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "RenderBlogHomeController", urlPatterns = {"/RenderBlogHomeController"})
-public class RenderBlogHomeController extends HttpServlet {
-    private static final String ERROR="/WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS="/WEB-INF/recipes/home.jsp"; //dang le edit cac kieu trong trang prodouct list ma ???
+public class LoadProductForShopController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            RecipeDAO dao = new RecipeDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
-            List<Recipe> recipeList = dao.getRecipeList();
-            HttpSession session = request.getSession();
-            session.setAttribute("RECIPE_LIST", recipeList);
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-             session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
-            url = SUCCESS;
-        } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoadProductForShopController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoadProductForShopController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

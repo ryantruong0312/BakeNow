@@ -29,22 +29,22 @@
             <div>
                 <section id="tab1" class="tab-content">
                     <h1>My Profile</h1>
-                    <%@include file="./profile-info.jsp" %>
+                    <%--<%@include file="./profile-info.jsp" %>--%>
                 </section>
 
                 <section id="tab2" class="tab-content">
                     <h1>My Recipes</h1>
-                    <%@include file="./profile-recipes.jsp" %>
+                    <%--<%@include file="./profile-recipes.jsp" %>--%>
                 </section>
 
                 <section id="tab3" class="tab-content">
                     <h1>My Orders</h1>
-                    <%@include file="./profile-shoppinglist.jsp" %>
+                    <%--<%@include file="./profile-shoppinglist.jsp" %>--%>
                 </section>
 
                 <section id="tab4" class="tab-content">
                     <h1>My Shopping List</h1>
-                    <%@include file="./profile-orders.jsp" %>
+                    <%--<%@include file="./profile-orders.jsp" %>--%>
                 </section>
             </div>
         </div>

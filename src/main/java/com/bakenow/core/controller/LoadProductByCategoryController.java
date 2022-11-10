@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class LoadProductByCategoryController extends HttpServlet {
-    public  static String SUCCESS="";
-    public  static String ERROR="";
+    public  static String SUCCESS="/WEB-INF/marketplace/product-search-result.jsp";
+    public  static String ERROR="/WEB-INF/marketplace/product-search-result.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,17 +34,19 @@ public class LoadProductByCategoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
             try {
-                ProductDAO dao = new ProductDAO();
-                List<Product> listProduct = dao.getAllProduct();
-                if (listProduct.size() > 0) {
-                    request.setAttribute("LIST_PRODUCT", listProduct);
-                    url = SUCCESS;
-                }
-            } catch (Exception e) {
-                log("Error at LoadTeaController: " + e.toString());
-            } finally {
-                request.getRequestDispatcher(url).forward(request, response);
+            String categoryID = request.getParameter("categoryId");
+            ProductDAO dao = new ProductDAO();
+            List<Product> listProduct = dao.getProductsByCategoryId(categoryID.trim());
+            if (listProduct.size()>0) {
+                request.setAttribute("PRODUCT_SEARCH_LIST", listProduct);
+               url= SUCCESS;
             }
+        } catch (Exception e) {
+            log("Error at LoadProductByCategoryController: "+ e.toString());
+        }
+        finally{
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

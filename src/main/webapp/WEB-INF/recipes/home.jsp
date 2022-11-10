@@ -19,8 +19,9 @@
         <%@include file="/WEB-INF/common/header.jsp"%>
         <c:url var="toViewProfile" value="MainController?action=NavToViewProfile"/>
         <c:url var="toCreateRecipe" value="MainController?action=NavToCreateRecipe"/>
+        <c:url var="toAddProduct" value="MainController?action=NavToAddProduct"/>
         <div class="main-container">
-            <div class="d-flex ju   stify-content-end" style="margin: 20px 80px;">
+            <div class="d-flex justify-content-end" style="margin: 20px 80px;">
                 <a class="create_recipe_btn" href="${toCreateRecipe}">
                     <div>
                         <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
