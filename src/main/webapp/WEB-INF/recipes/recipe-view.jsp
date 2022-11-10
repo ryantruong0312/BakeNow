@@ -25,6 +25,7 @@
                     <div class="recipe_info_container">
                         <div class="recipe_title" style="font-size: 30px; font-weight: bold; margin: 10px;">${RECIPE.title}</div>
                         <div class="recipe_desc" style="margin: 10px;">${RECIPE.desc}</div>
+                        <div class="recipe_desc" style="margin: 10px;"> Time to make: ${RECIPE.cookTime} mins</div>
 
                         <div class="recipe_subinfo d-flex">
                             <div class="col-1" style="text-align: center;">
@@ -54,16 +55,15 @@
                             <image src="${RECIPE.imgUrl}" alt="recipe images" style="width: 256px; height: 256px;">
                         </div>
                         <c:url var="rateRecipe" value="MainController?action=NavToBlogHome"/>
-                        <div class="py-2 d-flex justify-content-end">
-                            <button class="button button-like" onclick="toggleLikeButton(this)">
-                                <i class="fa fa-heart"></i>
-                                <span>Like</span>
-                                <span class="recipe_vote_count">${RECIPE.voteCount}</span>
-                            </button>
-                        </div>
-                        <div>
-                            <i class="bi bi-clock"></i> <span>${RECIPE.cookTime} mins</span>
-                        </div>
+                        <c:if test="${RECIPE.statusId == 1 || RECIPE.statusId == 2}">
+                            <div class="py-2 d-flex justify-content-end">
+                                <button class="button button-like" <c:if test="${RECIPE.statusId == 2}"> onclick="toggleLikeButton(this)" </c:if>>
+                                        <i class="fa fa-heart"></i>
+                                        <span>Like</span>
+                                        <span class="recipe_vote_count">${RECIPE.voteCount}</span>
+                                </button>
+                            </div>       
+                        </c:if>
                         <div style="font-size: 24px; width: 150px; padding-left: 5px; font-weight: bold; border-bottom: 2px solid #000;">Instructions</div>
                         <div class="recipe_instruction my-2">
                             <c:forEach var="step" items="${RECIPE.steps}">
@@ -74,19 +74,21 @@
                         </div>
                     </div>
                     <div style="font-size: 24px; width: 150px; font-weight: bold; padding-left: 5px;border-bottom: 2px solid #000;">Comments</div>
-                    <div class="add_comment_container my-2" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
-                        <form class="p-2 mb-0" action="MainController">
-                            <div style="font-weight: bold; font-size: 20px; margin-bottom: 5px;">Leave your comment here</div>
-                            <div> 
-                                <textarea type="text" style="height: 100px; width: 100%; vertical-align: text-top; border: 1px solid #D9D9D9; padding: 10px;" name="contents" placeholder="Share your thought..."></textarea>
-                            </div>
-                            <div class="my-2 d-flex justify-content-end">
-                                <input type="hidden" name="recipeId" value="${RECIPE.id}">
-                                <input type="hidden" name="userId" value="${sessionScope.LOGIN_USER.id}">
-                                <input type="submit" class="px-2 recipe_comment_button" style="width: 100px; height: 45px;" name="action" value="Comment">
-                            </div>
-                        </form>
-                    </div>
+                    <c:if test="${RECIPE.statusId == 1}">
+                        <div class="add_comment_container my-2" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
+                            <form class="p-2 mb-0" action="MainController">
+                                <div style="font-weight: bold; font-size: 20px; margin-bottom: 5px;">Leave your comment here</div>
+                                <div> 
+                                    <textarea type="text" style="height: 100px; width: 100%; vertical-align: text-top; border: 1px solid #D9D9D9; padding: 10px;" name="contents" placeholder="Share your thought..."></textarea>
+                                </div>
+                                <div class="my-2 d-flex justify-content-end">
+                                    <input type="hidden" name="recipeId" value="${RECIPE.id}">
+                                    <input type="hidden" name="userId" value="${sessionScope.LOGIN_USER.id}">
+                                    <input type="submit" class="px-2 recipe_comment_button" style="width: 100px; height: 45px;" name="action" value="Comment">
+                                </div>
+                            </form>
+                        </div>
+                    </c:if>
                     <div>
                         <ul class="py-1 list-unstyled">
                             <c:forEach var="comment" items="${RECIPE.comments}">

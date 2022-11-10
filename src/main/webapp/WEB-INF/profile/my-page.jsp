@@ -175,13 +175,6 @@
                                                             <a href="${toViewProfile}">${recipe.authorName}</a>
                                                         </p>
                                                     </div>
-                                                    <div class="col-2 p-0 d-flex justify-content-center">
-                                                        <button class="button button-like" onclick="toggleLikeButton(this)">
-                                                            <i class="fa fa-heart"></i>
-                                                            <span>Like</span>
-                                                            <span class="recipe_vote_count">${recipe.voteCount}</span>
-                                                        </button>
-                                                    </div>
                                                 </div>
                                                 <div class="row recipe_desc my-" style="height: 80px; overflow: hidden; text-overflow: ellipsis;">
                                                     ${recipe.desc}
@@ -216,7 +209,7 @@
                                                         </p>
                                                     </div>
                                                     <div class="col-2 p-0 d-flex justify-content-center">
-                                                        <button class="button button-like" onclick="toggleLikeButton(this)">
+                                                        <button class="button button-like">
                                                             <i class="fa fa-heart"></i>
                                                             <span>Like</span>
                                                             <span class="recipe_vote_count">${recipe.voteCount}</span>
@@ -257,29 +250,223 @@
                         </button>
                     </div>
                     <div id="pendingOrder" class="subtabcontent2">
-                        <div class="my-3 px-3" style="height: 200px; background-color: #fff;">
-                            <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
-                                <div class="col-8 d-flex align-items-center">OrderID: 546548754</div>
-                                <div class="col-4 d-flex justify-content-end align-items-center">2022-10-20</div>
-                            </div>
-                            <div class="d-flex align-items-center" style="height: 150px; border-bottom: 1px solid #D9D9D9;">
-                                <div class="col-3">a</div>
-                                <div class="col-7">b</div>
-                                <div class="col-3">c</div>
-                            </div>
-                        </div>
+                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 0}">
+                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
+                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
+                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
+                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
+                                    </div>
+                                    <c:forEach var="orderItem" items="${order.orderItems}">
+                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
+                                                    <i class="bi bi-shop"></i>
+                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
+                                                </div>
+                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
+                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
+                                            </div>
+                                            <div class="col-2 d-flex justify-content-end align-items-center">
+                                                <div>
+                                                    $${orderItem.price}
+                                                </div>
+                                                </div>
+                                            </div>
+                                    </c:forEach>
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0";>
+                                                <button type="button" onclick="window.location.href = 'MainController?action=CancelOrder&orderId='"
+                                                        style="height: 45px; width: 100px; border: 1px solid #56D262; border-radius: 50px;">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div id="awaiting" class="subtabcontent2">
-                        b
+                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 1}">
+                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
+                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
+                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
+                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
+                                    </div>
+                                    <c:forEach var="orderItem" items="${order.orderItems}">
+                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
+                                                    <i class="bi bi-shop"></i>
+                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
+                                                </div>
+                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
+                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
+                                            </div>
+                                            <div class="col-2 d-flex justify-content-end align-items-center">
+                                                <div>
+                                                    $${orderItem.price}
+                                                </div>
+                                                </div>
+                                            </div>
+                                    </c:forEach>
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0";>
+                                                <button type="button" onclick="window.location.href = 'MainController?action=CancelOrder&orderId='"
+                                                        style="height: 45px; width: 100px; border: 1px solid #56D262; border-radius: 50px;">
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div id="intransit" class="subtabcontent2">
-                        c
+                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 2}">
+                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
+                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
+                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
+                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
+                                    </div>
+                                    <c:forEach var="orderItem" items="${order.orderItems}">
+                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
+                                                    <i class="bi bi-shop"></i>
+                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
+                                                </div>
+                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
+                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
+                                            </div>
+                                            <div class="col-2 d-flex justify-content-end align-items-center">
+                                                <div>
+                                                    $${orderItem.price}
+                                                </div>
+                                                </div>
+                                            </div>
+                                    </c:forEach>
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div id="delivered" class="subtabcontent2">
-                        d
+                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 3}">
+                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
+                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
+                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
+                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
+                                    </div>
+                                    <c:forEach var="orderItem" items="${order.orderItems}">
+                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
+                                                    <i class="bi bi-shop"></i>
+                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
+                                                </div>
+                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
+                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="d-flex align-items-end justify-content-end" style="height: 100px;">
+                                                    $${orderItem.price}
+                                                </div>
+                                                    <div class="d-flex justify-content-end" style="margin: 10px 0";>
+                                                        <button type="button" onclick="window.location.href = 'MainController?action=RateOrder&orderId=${orderItem.orderId}'"
+                                                            style="height: 45px; width: 130px; border: 1px solid #56D262; border-radius: 50px;">
+                                                        Rate product
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div id="cancelled" class="subtabcontent2">
-                        e
+                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 4}">
+                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
+                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
+                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
+                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
+                                    </div>
+                                    <c:forEach var="orderItem" items="${order.orderItems}">
+                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
+                                                    <i class="bi bi-shop"></i>
+                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
+                                                </div>
+                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
+                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
+                                            </div>
+                                            <div class="col-2 d-flex justify-content-end align-items-center">
+                                                <div>
+                                                    $${orderItem.price}
+                                                </div>
+                                                </div>
+                                            </div>
+                                    </c:forEach>
+                                    <div>
+                                        <div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
+                                            <div class="d-flex justify-content-end" style="margin: 10px 0";>
+                                                <button type="button" onclick="window.location.href = 'MainController?action=ReOrder&orderId='"
+                                                        style="height: 45px; width: 100px; border: 1px solid #56D262; border-radius: 50px;">
+                                                    Re-order
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
                 </div>
                 <div id="to-do" class="tabcontent">
@@ -289,6 +476,11 @@
         </div>
         <%@include file="/WEB-INF/common/footer.jsp"%>
         <script>
+            // Toggle vote button
+            function toggleLikeButton(x) {
+                x.classList.toggle("liked");
+            }
+            
             /*Making tab for sidebar*/
             function openTab(evt, tabName) {
                 // Declare all variables
