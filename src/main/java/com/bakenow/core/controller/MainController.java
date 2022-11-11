@@ -33,11 +33,17 @@ public class MainController extends HttpServlet {
     private static final String ACT_LOGOUT = "Logout";
     private static final String DEST_LOGOUT = "LogoutController";
 
-    private static final String ACT_NAV_VIEW_PROFILE = "NavToMyPage";
-    private static final String DEST_NAV_VIEW_PROFILE = "/WEB-INF/profile/my-page.jsp";
+    private static final String ACT_VIEW_MY_PAGE = "NavToMyPage";
+    private static final String DEST_VIEW_MY_PAGE = "/WEB-INF/profile/my-page.jsp";
+    private static final String ACT_NAV_VIEW_USER = "NavToViewUser";
+    private static final String DEST_NAV_VIEW_USER = "RenderUserPageController";
+    private static final String ACT_EDIT_MY_PAGE_PROFILE = "Save information";
+    private static final String DEST_EDIT_MY_PAGE_PROFILE = "EditMyPageProfileController";
     private static final String ACT_NAV_VIEW_SHOP = "NavToShop";
     private static final String DEST_NAV_VIEW_SHOP = "/WEB-INF/profile/shop-profile-view.jsp";
 
+    private static final String ACT_SEARCH_RECIPE = "Find";
+    private static final String DEST_SEARCH_RECIPE = "/WEB-INF/recipes/home.jsp";
     private static final String ACT_VIEW_RECIPE = "ViewRecipe";
     private static final String DEST_VIEW_RECIPE = "ViewRecipeController";
     private static final String ACT_COMMENT_RECIPE = "Comment";
@@ -94,14 +100,23 @@ public class MainController extends HttpServlet {
                 case ACT_LOGOUT:
                     url = DEST_LOGOUT;
                     break;
-                case ACT_NAV_VIEW_PROFILE:
-                    url = DEST_NAV_VIEW_PROFILE;
+                case ACT_VIEW_MY_PAGE:
+                    url = DEST_VIEW_MY_PAGE;
+                    break;
+                case ACT_EDIT_MY_PAGE_PROFILE:
+                    url = DEST_EDIT_MY_PAGE_PROFILE;
+                    break;
+                case ACT_NAV_VIEW_USER:
+                    url = DEST_NAV_VIEW_USER;
                     break;
                 case ACT_NAV_VIEW_SHOP:
                     url = DEST_NAV_VIEW_SHOP;
                     break;
                 case ACT_VIEW_RECIPE:
                     url = DEST_VIEW_RECIPE;
+                    break;
+                case ACT_SEARCH_RECIPE:
+                    url = DEST_SEARCH_RECIPE;
                     break;
                 case ACT_COMMENT_RECIPE:
                     url = DEST_COMMENT_RECIPE;

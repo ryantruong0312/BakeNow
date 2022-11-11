@@ -16,7 +16,6 @@
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
-        <c:url var="toProfile" value="MainController?action=NavToProfile"/>
         <c:url var="toEditRecipe" value="MainController?action=NavToEditRecipe"/>
         <c:url var="toRateRecipe" value="MainController?action=NavToRateRecipe"/>
         <div id="page_view-recipe" class="main-container py-3">
@@ -32,7 +31,10 @@
                                 <img class="col-1" src="${RECIPE.authorAvatarUrl}" alt="author avatar" style="width: 40px; height: 40px; border-radius: 50px;">
                             </div>
                             <div class="col-10">
-                                <a style="text-decoration: none;" href="${toProfile}">${RECIPE.authorName}</a> 
+                                <a style="text-decoration: none;" 
+                                   <c:if test="${RECIPE.authorId == sessionScope.LOGIN_USER.id}">href="MainController?action=NavToMyPage"</c:if> 
+                                   <c:if test="${RECIPE.authorId != sessionScope.LOGIN_USER.id}">href="MainController?action=NavToViewUser&userId=${RECIPE.authorId}"</c:if>
+                                >${RECIPE.authorName}</a> 
                                 <div class="text-muted" style="font-size: 14px;">${RECIPE.approvalTime}</div>
                             </div>
                             <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1 || sessionScope.LOGIN_USER.id == RECIPE.authorId}">

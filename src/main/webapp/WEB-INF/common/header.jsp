@@ -22,8 +22,8 @@
             <!-- SEARCH BAR -->
             <div class="col-7 py-2 d-flex justify-content-center align-items-center">
                 <form class="mb-0 search_box" action="MainController">
-                    <input type="text" class="py-1 recipe_search" style="width: 600px; padding-left:20px;" name="search" placeholder="Enter a recipe ...">
-                    <input type="submit" class="py-1 recipe_search" name="action" value="Search" >
+                    <input type="text" class="py-1 recipe_search" style="width: 600px; padding-left:20px;" name="search" placeholder="Enter a recipe ..." value="${param.search}">
+                    <input type="submit" class="py-1 recipe_search" name="action" value="Find" >
                 </form>
             </div>
 
@@ -56,7 +56,7 @@
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER != null}">
                     <div class="authentication dropdown-profile py-1 d-flex justify-content-center align-items-center">
-                        <span class="col-9">Hi, ${sessionScope.LOGIN_USER.displayName}</span>
+                        <span class="col-9">${sessionScope.LOGIN_USER.displayName}</span>
                         <img class="col-3" src="${sessionScope.LOGIN_USER.avatarUrl}" alt="profile icon" style="width: 40px; height: 40px; border-radius: 50px;">
                         <div class="dropdown-profile-content">
                             <c:if test="${sessionScope.LOGIN_USER != null}">

@@ -1,0 +1,196 @@
+.sidebar{
+    margin: 50px 20px;
+}
+
+.tablinks{
+    display: flex;
+    justify-content: center;
+}
+
+.tab-title{
+    height: 80px;
+    font-size: 20px;
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+    padding-left: 30px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.tabcontent,
+.subtabcontent{
+  display: none;
+  padding: 6px 12px;
+}
+
+
+.active .tab-title{
+    background-color: #56D262;
+    color: #fff;
+}
+
+
+.info-title{
+    font-weight: bold;
+}
+
+/* Subtab format
+/* Change background color of recipe subtab buttons on hover */
+.subtab{
+    height: 50px;
+}
+
+.subtab button{
+  background-color: #fff;
+  width: 33.33%;
+  float: left;
+  border: 1px solid #D9D9D9;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.4s;
+}
+
+/* Create an active/current tablink class */
+.subtab button.active {
+  background-color: #56D262;
+  color: #fff;
+}
+/* Change background color of order subtab buttons on hover */
+.subtab2{
+    height: 50px;
+}
+
+.subtab2 button{
+  background-color: #fff;
+  width: 20%;
+  float: left;
+  border: 1px solid #D9D9D9;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.4s;
+}
+
+/* Create an active/current tablink class */
+.subtab2 button.active {
+  background-color: #56D262;
+  color: #fff;
+}
+/* ----------------------------
+    Recipe card style
+ ---------------------------
+*/
+.card_row{
+    height: 250px;
+}
+
+.card{
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+}
+
+.recipe_img{
+    width: 250px;
+    height: 250px;
+}
+
+.recipe_author a {
+    color: #56D262;
+}
+
+.see_detail_btn{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    border: 1px solid #56D262;
+    border-radius: 5px;
+    color: #56D262;
+    text-decoration: none;
+    transition: all ease 0.4s;
+}
+
+.see_detail_btn:hover{
+    background-color: #56D262;
+    border-color: #D9D9D9;
+    color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-1px);
+}
+
+/* Vote button style 
+--------------------*/
+.button-like {
+    border: 1px solid #8a8a8a;
+    background-color: transparent;
+    text-decoration: none;
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    border-radius: 3rem;
+    color: #8a8a8a;
+    transition: all ease 0.4s;
+}
+
+.button-like span {
+    margin-left: 0.5rem;
+}
+
+.button-like .fa,
+.button-like span {
+    transition: all ease 0.4s;
+}
+
+.button-like:focus {
+    background-color: transparent;
+}
+
+.button-like:focus .fa,
+.button-like:focus span {
+    color: #8a8a8a;
+}
+
+.button-like:hover {
+    border-color: #cc4b37;
+    background-color: transparent;
+}
+
+.button-like:hover .fa,
+.button-like:hover span {
+    color: #cc4b37;
+}
+
+.liked {
+    background-color: #cc4b37;
+    border-color: #cc4b37;
+}
+
+.liked .fa,
+.liked span {
+    color: #fefefe;
+}
+
+.liked:focus {
+    background-color: #cc4b37;
+}
+
+.liked:focus .fa,
+.liked:focus span {
+    color: #fefefe;
+}
+
+.liked:hover {
+    background-color: #cc4b37;
+    border-color: #cc4b37;
+}
+
+.liked:hover .fa,
+.liked:hover span {
+    color: #fefefe;
+}
+
+/* ------------------------*/

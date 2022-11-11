@@ -56,6 +56,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>DeleteRecipeController</servlet-name>
         <servlet-class>com.bakenow.core.controller.DeleteRecipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RenderUserPageController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RenderUserPageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditMyPageProfileController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.EditMyPageProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -107,6 +115,14 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>DeleteRecipeController</servlet-name>
         <url-pattern>/DeleteRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderUserPageController</servlet-name>
+        <url-pattern>/RenderUserPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditMyPageProfileController</servlet-name>
+        <url-pattern>/EditMyPageProfileController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/common/shared.jsp"%>
 <!DOCTYPE html>
@@ -17,7 +18,6 @@
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
-        <c:url var="toViewProfile" value="MainController?action=NavToViewProfile"/>
         <div class="main-container">
             <div class="d-flex justify-content-end" style="margin: 20px 180px;">
                 <c:if test="${sessionScope.LOGIN_USER == NULL}">
@@ -26,6 +26,7 @@
                 <c:if test="${sessionScope.LOGIN_USER != NULL}">
                     <c:set var="userId" scope="page" value="${sessionScope.LOGIN_USER.id}"></c:set>
                 </c:if>
+                <c:if test="${sessionScope.LOGIN_USER.roleId != 0 && sessionScope.LOGIN_USER.roleId != 1}">
                 <a class="create_recipe_btn" href="MainController?action=NavToCreateRecipe&userId=${userId}">
                     <div>
                         <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
@@ -34,10 +35,16 @@
                         Create a recipe
                     </div>
                 </a>
+                </c:if>
             </div>
             <div class="recipe_list">
                 <c:forEach var="recipe" items="${sessionScope.RECIPE_LIST}"> 
                     <c:if test="${recipe.statusId == 1}">
+                        <c:set var="orgTitle" value="${recipe.title}"></c:set>
+                        <c:set var="title" value="${fn:toLowerCase(orgTitle)}"></c:set>
+                        <c:set var="orgSearch" value="${param.search}"></c:set>
+                        <c:set var="search" value="${fn:toLowerCase(orgSearch)}"></c:set>
+                        <c:if test="${fn:contains(title, search)}">
                         <div class="card mb-3 col-9">
                             <div class="row card_row d-flex">
                                 <div class="col-3">
@@ -50,14 +57,18 @@
                                                 <div class="recipe_title" style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">${recipe.title}</div>
                                                 <p class="recipe_author">
                                                     <img class="col-3" src="${recipe.authorAvatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
-                                                    <a href="${toViewProfile}">${recipe.authorName}</a>
-                                                </p>
-                                            </div>
-                                            <div class="col-2 p-0 d-flex justify-content-center">
-                                                <button class="button button-like" onclick="toggleLikeButton(this)">
-                                                    <i class="fa fa-heart"></i>
-                                                    <span>Like</span>
-                                                    <span class="recipe_vote_count">${recipe.voteCount}</span>
+                                                    <a  
+                                                        <c:if test="${recipe.authorId == sessionScope.LOGIN_USER.id}">href="MainController?action=NavToMyPage"</c:if> 
+                                                        <c:if test="${recipe.authorId != sessionScope.LOGIN_USER.id}">href="MainController?action=NavToViewUser&userId=${recipe.authorId}"</c:if>>
+                                                        ${recipe.authorName}
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <div class="col-2 p-0 d-flex justify-content-center">
+                                                    <button class="button button-like" onclick="toggleLikeButton(this)">
+                                                        <i class="fa fa-heart"></i>
+                                                        <span>Like</span>
+                                                        <span class="recipe_vote_count">${recipe.voteCount}</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -72,6 +83,7 @@
                                 </div>
                             </div>
                         </div>
+                        </c:if>
                     </c:if>
                 </c:forEach>
             </div>

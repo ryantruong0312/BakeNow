@@ -17,7 +17,7 @@
                         <div class="col-3 d-flex align-items-center justify-content-center">
                             <img src="${sessionScope.LOGIN_USER.avatarUrl}" style="width: 60px; height: 60px; border-radius: 50px;"/>
                         </div>
-                        <span class="col-9 d-flex align-items-center" style="font-size: 22px; padding-left: 10px;">Bakerholic</span>
+                            <span class="col-9 d-flex align-items-center" style="font-size: 22px; padding-left: 10px;">${sessionScope.LOGIN_USER.displayName}</span>
                     </div>
                 </div>
                 <div class="tablinks" onclick="openTab(event, 'profile')" id="defaultOpenTab">
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-8 px-3">
                                 <div class="info-title">Username</div>
-                                <input type="text" class="textfield" name="username" value="${sessionScope.LOGIN_USER.username}" readonly style="background-color: #D9D9D9"; />
+                                <input type="text" class="textfield" name="username" value="${sessionScope.LOGIN_USER.username}" disabled style="background-color: #D9D9D9"; />
                                 <div class="info-title">Bio</div>
                                 <textarea type="text" name="bio" placeholder="Tell something about yourself ...">${sessionScope.LOGIN_USER.bio}</textarea>
                             </div>
@@ -83,7 +83,7 @@
                                     </c:when>
                                 </c:choose>
 
-                                <input type="text" class="textfield" name="roleName" value="${roleName}" readonly="" style="background-color: #D9D9D9"/>
+                                <input type="text" class="textfield" name="roleName" value="${roleName}" disabled style="background-color: #D9D9D9"/>
                                 <input type="hidden" class="textfield" name="roleId" value="${sessionScope.LOGIN_USER.roleId}"/>
                                 <div class="info-title">Phone</div>
                                 <input type="phone" class="textfield" name="phone" value="${sessionScope.LOGIN_USER.phone}"/>
@@ -101,7 +101,8 @@
                             Member since ${sessionScope.LOGIN_USER.createTime}
                         </div>
                         <div class="d-flex justify-content-end">
-                            <input type="submit" name="action" value="Save changes">
+                            <input type="hidden" name="userId" value="${sessionScope.LOGIN_USER.id}">
+                            <input type="submit" style="width: 180px;" name="action" value="Save information">
                         </div>
                     </form>
                 </div>
