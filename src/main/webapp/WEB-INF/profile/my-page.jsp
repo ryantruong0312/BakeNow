@@ -10,7 +10,7 @@
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
-        <div id="page_profile" class="main-container d-flex">
+        <div class="main-container d-flex">
             <aside class="sidebar col-3">
                 <div class="d-flex justify-content-center">
                     <div class="col-9 d-flex" style="height: 100px; border: 1px solid #D9D9D9; background-color: #fff;">
@@ -108,13 +108,13 @@
                 </div>
                 <div id="recipes" class="tabcontent">
                     <div class="subtab">
-                        <button class="subtablinks" onclick="openSubTab(event, 'published')" id="defaultOpenSubTab">
+                        <button class="subtablinks subtab-title" onclick="openSubTab(event, 'published')" id="defaultOpenSubTab">
                             Published
                         </button>
-                        <button class="subtablinks" onclick="openSubTab(event, 'pending')">
+                        <button class="subtablinks subtab-title" onclick="openSubTab(event, 'pending')">
                             Pending
                         </button>
-                        <button class="subtablinks" onclick="openSubTab(event, 'restricted')">
+                        <button class="subtablinks subtab-title" onclick="openSubTab(event, 'restricted')">
                             Restricted
                         </button>
                     </div>
@@ -234,19 +234,19 @@
                 </div>
                 <div id="orders" class="tabcontent">
                     <div class="subtab2">
-                        <button class="subtablinks2" onclick="openSubTab2(event, 'pendingOrder')" id="defaultOpenSubTab2">
+                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'pendingOrder')" id="defaultOpenSubTab2">
                             Pending
                         </button>
-                        <button class="subtablinks2" onclick="openSubTab2(event, 'awaiting')">
+                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'awaiting')">
                             Awaiting Pickup
                         </button>
-                        <button class="subtablinks2" onclick="openSubTab2(event, 'intransit')">
+                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'intransit')">
                             In Transit
                         </button>
-                        <button class="subtablinks2" onclick="openSubTab2(event, 'delivered')">
+                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'delivered')">
                             Delivered
                         </button>
-                        <button class="subtablinks2" onclick="openSubTab2(event, 'cancelled')">
+                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'cancelled')">
                             Cancelled
                         </button>
                     </div>

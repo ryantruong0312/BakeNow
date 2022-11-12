@@ -27,14 +27,14 @@
                     <c:set var="userId" scope="page" value="${sessionScope.LOGIN_USER.id}"></c:set>
                 </c:if>
                 <c:if test="${sessionScope.LOGIN_USER.roleId != 0 && sessionScope.LOGIN_USER.roleId != 1}">
-                <a class="create_recipe_btn" href="MainController?action=NavToCreateRecipe&userId=${userId}">
-                    <div>
-                        <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
-                    </div>
-                    <div class="create_recipe_btn_text d-inline-block mx-2">
-                        Create a recipe
-                    </div>
-                </a>
+                    <a class="create_recipe_btn" href="MainController?action=NavToCreateRecipe&userId=${userId}">
+                        <div>
+                            <i class="bi bi-plus-circle" style="font-size: 30px;"></i>
+                        </div>
+                        <div class="create_recipe_btn_text d-inline-block mx-2">
+                            Create a recipe
+                        </div>
+                    </a>
                 </c:if>
             </div>
             <div class="recipe_list">
@@ -45,22 +45,22 @@
                         <c:set var="orgSearch" value="${param.search}"></c:set>
                         <c:set var="search" value="${fn:toLowerCase(orgSearch)}"></c:set>
                         <c:if test="${fn:contains(title, search)}">
-                        <div class="card mb-3 col-9">
-                            <div class="row card_row d-flex">
-                                <div class="col-3">
-                                    <img src="${recipe.imgUrl}" class="img-fluid rounded-start recipe_img" alt="recipe image">
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body py-2">
-                                        <div class="row d-flex">
-                                            <div class="col-10 p-0">
-                                                <div class="recipe_title" style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">${recipe.title}</div>
-                                                <p class="recipe_author">
-                                                    <img class="col-3" src="${recipe.authorAvatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
-                                                    <a  
-                                                        <c:if test="${recipe.authorId == sessionScope.LOGIN_USER.id}">href="MainController?action=NavToMyPage"</c:if> 
-                                                        <c:if test="${recipe.authorId != sessionScope.LOGIN_USER.id}">href="MainController?action=NavToViewUser&userId=${recipe.authorId}"</c:if>>
-                                                        ${recipe.authorName}
+                            <div class="card mb-3 col-9">
+                                <div class="row card_row d-flex">
+                                    <div class="col-3">
+                                        <img src="${recipe.imgUrl}" class="img-fluid rounded-start recipe_img" alt="recipe image">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="card-body py-2">
+                                            <div class="row d-flex">
+                                                <div class="col-10 p-0">
+                                                    <div class="recipe_title" style="font-size: 28px; font-weight: bold; margin-bottom: 10px;">${recipe.title}</div>
+                                                    <p class="recipe_author">
+                                                        <img class="col-3" src="${recipe.authorAvatarUrl}" alt="profile icon" style="width: 30px; height: 30px; border-radius: 50px;">
+                                                        <a  
+                                                            <c:if test="${recipe.authorId == sessionScope.LOGIN_USER.id}">href="MainController?action=NavToMyPage"</c:if> 
+                                                            <c:if test="${recipe.authorId != sessionScope.LOGIN_USER.id}">href="MainController?action=NavToViewUser&userId=${recipe.authorId}"</c:if>>
+                                                            ${recipe.authorName}
                                                         </a>
                                                     </p>
                                                 </div>
@@ -69,20 +69,20 @@
                                                         <i class="fa fa-heart"></i>
                                                         <span>Like</span>
                                                         <span class="recipe_vote_count">${recipe.voteCount}</span>
-                                                </button>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row recipe_desc my-" style="height: 80px; overflow: hidden; text-overflow: ellipsis;">
-                                            ${recipe.desc}
-                                        </div>
-                                        <div class="row d-flex align-items-center my-2">
-                                            <div class="recipe_time col-10 p-0"><small class="text-muted">${recipe.approvalTime}</small></div>
-                                            <a class="col-2 see_detail_btn" href="MainController?action=ViewRecipe&recipeId=${recipe.id}">See details</a>
+                                            <div class="row recipe_desc my-" style="height: 80px; overflow: hidden; text-overflow: ellipsis;">
+                                                ${recipe.desc}
+                                            </div>
+                                            <div class="row d-flex align-items-center my-2">
+                                                <div class="recipe_time col-10 p-0"><small class="text-muted">${recipe.approvalTime}</small></div>
+                                                <a class="col-2 see_detail_btn" href="MainController?action=ViewRecipe&recipeId=${recipe.id}">See details</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </c:if>
                     </c:if>
                 </c:forEach>

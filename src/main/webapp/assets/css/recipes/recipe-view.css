@@ -143,3 +143,8 @@ li.recipe_supply_item:nth-child(odd){
 .drop_icon:hover .dropdown_action_content {
     display: block;
 }
+
+
+.popup{
+    display: none;
+}

@@ -41,6 +41,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_EDIT_MY_PAGE_PROFILE = "EditMyPageProfileController";
     private static final String ACT_NAV_VIEW_SHOP = "NavToShop";
     private static final String DEST_NAV_VIEW_SHOP = "/WEB-INF/profile/shop-profile-view.jsp";
+    private static final String ACT_NAV_MANAGEMENT = "NavToManagement";
+    private static final String DEST_NAV_MANAGEMENT = "/WEB-INF/admin/management.jsp";
 
     private static final String ACT_SEARCH_RECIPE = "Find";
     private static final String DEST_SEARCH_RECIPE = "/WEB-INF/recipes/home.jsp";
@@ -111,6 +113,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_VIEW_SHOP:
                     url = DEST_NAV_VIEW_SHOP;
+                    break;
+                case ACT_NAV_MANAGEMENT:
+                    url = DEST_NAV_MANAGEMENT;
                     break;
                 case ACT_VIEW_RECIPE:
                     url = DEST_VIEW_RECIPE;

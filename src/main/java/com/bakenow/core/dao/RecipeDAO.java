@@ -24,7 +24,7 @@ public class RecipeDAO {
 
     private static final String GET_RECIPE_LIST = "SELECT id, authorId, createTime, approvalTime, approverId, title, [desc], cookTime, statusId, imgUrl, voteCount"
             + " FROM Recipe";
-    private static final String GET_RECIPE_BY_ID = "SELECT authorId, createTime, approvalTime, approverId, title, [desc], cookTime, imgUrl, voteCount"
+    private static final String GET_RECIPE_BY_ID = "SELECT authorId, createTime, approvalTime, approverId, title, [desc], cookTime, imgUrl, voteCount, statusId"
             + " FROM Recipe WHERE id = ?";
     private static final String GET_STEPS_BY_ID = "SELECT stepNumber, contents FROM RecipeStep WHERE recipeId = ?";
     private static final String GET_INGREDIENTS_BY_ID = "SELECT name, amount FROM RecipeItem WHERE recipeId = ? AND isIngredient = 1";
@@ -178,7 +178,8 @@ public class RecipeDAO {
                     int cookTime = rs.getInt("cookTime");
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
-                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, 0, "", null);
+                    int statusId = rs.getInt("statusId");
+                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null);
                 }
                 recipe.setAuthorName(getDisplayNameById(recipe.getAuthorId()));
                 recipe.setApproverName(getDisplayNameById(recipe.getApproverId()));

@@ -35,7 +35,7 @@
                     <input name="username" type="text">
                     <label>Password</label>
                     <input name="password" type="password">
-                    <div class="loginError" >
+                    <div class="loginError" style="color: red;" >
                         <c:if test="${requestScope.ERROR == null}">
                             <br>
                         </c:if>

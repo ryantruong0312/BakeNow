@@ -17,7 +17,6 @@
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
         <c:url var="toEditRecipe" value="MainController?action=NavToEditRecipe"/>
-        <c:url var="toRateRecipe" value="MainController?action=NavToRateRecipe"/>
         <div id="page_view-recipe" class="main-container py-3">
             <div class="row">
                 <div class="recipe_info col-7"">
@@ -34,7 +33,7 @@
                                 <a style="text-decoration: none;" 
                                    <c:if test="${RECIPE.authorId == sessionScope.LOGIN_USER.id}">href="MainController?action=NavToMyPage"</c:if> 
                                    <c:if test="${RECIPE.authorId != sessionScope.LOGIN_USER.id}">href="MainController?action=NavToViewUser&userId=${RECIPE.authorId}"</c:if>
-                                >${RECIPE.authorName}</a> 
+                                   >${RECIPE.authorName}</a> 
                                 <div class="text-muted" style="font-size: 14px;">${RECIPE.approvalTime}</div>
                             </div>
                             <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1 || sessionScope.LOGIN_USER.id == RECIPE.authorId}">
@@ -42,12 +41,20 @@
                                     <div class="bi bi-three-dots-vertical drop_icon" style="font-size: 30px;">
                                         <div class="dropdown_action_content">
                                             <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1}">
-                                                <a href="">Hide</a>
+                                                <c:if test="${RECIPE.statusId == 1}">
+                                                    <a href="">Hide</a>
+                                                </c:if>
+                                                <c:if test="${RECIPE.statusId == 0}">
+                                                    <a href="">Approve</a>
+                                                    <a href="">Reject</a>
+                                                </c:if>
                                             </c:if>
                                             <c:if test="${sessionScope.LOGIN_USER.id == RECIPE.authorId}">
-                                                <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
+                                                <c:if test="${RECIPE.statusId == 0 || RECIPE.statusId == 1}">
+                                                    <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
+                                                </c:if>
+                                                <a href="" id="confirmDeletion">Delete</a>
                                             </c:if>
-                                            <a href="" id="confirmDeletion">Delete</a>
                                         </div>
                                     </div>
                                 </div>
