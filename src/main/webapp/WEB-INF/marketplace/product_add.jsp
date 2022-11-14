@@ -110,18 +110,25 @@
                 </div>
             </div>               
         </div>
-        <c:if test="${requestScope.successMsg != null}">
-        <div id="stupidnetbeans">
-            <div style="position: fixed; top: 0px;bottom: 0px; left: 0px; right: 0px; background: #5F6440; opacity: 50%;">
-            </div>
-            <div style=" height: 100px;position: absolute; left: 40%; top: 50%; opacity: 1; background: #fff; border-radius: 5px; border: 2px solid #56D262; ">
-                <h2 style=" text-align: center;">Inform</h2>
-                 <button style="position: absolute; right: 10px; top: 5px; " onclick="document.getElementById('stupidnetbeans').style.display = 'none'">&times;</button> 
-                <div style="padding: 0 50 0 50">
-                    ${requestScope.successMsg}
+        <c:if test="${requestScope.successMsg != null || requestScope.PRODUCT_ERROR != null}">
+            <div id="stupidnetbeans">
+                <div style="position: fixed; top: 0px;bottom: 0px; left: 0px; right: 0px; background: #5F6440; opacity: 50%;">
+                </div>
+                <div style=" height: 100px;position: absolute; left: 40%; top: 50%; opacity: 1; background: #fff; border-radius: 5px; border: 2px solid #56D262; ">
+                    <h2 style=" text-align: center;">Inform</h2>
+                    <button style="position: absolute; right: 10px; top: 5px; " onclick="document.getElementById('stupidnetbeans').style.display = 'none'">&times;</button> 
+                    <div style="padding: 0 50 0 50">
+                        ${requestScope.successMsg}
+                        ${requestScope.PRODUCT_ERROR.getName()}
+                        ${requestScope.PRODUCT_ERROR.getMnfDate()}
+                        ${requestScope.PRODUCT_ERROR.getCategory()}
+                        ${requestScope.PRODUCT_ERROR.getPrice()}
+                        ${requestScope.PRODUCT_ERROR.getStock()}
+                        ${requestScope.PRODUCT_ERROR.getOrigin()}
+                        ${requestScope.PRODUCT_ERROR.getImg()}
+                    </div>
                 </div>
             </div>
-        </div>
         </c:if>  
         <%@include file="/WEB-INF/common/footer.jsp"%>
     </body>

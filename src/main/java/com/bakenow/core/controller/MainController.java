@@ -42,6 +42,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_VIEW_RECIPE = "ViewRecipeController";
     private static final String ACT_COMMENT_RECIPE = "Comment";
     private static final String DEST_COMMENT_RECIPE = "CommentRecipeController";
+    private static final String ACT_COMMENT_PRODUCT = "Post";
+    private static final String DEST_COMMENT_PRODUCT = "CommentProductController";
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
     private static final String DEST_NAV_CREATE_RECIPE = "RenderCreateRecipeController";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
@@ -74,6 +76,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_SEARCH_PRODUCT_BY_NAME = "SearchProductByNameController";
     private static final String ACT_DELETE_PRODUCT_BY_ID = "ToDeleteProduct";
     private static final String DEST_DELETE_PRODUCT_BY_ID = "DeleteProductByIdController";
+    private static final String ACT_EDIT_SHOP_PROFILE = "ToEditShopProfile";
+    private static final String NAV_EDIT_SHOP_PROFILE = "EditShopProfileController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -156,6 +160,12 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_DELETE_PRODUCT_BY_ID:
                     url = DEST_DELETE_PRODUCT_BY_ID;
+                    break;  
+                case ACT_EDIT_SHOP_PROFILE:
+                    url = NAV_EDIT_SHOP_PROFILE;
+                    break;  
+                case ACT_COMMENT_PRODUCT:
+                    url = DEST_COMMENT_PRODUCT;
                     break;  
                 default:
                     break;

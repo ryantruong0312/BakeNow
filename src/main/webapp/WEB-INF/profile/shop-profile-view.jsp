@@ -12,6 +12,7 @@
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="assets/css/profile/shop-profile-view.css">
+
         <title>View Shop Profile - BakeNow</title>
     </head>
     <body>  
@@ -34,9 +35,7 @@
                     </a>
                 </div>
                 <div class="col-3">
-
                     <div class="card">
-
                         <div class="d-flex align-items-start">
                             <div class="nav flex-column nav-pills me-3" id="nav-tab" role="tablist" aria-orientation="vertical">
                                 <div class="card-header">
@@ -48,14 +47,13 @@
                                                 <img style="width: 100px;" src="assets/img/${requestScope.SHOP_PROFILE.getImgName()}" alt="shopavatar">
                                             </c:when>
                                             <c:when test = "${salary1 == false}">
-                                                <img style="width: 100px;"  src="${requestScope.SHOP_PROFILE.getAvatarUrl()}" alt="product">
+                                                <img style="width: 100px;"  src="${requestScope.SHOP_PROFILE.getAvatarUrl()}" alt="shopavatar">
                                             </c:when>
                                         </c:choose> 
 
 
                                         <div class="ps-2">
                                             <h5>${requestScope.SHOP_PROFILE.getName()}</h5>
-
                                         </div>
                                     </div>
                                 </div>
@@ -77,155 +75,161 @@
                 </div>
 
                 <div class="col-9">
-
                     <div class="row">
                         <div class="tab-content" id="v-pills-tabContent">
 
                             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                                  aria-labelledby="v-pills-profile-tab">
                                 <div class="col-12">
-                                    <div class="row">
-
-                                        <div class="col-3">
-                                            <div class="card">
-                                                <!--tai shop deo co hinh nen moi bi loi-->
-                                                <img src="${requestScope.SHOP_PROFILE.getAvatarUrl()}"
-                                                     width="200px">
-                                            </div>
-                                            <input type="file" class="form-control">
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="row pb-5">
-                                                <c:set var = "rating" scope = "page" value = "${SHOP_PROFILE.getRating()}"/>
-                                                <c:choose>
-                                                    <c:when test = "${rating <= 0.5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star-half-o checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 1}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 1.5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star-half-o checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 2}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 2.5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star-half-o checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 3}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 3.5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star-half-o checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 4}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 4.5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star-half-o checked"></span>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test = "${rating <= 5}">
-                                                        <div class="col-3">
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                        </div>
-                                                    </c:when>
-                                                </c:choose> 
-                                                <div class="col-6">
-                                                    (${requestScope.SHOP_PROFILE.getRatingCount()})
-                                                </div>    
-                                                <div class="col-3">
-                                                    products: ${requestScope.NOP}
+                                    <form action="EditShopProfileController" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="card">
+                                                    <c:set var = "salary2" scope = "page" value = "${requestScope.SHOP_PROFILE.checkAvatarUrl()}"/>
+                                                    <c:choose>
+                                                        <c:when test = "${salary2 == true}">
+                                                            <img style="width: 200px;" src="assets/img/${requestScope.SHOP_PROFILE.getImgName()}" alt="shopavatar">
+                                                        </c:when>
+                                                        <c:when test = "${salary2 == false}">
+                                                            <img style="width: 200px;"  src="${requestScope.SHOP_PROFILE.getAvatarUrl()}" alt="shopavatar">
+                                                        </c:when>
+                                                    </c:choose> 
                                                 </div>
+                                                <input type="file" name="img" class="form-control">
                                             </div>
-                                            <label for="about">About</label>
-                                            <textarea class="form-control" rows="5" id="comment" name="text"
-                                                      placeholder="Describe about your store">${requestScope.SHOP_PROFILE.getDescription()}</textarea>
+                                            <div class="col-9">
+                                                <div class="row pb-5">
+                                                    <c:set var = "rating" scope = "page" value = "${SHOP_PROFILE.getRating()}"/>
+                                                    <c:choose>
+                                                        <c:when test = "${rating <= 0.5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star-half-o checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 1}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 1.5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star-half-o checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 2}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 2.5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star-half-o checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 3}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 3.5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star-half-o checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 4}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 4.5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star-half-o checked"></span>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:when test = "${rating <= 5}">
+                                                            <div class="col-3">
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                            </div>
+                                                        </c:when>
+                                                    </c:choose> 
+                                                    <div class="col-6">
+                                                        (${requestScope.SHOP_PROFILE.getRatingCount()})
+                                                    </div>    
+                                                    <div class="col-3">
+                                                        products: ${requestScope.NOP}
+                                                    </div>
+                                                </div>
+                                                <label for="about">About</label>
+                                                <input style="height: 138px" type="text" class="form-control" id="comment" name="about" value ="${requestScope.SHOP_PROFILE.getDescription()}"
+                                                       placeholder="Describe about your store">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row pt-2">
+                                        <div class="row pt-2">
 
-                                        <div class="col-6">
-                                            <label for="name" class="form-label">Display name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="${requestScope.SHOP_PROFILE.name}">
-                                            <label for="name" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" value="${requestScope.SHOP_PROFILE.email}">
+                                            <div class="col-6">
+                                                <label for="name" class="form-label">Display name</label>
+                                                <input type="text" class="form-control" id="name" name="name" value="${requestScope.SHOP_PROFILE.name}">
+                                                <label for="name" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" value="${requestScope.SHOP_PROFILE.email}">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="date" class="form-label">Establish Date</label>
+                                                <input type="date" class="form-control" id="date" name="date" value="${requestScope.DOE}">
+                                                <label for="name" class="form-label">Phone</label>
+                                                <input type="text" class="form-control" id="phone" name="phone" value="${requestScope.SHOP_PROFILE.phone}">
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-center pt-2">
+                                                <!--<p>Memeber since</p>-->
+                                            </div>
+                                            <div class="col-12 pt-5 d-flex justify-content-end">
+                                                <c:if test="${sessionScope['LOGIN_USER'].roleId == 3}">
+                                                    <button type="submit" class="btn btn-outline-dark">Edits</button>
+                                                    <button type="button" class="btn btn-outline-dark ms-2">Cancel</button>                                            
+                                                </c:if>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <label for="date" class="form-label">Establish Date</label>
-                                            <input type="date" class="form-control" id="date" name="date" value="${requestScope.DOE}">
-                                            <label for="name" class="form-label">Phone</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" value="${requestScope.SHOP_PROFILE.phone}">
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-center pt-2">
-                                            <!--<p>Memeber since</p>-->
-                                        </div>
-                                        <div class="col-12 pt-5 d-flex justify-content-end">
-                                            <c:if test="${sessionScope['LOGIN_USER'].roleId == 3}">
-                                                <button type="button" class="btn btn-outline-dark">Edits</button>
-                                                <button type="button" class="btn btn-outline-dark ms-2">Cancel</button>                                            
-                                            </c:if>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -559,23 +563,20 @@
                                                             </div>
                                                         </div>
                                                     </c:forEach>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
 
-
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
-                    <%@include file="/WEB-INF/common/footer.jsp"%>
-                    </body>
-                    </html>
+                </div>
+            </div>  
+            <%@include file="/WEB-INF/common/footer.jsp"%>
+        </div>                                
+    </body>
+</html>

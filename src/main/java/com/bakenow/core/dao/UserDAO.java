@@ -22,6 +22,9 @@ public class UserDAO {
             + " WHERE username=? AND password=?";
     private static final String CHECK_DUPLICATE = "SELECT id FROM [User] WHERE username = ?";
     private static final String INSERT_USER = "INSERT INTO [User](username, displayname, password, roleId, createTime) VALUES(?,?,?,?,?)";
+    private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
+    private static final String GET_AVATAR_URL_BY_ID = "SELECT avatarUrl FROM [User] WHERE id = ?";
+    
     public User checkLogin(String username, String password) throws SQLException {
         User user = null;
         Connection conn = null;
@@ -113,6 +116,68 @@ public class UserDAO {
             if (conn != null) conn.close();
         }
         return check;
+    }
+    
+    public String getDisplayNameById(int id) throws SQLException {
+        String name = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DISPLAY_NAME_BY_ID);
+                ptm.setInt(1, id);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    name = rs.getString("displayName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return name;
+    }
+    //Get avatar url of an account by providing user id
+    public String getAvatarUrlOfUserById(int id) throws SQLException {
+        String url = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_AVATAR_URL_BY_ID);
+                ptm.setInt(1, id);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    url = rs.getString("avatarUrl");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return url;
     }
     
 }

@@ -84,6 +84,18 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>EditProductController</servlet-name>
         <servlet-class>com.bakenow.core.controller.EditProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditShopProfileController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.EditShopProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommentProductController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.CommentProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RateProductController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RateProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -163,6 +175,18 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>EditProductController</servlet-name>
         <url-pattern>/EditProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditShopProfileController</servlet-name>
+        <url-pattern>/EditShopProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentProductController</servlet-name>
+        <url-pattern>/CommentProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RateProductController</servlet-name>
+        <url-pattern>/RateProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

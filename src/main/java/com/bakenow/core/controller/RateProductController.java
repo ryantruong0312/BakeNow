@@ -13,23 +13,20 @@ import com.bakenow.core.model.CategoryGroup;
 import com.bakenow.core.model.Comment;
 import com.bakenow.core.model.Product;
 import com.bakenow.core.model.Shop;
-import com.bakenow.core.model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class ViewProductByIdController extends HttpServlet {
-
-   public  static String SUCCESS="/WEB-INF/marketplace/product-view.jsp";
-    public  static String ERROR="/WEB-INF/errorpages/error.jsp";
+public class RateProductController extends HttpServlet {
+    private static final String SUCCESS = "ViewProductByIdController?txtID=";
+    private static final String ERROR = "MainController?action=NavToLogin";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,39 +36,29 @@ public class ViewProductByIdController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, HttpServletResponse response)
-            throws jakarta.servlet.ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-            try {
+        try {
             String productId = request.getParameter("txtID");
-            String productIdFromEdit = request.getParameter("productId1");
-                if (productIdFromEdit!= null) {
-                    productId = productIdFromEdit;  
-                }
-            ProductDAO dao = new ProductDAO();
-            Product product = dao.getProductsById(productId);//dang lam toi day
-            ShopDAO sDao = new ShopDAO();
-            CommentDAO cDao = new CommentDAO();
-            List<Comment> comList = cDao.getProductCommentsById(Integer.parseInt(productId.trim()));
-            Shop shop = sDao.getShopById( String.valueOf(product.getShopId()));
-            UserDAO uDao = new UserDAO();
-//            List<User> userlist = uDao.
-            ProductCategoryDAO pCDao = new ProductCategoryDAO();
-            CategoryGroup pC = pCDao.getCategoryById(String.valueOf(product.getCategoryId()));
-            if (product != null) {
-                request.setAttribute("PRODUCT", product);
-                request.setAttribute("SHOP", shop);
-                request.setAttribute("CATEGORY", pC);
-                request.setAttribute("PRODUCTCOMMENT", comList);
-               url= SUCCESS;
+            String rating = request.getParameter("rate1");
+            String userId = request.getParameter("userId");
+            if( userId == null || userId.equals("") ){
+                    url = ERROR;
+            }else{
+                ProductDAO dao = new ProductDAO();
+                dao.setProductRate(productId,Double.parseDouble(rating.trim()));
+                url = SUCCESS+productId;
             }
+            
         } catch (Exception e) {
             log("Error at LoadProductByCategoryController: "+ e.toString());
         }
         finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

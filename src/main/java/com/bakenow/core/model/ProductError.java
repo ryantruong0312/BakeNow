@@ -17,6 +17,15 @@ public class ProductError {
     private String price;
     private String stock;
     private String origin;
+    private String img;
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
 
     public ProductError() {
     }

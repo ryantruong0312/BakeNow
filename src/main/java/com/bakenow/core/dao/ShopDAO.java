@@ -23,6 +23,167 @@ public class ShopDAO {
     private static final String GET_SHOP_BY_OWNER_ID ="select id,ownerId,[name],avatarUrl,[description],rating,ratingCount,productCount,email,phone,[address] from Shop where ownerId = ?";
     private static final String GET_SHOP_ESTABLISHDATE ="select createTime from dbo.[User] u join Shop s on u.id = s.ownerId where s.id = ?";
     private static final String GET_SHOP_NUMOFPRODUCT = "SELECT COUNT(id) AS count FROM Product where  shopId = ? and statusId = 1 ";
+    private static final String EDIT_SHOP = """
+                                                 UPDATE Shop
+                                                 SET  avatarUrl = ?,[description] = ?,email= ?,phone=?, name =?
+                                                 WHERE id = ?""";
+    private static final String EDIT_SHOP_NAME = """
+                                                 UPDATE Shop
+                                                 SET  name =?
+                                                 WHERE id = ?""";
+    private static final String EDIT_SHOP_AVA = """
+                                                 UPDATE Shop
+                                                 SET  avatarUrl =?
+                                                 WHERE id = ?""";
+    private static final String EDIT_SHOP_DES = """
+                                                 UPDATE Shop
+                                                 SET  [description] = ?
+                                                 WHERE id = ?""";
+    private static final String EDIT_SHOP_EMAIL = """
+                                                 UPDATE Shop
+                                                 SET  email= ?
+                                                 WHERE id = ?""";
+    private static final String EDIT_SHOP_PHONE = """
+                                                 UPDATE Shop
+                                                 SET  phone=?
+                                                 WHERE id = ?""";
+    public void editShopProFile(int shopId,String avatarUrl, String description,String Email,String phone,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP);
+                ptm.setString(1, avatarUrl);
+                ptm.setString(2, description);
+                ptm.setString(3, Email);
+                ptm.setString(4, phone);
+                ptm.setString(5, name);
+                ptm.setInt(6, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    public void editShopName(int shopId,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP_NAME);
+                ptm.setString(1, name);
+                ptm.setInt(2, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    public void editShopDis(int shopId,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP_DES);
+                ptm.setString(1, name);
+                ptm.setInt(2, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    public void editShopEmail(int shopId,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP_EMAIL);
+                ptm.setString(1, name);
+                ptm.setInt(2, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    public void editShopAva(int shopId,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP_AVA);
+                ptm.setString(1, name);
+                ptm.setInt(2, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    public void editShopPhone(int shopId,String name) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_SHOP_PHONE);
+                ptm.setString(1, name);
+                ptm.setInt(2, shopId);
+                ptm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+    
     
     public int getProductNumberOfShop(String shopId) throws SQLException{
         Connection conn = null;

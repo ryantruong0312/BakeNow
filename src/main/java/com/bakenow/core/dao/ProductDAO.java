@@ -4,6 +4,7 @@
  */
 package com.bakenow.core.dao;
 
+import com.bakenow.core.model.Comment;
 import com.bakenow.util.DBUtils;
 import com.bakenow.core.model.Product;
 import java.sql.Connection;
@@ -49,6 +50,44 @@ public class ProductDAO {
                                                  SET categoryId = ?, imgUrl= ?, title= ?, origin= ?,
                                                  mnfDate= ?, expDate= ?,[description]= ?, price= ?, stock= ?
                                                  WHERE id = ?""";
+
+    private static final String GET_PRODUCT_RATING = """
+                                                    select rating from Product where id = ?""";
+    private static final String SET_PRODUCT_RATING = """
+                                                    UPDATE Product
+                                                    SET rating = ?
+                                                    WHERE id = ?""";
+
+    public void setProductRate(String productId, double newrating) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_PRODUCT_RATING);
+                ptm.setInt(1, Integer.parseInt(productId));
+                double rating;
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    rating = (rs.getDouble("rating") + newrating) / 2;
+                    ptm = conn.prepareStatement(SET_PRODUCT_RATING);
+                    ptm.setDouble(1, rating);
+                    ptm.setInt(2, Integer.parseInt(productId));
+                    ptm.executeUpdate();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 
     public void editProDuct(int productId, int categoryId, String imgUrl, String title, String origin, Date mnfDate, Date expDate,
             String description, double price, int stock) throws SQLException {

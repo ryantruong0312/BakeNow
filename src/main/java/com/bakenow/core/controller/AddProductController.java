@@ -67,6 +67,10 @@ public class AddProductController extends HttpServlet {
             }
             //for handeling file
             Part part = request.getPart("img");
+            if (part == null) {
+                pError.setImg("you didn't choose an img!");
+                check = false;
+            }
             
             String realPath = request.getServletContext().getRealPath("/assets/img"); 
             String fileName = Path.of(part.getSubmittedFileName()).getFileName().toString();

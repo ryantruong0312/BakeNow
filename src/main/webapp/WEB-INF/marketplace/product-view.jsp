@@ -14,7 +14,7 @@
         <title>View A Product - BakeNow</title>
         <link rel="stylesheet" href="assets/css/marketplace/product-view.css">
         <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-        <style> 
+        <style>
             .checked {
                 color: orange;
             }
@@ -26,6 +26,7 @@
         <c:url var="toEditProduct" value="MainController?action=NavToEditProduct"/>
         <c:url var="toDeleteProduct" value="MainController?action=ToDeleteProduct"/>
         <c:url var="toReplyComment" value="#"/>
+        <c:url var="toProfile" value="MainController?action=NavToProfile"/>
         <div id="page_view-product" class="main-container py-3">
             <div class="row">
                 <div class="product_info col-7">
@@ -105,8 +106,8 @@
                                     <span class="fa fa-star checked"></span>
                                 </c:when>
                             </c:choose> 
-                            <span class="recipe_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(25)</span>
-                        </div>
+                            <span class="recipe_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${requestScope.PRODUCT.getReviewCount()})<a style="text-decoration: none; color: orange; " onclick="document.getElementById('stupidnetbeans').style.display = 'block'">Want to rate this product? Click me</a> </span>
+                        </div>                                                                                                                                 
                         <div class="product_owner d-inline-block" style="width: 75%;">
                             <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_176_9466)">
@@ -140,8 +141,9 @@
                                                 </c:if>
                                     </ul>
                                 </div>
-                            </c:if>
-                        </div>
+                            </div>                    
+                        </c:if>
+
                         <div class="product_img d-flex justify-content-center">
                             <c:set var = "salary" scope = "page" value = "${requestScope.PRODUCT.checkimgUrl()}"/>
                             <c:choose>
@@ -217,11 +219,13 @@
             <div class="product_comment_add" style="margin-top: 200px;">
                 <div class="" style="border: 1px solid #D9D9D9; border-radius: 5px; height: fit-content; background-color: #fff;">
                     <span class="p-3" style="font-size: 24px; font-weight: bold;">Leave your comment here</span>
-                    <form class="p-2 mb-0" action="">
+                    <form class="p-2 mb-0" action="MainController">
                         <div class="p-1"> 
                             <textarea type="text" style="height: 150px; vertical-align: text-top; border: 1px solid #D9D9D9; padding: 10px;" class="col-12" name="commentContent" placeholder="Share your thought..."></textarea>
                         </div>
                         <div class="my-2 d-flex justify-content-end">
+                            <input type="hidden" name="productId" value="${requestScope.PRODUCT.id}">
+                            <input type="hidden" name="userId" value="${sessionScope.LOGIN_USER.id}">
                             <input type="submit" class="px-2 product_comment_post_button" style="width: 100px; height: 45px;" name="action" value="Post">
                         </div>
                     </form>
@@ -231,53 +235,29 @@
     </div>
 </div>         
 <div class="row product_interaction">
-    <div class="product_review_container col-6 d-flex justify-content-center">
-        <div class="product_review col-11 p-2">
-            <ul class="py-1 px-2 list-unstyled">
-                <c:forEach begin="1" end="3">
-                    <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
-                        <div class="d-flex" style="padding: 5px;">
-                            <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
-                            <div class="col-7 px-1">
-                                <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
-                                <div class="product_review_time" style="font-size: 14px;">20/09/2022 15:35</div>
-                            </div>
-                            <div class="col-4 d-flex justify-content-end">
-                                <span class="fa fa-star fa-star-sized checked"></span>
-                                <span class="fa fa-star fa-star-sized checked"></span>
-                                <span class="fa fa-star fa-star-sized checked"></span>
-                                <span class="fa fa-star fa-star-sized"></span>
-                                <span class="fa fa-star fa-star-sized"></span>
-                            </div>
-                        </div>
-                        <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
-                        <div class="product_review_content p-1">
-                            Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
-                        </div>
-
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-    </div>
     <div class="product_comment_container col-6 d-flex justify-content-center">
         <div class="product_comment col-11 p-2">
             <ul class="py-1 px-2 list-unstyled">
-                <c:forEach begin="1" end="3">
+                <c:forEach var="comment" items="${requestScope.PRODUCTCOMMENT}">
                     <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
                         <div class="d-flex" style="padding: 5px;">
-                            <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
+                            <c:set var = "salary1" scope = "page" value = "${comment.checkAvatarUrl()}"/>
+                            <c:choose>
+                                <c:when test = "${salary1 == true}">
+                                    <img class="col-1 align-items-center" src="assets/img/${commente.getImgName()}" alt="uservatar" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;">
+                                </c:when>
+                                <c:when test = "${salary1 == false}">
+                                    <img class="col-1 align-items-center"  src="${comment.getAvatarUrl()}" alt="useravatar" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;">
+                                </c:when>
+                            </c:choose> 
                             <div class="col-11 px-1">
-                                <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
-                                <div class="product_comment_time" style="font-size: 14px;">20/09/2022 15:35</div>
+                                <a href="${pageScope.ToProfile}">${comment.userName}</a>
+                                <div class="product_comment_time" style="font-size: 14px;">${comment.createTime}</div>
                             </div>
                         </div>
                         <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
                         <div class="product_comment_content p-1">
-                            Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
-                        </div>
-                        <div class="product_comment_reply py-2 d-flex justify-content-end">
-                            <button type="button" class="product_comment_reply_button btn px-2" style="width: 100px;" onclick="window.location.href = '${toReplyComment}';">Reply</button>
+                            ${comment.contents}
                         </div>
                     </li>
                 </c:forEach>
@@ -285,7 +265,83 @@
         </div>
     </div>
 </div>
+<div id="stupidnetbeans" style="display: none">
+    <div style="position: fixed; top: 0px;bottom: 0px; left: 0px; right: 0px; background: #5F6440; opacity: 50%;">
+    </div>
+    <div style=" height: 450px;position: absolute; left: 40%; top: 50%; opacity: 1; background: #fff; border-radius: 5px; border: 2px solid #56D262; ">
+        <h2 style=" text-align: center;">Rating</h2>
+        <button style="position: absolute; right: 10px; top: 5px; " onclick="document.getElementById('stupidnetbeans').style.display = 'none'">&times;</button> 
+        <div style="padding: 0 50 0 50">
+                <form action="RateProductController">
+                <p>So many star for you only</p>
+                <input type="radio" id="1s" name="rate1" value="0.5">
+                <label for="1s"><span class="fa fa-star-half-o checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                <input type="radio" id="2s" name="rate1" value="1">
+                <label for="2s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="3s" name="rate1" value="1.5">
+                <label for="3s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-o checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="4s" name="rate1" value="2">
+                <label for="4s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="5s" name="rate1" value="2.5">
+                <label for="5s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-o checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="6s" name="rate1" value="3">
+                  <label for="6s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="7s" name="rate1" value="3.5">
+                  <label for="7s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-o checked"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="8s" name="rate1" value="4">
+                  <label for="8s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span></label><br>
+                  <input type="radio" id="9s" name="rate1" value="4.5">
+                  <label for="9s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star-half-o checked"></span></label><br>
+                  <input type="radio" id="10s" name="rate1" value="5">
+                  <label for="10s"><span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span></label><br>
+                    <input type="hidden" name="txtID" value="${requestScope.PRODUCT.id}">
+                    <input type="hidden" name="userId" value="${sessionScope.LOGIN_USER.id}">
+                    <button type="submit" style="background-color: #fff; border-radius: 10px; color: #56d262 ; width: 100px;height: 60px;margin-left: 48px; border: 1px solid #56d262 ; ">Rate</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <%@include file="/WEB-INF/common/footer.jsp"%>
 <script>
     document.getElementById("product_action_icon").onclick = () => {
