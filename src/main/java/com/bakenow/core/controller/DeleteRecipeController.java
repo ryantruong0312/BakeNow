@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class DeleteRecipeController extends HttpServlet {
 
-   private static final String ERROR = "WEB-INF/errorpages/error.jsp";
+    private static final String ERROR = "WEB-INF/errorpages/error.jsp";
     private static final String SUCCESS = "RenderBlogHomeController";
 
     protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
@@ -29,7 +29,7 @@ public class DeleteRecipeController extends HttpServlet {
             RecipeDAO dao = new RecipeDAO();
             boolean checkDelete = dao.deleteRecipe(recipeId);
             if (checkDelete) {
-                url = SUCCESS;
+                url = SUCCESS + "?returnFromDeletion=1";
             }
         } catch (Exception e) {
             log("Error at DeleteRecipeController: " + e.toString());

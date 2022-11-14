@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author tlminh
  */
 public class Comment {
+    private int id;
     private int userId;
     private String userName;
     private String avatarUrl;
@@ -20,12 +21,21 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int userId, String userName, String avatarUrl, Date createTime, String contents) {
+    public Comment(int id, int userId, String userName, String avatarUrl, Date createTime, String contents) {
+        this.id = id;
         this.userId = userId;
         this.userName = userName;
         this.avatarUrl = avatarUrl;
         this.createTime = createTime;
         this.contents = contents;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUserId() {
@@ -67,7 +77,6 @@ public class Comment {
     public void setContents(String contents) {
         this.contents = contents;
     }
-    
-    
+
     
 }

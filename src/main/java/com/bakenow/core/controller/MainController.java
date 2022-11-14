@@ -60,6 +60,12 @@ public class MainController extends HttpServlet {
     private static final String DEST_CREATE_RECIPE = "CreateRecipeController";
     private static final String ACT_DELETE_RECIPE = "DeleteRecipe";
     private static final String DEST_DELETE_RECIPE = "DeleteRecipeController";
+    private static final String ACT_DELETE_RECIPE_COMMENT = "DeleteRecipeComment";
+    private static final String DEST_DELETE_RECIPE_COMMENT = "DeleteRecipeCommentController";
+    private static final String ACT_APPROVE_RECIPE = "ApproveRecipe";
+    private static final String DEST_APPROVE_RECIPE = "ApproveRecipeController";
+    private static final String ACT_REJECT_RECIPE = "Submit";
+    private static final String DEST_REJECT_RECIPE = "RejectRecipeController";
 
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
@@ -76,6 +82,9 @@ public class MainController extends HttpServlet {
     private static final String DEST_NAV_CART = "/WEB-INF/marketplace/cart-view.jsp";
     private static final String ACT_NAV_SHOP_PROFILE = "toViewShopProfile";
     private static final String DEST_NAV_SHOP_PROFILE = "/WEB-INF/profile/shop-profile-view.jsp";
+    
+    private static final String ACT_CANCEL_ORDER = "CancelOrder";
+    private static final String DEST_CANCEL_ORDER = "CancelOrderController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -141,6 +150,15 @@ public class MainController extends HttpServlet {
                 case ACT_DELETE_RECIPE:
                     url = DEST_DELETE_RECIPE;
                     break;
+                case ACT_DELETE_RECIPE_COMMENT:
+                    url = DEST_DELETE_RECIPE_COMMENT;
+                    break;
+                case ACT_APPROVE_RECIPE:
+                    url = DEST_APPROVE_RECIPE;
+                    break;
+                case ACT_REJECT_RECIPE:
+                    url = DEST_REJECT_RECIPE;
+                    break;
                 case ACT_NAV_MARKETPLACE:
                     url = DEST_NAV_MARKETPLACE;
                     break;
@@ -161,6 +179,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_NAV_SHOP_PROFILE:
                     url = DEST_NAV_SHOP_PROFILE;
+                    break;
+                case ACT_CANCEL_ORDER:
+                    url = DEST_CANCEL_ORDER;
                     break;
                 default:
                     break;

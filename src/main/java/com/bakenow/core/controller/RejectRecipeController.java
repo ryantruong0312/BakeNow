@@ -15,32 +15,26 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author tlminh
  */
-public class CreateRecipeController extends HttpServlet {
+public class RejectRecipeController extends HttpServlet {
 
-    private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "RenderBlogHomeController";
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public static final String ERROR = "/WEB-INF/errorpages/error.jsp";
+    public static final String SUCCESS = "MainController?action=ViewRecipe&recipeId=";
+    
+    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int authorId = Integer.parseInt(request.getParameter("authorId"));
-            String title = request.getParameter("title");
-            String desc = request.getParameter("desc");
-            int cookTime = Integer.parseInt(request.getParameter("cookTime"));
-            String imgUrl = request.getParameter("imgUrl");
-            String[] stepContents = request.getParameterValues("stepContent");
-            String[] ingredientNames = request.getParameterValues("ingredientName");
-            String[] amounts = request.getParameterValues("amount");
-            String[] tools = request.getParameterValues("toolName");
+            int restricterId = Integer.parseInt(request.getParameter("restricterId"));
+            int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+            String reason = request.getParameter("reason");
             RecipeDAO dao = new RecipeDAO();
-            boolean checkInsert = dao.addRecipe(authorId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
-            if (checkInsert) {
-                url = SUCCESS + "?returnFromCreation=1";
+            boolean checkReject = dao.rejectRecipe(recipeId, restricterId, reason);
+            if (checkReject) {
+                url = SUCCESS + recipeId;
             }
         } catch (Exception e) {
-            log("Error at CreateRecipeController: " + e.toString());
+            log("Error at RejectRecipeController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

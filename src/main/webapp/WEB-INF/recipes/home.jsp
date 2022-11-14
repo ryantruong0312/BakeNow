@@ -17,6 +17,38 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <!-- Popups -->
+        <div id="create-recipe-success-popup" style="width: 350px; height: 250px; padding: 20px; border: 2px solid #000; border-radius: 5px; background-color: #56D262;
+             <c:if test="${param.returnFromCreation != 1}">
+                 display:none;
+             </c:if>">
+            <div style="text-align: center;">
+                <img src="assets/img/logo.png" height="100" width="250"></img>
+            </div>
+            <hr style="margin: 10px;">
+            <div class="popup-content">Create recipe successfully! The recipe is now pending for approval</div>
+            <div style="text-align: center;">
+                <button class="popupBtn" onclick="window.location.href = 'MainController?action=NavToBlogHome';">
+                    OK
+                </button>
+            </div>
+        </div>
+
+
+        <div id="delete-recipe-success-popup" style="width: 350px; height: 250px; padding: 20px; border: 2px solid #000; border-radius: 5px; background-color: #56D262;
+             <c:if test="${param.returnFromDeletion != 1}">
+                 display:none;
+             </c:if>">
+            <div style="text-align: center;">
+                <img src="assets/img/logo.png" height="100" width="250"></img>
+            </div>
+            <hr style="margin: 10px;">
+            <div class="popup-content">The recipe was deleted successfully!</div>
+            <div style="text-align: center;">
+                <button class="popupBtn" onclick="window.location.href = 'MainController?action=NavToBlogHome';">OK</button>
+            </div>
+        </div>
+        <!-- ----------------------------------------- -->
         <%@include file="/WEB-INF/common/header.jsp"%>
         <div class="main-container">
             <div class="d-flex justify-content-end" style="margin: 20px 180px;">
@@ -93,6 +125,7 @@
             function toggleLikeButton(x) {
                 x.classList.toggle("liked");
             }
+
         </script>
     </body>
 </html>

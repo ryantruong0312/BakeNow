@@ -15,6 +15,62 @@
         <link rel="stylesheet" href="assets/css/recipes/recipe-view.css">
     </head>
     <body>
+        <!-- Pop up -->
+        <div id="confirm-delete-recipe-popup">
+            <div style="text-align: center;">
+                <img src="assets/img/logo.png" height="100" width="250"></img>
+            </div>
+            <hr style="margin: 10px;">
+            <div class="popup-content">Are you sure to delete this recipe</div>
+            <div style="text-align: center;">
+                <button class="popupBtn" onclick="window.location.href = 'MainController?action=DeleteRecipe&recipeId=${RECIPE.id}';">OK</button>
+                <button class="popupBtn" onclick="window.location.href = 'MainController?action=ViewRecipe&recipeId=${RECIPE.id}';">Cancel</button>
+            </div>
+        </div>
+
+        <div id="reject-recipe-popup">
+            <div style="text-align: center;">
+                <img src="assets/img/logo.png" height="100" width="250"></img>
+            </div>
+            <hr style="margin: 10px;">
+            <div class="popup-content">Provide a reason for rejection</div>
+            <form class="reject-form" action="MainController">
+                <div class="reasons" style="padding-left: 80px;">
+                    <div>
+                        <input type="radio" name="reason" value="Nudity" required> Nudity
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Violent"> Violent
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Harassment"> Harassment
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Hate speech"> Hate speech
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Terrorism"> Terrorism
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Copyright infringement"> Copyright infringement
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="False information"> False information
+                    </div>
+                    <div>
+                        <input type="radio" name="reason" value="Others"> Others
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <input type="hidden" name="recipeId" value="${RECIPE.id}">
+                    <input type="hidden" name="restricterId" value="${sessionScope.LOGIN_USER.id}">
+                    <input class="popupBtn" type="submit" name="action" value="Submit" style="height: 45px; border: 1px solid #D9D9D9; border-radius: 50px;">
+                    <button class="popupBtn" onclick="window.location.href = 'MainController?action=ViewRecipe&recipeId=${RECIPE.id}';">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ----------------------------------------- -->
         <%@include file="/WEB-INF/common/header.jsp"%>
         <c:url var="toEditRecipe" value="MainController?action=NavToEditRecipe"/>
         <div id="page_view-recipe" class="main-container py-3">
@@ -45,15 +101,15 @@
                                                     <a href="">Hide</a>
                                                 </c:if>
                                                 <c:if test="${RECIPE.statusId == 0}">
-                                                    <a href="">Approve</a>
-                                                    <a href="">Reject</a>
+                                                    <a href="MainController?action=ApproveRecipe&recipeId=${RECIPE.id}&approverId=${sessionScope.LOGIN_USER.id}">Approve</a>
+                                                    <a onclick="openRejectPopup()">Reject</a>
                                                 </c:if>
                                             </c:if>
                                             <c:if test="${sessionScope.LOGIN_USER.id == RECIPE.authorId}">
                                                 <c:if test="${RECIPE.statusId == 0 || RECIPE.statusId == 1}">
                                                     <a href="MainController?action=NavToEditRecipe&recipeId=${RECIPE.id}">Edit</a>
                                                 </c:if>
-                                                <a href="" id="confirmDeletion">Delete</a>
+                                                <a  onclick="openDeletePopup()">Delete</a>
                                             </c:if>
                                         </div>
                                     </div>
@@ -66,7 +122,7 @@
                         <c:url var="rateRecipe" value="MainController?action=NavToBlogHome"/>
                         <c:if test="${RECIPE.statusId == 1 || RECIPE.statusId == 2}">
                             <div class="py-2 d-flex justify-content-end">
-                                <button class="button button-like" <c:if test="${RECIPE.statusId == 2}"> onclick="toggleLikeButton(this)" </c:if>>
+                                <button class="button button-like" <c:if test="${RECIPE.statusId == 1}"> onclick="toggleLikeButton(this)" </c:if>>
                                         <i class="fa fa-heart"></i>
                                         <span>Like</span>
                                         <span class="recipe_vote_count">${RECIPE.voteCount}</span>
@@ -103,10 +159,21 @@
                             <c:forEach var="comment" items="${RECIPE.comments}">
                                 <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
                                     <div class="d-flex" style="padding: 5px;">
-                                        <img class="col-1" src="${comment.avatarUrl}" alt="commentor avatar" style="width: 40px; height: 40px; border-radius: 50px;">
-                                        <div class="col-11 px-1">
+                                        <div class="col-1 d-flex justify-content-center">
+                                            <img src="${comment.avatarUrl}" alt="commentor avatar" style="width: 40px; height: 40px; border-radius: 50px;">
+                                        </div>
+                                        <div class="col-10 px-1">
                                             <a href="${pageScope.ToProfile}">${comment.userName}</a>
                                             <div class="text-muted" style="font-size: 14px;">${comment.createTime}</div>
+                                        </div>
+                                        <div class="col-1 d-flex justify-content-end">
+                                            <c:if test="${sessionScope.LOGIN_USER.id == comment.userId}">
+                                                <div class="bi bi-three-dots-vertical drop_icon" style="font-size: 30px;">
+                                                    <div class="dropdown_action_content">
+                                                        <a href="MainController?action=DeleteRecipeComment&commentId=${comment.id}&recipeId=${RECIPE.id}">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
@@ -146,20 +213,18 @@
             </div>
         </div>
         <%@include file="/WEB-INF/common/footer.jsp"%>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            function toggleLikeButton(x) {
-                x.classList.toggle("liked");
-            }
-            ;
-
-            document.getElementById("confirmDeletion").onclick = () => {
-                var agree = confirm("Are you sure you want to delete this recipe?");
-                if (agree)
-                    document.getElementById("confirmDeletion").href = "MainController?action=DeleteRecipe&recipeId=${RECIPE.id}";
-                else
-                    document.getElementById("confirmDeletion").href = "#";
-
-            };
+                                    function toggleLikeButton(x) {
+                                        x.classList.toggle("liked");
+                                    }
+                                    ;
+                                    function openDeletePopup() {
+                                        document.getElementById("confirm-delete-recipe-popup").style.display = "block";
+                                    }
+                                    function openRejectPopup() {
+                                        document.getElementById("reject-recipe-popup").style.display = "block";
+                                    }
         </script>
     </body>
 </html>

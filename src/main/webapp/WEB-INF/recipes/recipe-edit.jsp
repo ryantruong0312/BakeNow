@@ -104,7 +104,6 @@
             </div>
         </div>
         <%@include file="/WEB-INF/common/footer.jsp"%>
-        <!--<script src="assets/js/create-recipe.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <c:set var="stepCount" value="1"></c:set>
         <script>
@@ -196,6 +195,7 @@
             $('.removeSupply').click(function () {
                 $(this).parent().remove();
             });
+            
         </script>
     </body>
 </html>

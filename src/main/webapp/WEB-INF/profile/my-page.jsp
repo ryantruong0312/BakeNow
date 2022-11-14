@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/profile/my-page.css">
     </head>
     <body>
+
         <%@include file="/WEB-INF/common/header.jsp"%>
         <div class="main-container d-flex">
             <aside class="sidebar col-3">
@@ -17,14 +18,14 @@
                         <div class="col-3 d-flex align-items-center justify-content-center">
                             <img src="${sessionScope.LOGIN_USER.avatarUrl}" style="width: 60px; height: 60px; border-radius: 50px;"/>
                         </div>
-                            <span class="col-9 d-flex align-items-center" style="font-size: 22px; padding-left: 10px;">${sessionScope.LOGIN_USER.displayName}</span>
+                        <span class="col-9 d-flex align-items-center" style="font-size: 22px; padding-left: 10px;">${sessionScope.LOGIN_USER.displayName}</span>
                     </div>
                 </div>
-                <div class="tablinks" onclick="openTab(event, 'profile')" id="defaultOpenTab">
-                    <div class="tab-title col-9">
-                        <div  class="d-flex align-items-center" style="height: 100%; padding-left: 30px;">Profile</div>
+                <div class="tablinks" onclick="openTab(event, 'profile')" <c:if test="${param.returnFromCancel != 1}">id="defaultOpenTab" </c:if>>
+                        <div class="tab-title col-9">
+                            <div  class="d-flex align-items-center" style="height: 100%; padding-left: 30px;">Profile</div>
+                        </div>
                     </div>
-                </div>
                 <c:if test="${sessionScope.LOGIN_USER.roleId == 2 || sessionScope.LOGIN_USER.roleId == 3}">
                     <div class="tablinks" onclick="openTab(event, 'recipes')">
                         <div class="tab-title col-9">
@@ -33,7 +34,7 @@
                     </div>
                     <c:if
                         test="${sessionScope.LOGIN_USER.roleId == 2}">
-                        <div class="tablinks" onclick="openTab(event, 'orders')">
+                        <div class="tablinks" onclick="openTab(event, 'orders')" <c:if test="${param.returnFromCancel == 1}">id="defaultOpenTab" </c:if>>
                             <div class="tab-title col-9">
                                 <div class="d-flex align-items-center" style="height: 100%; padding-left: 30px;">Orders</div>
                             </div>
@@ -221,7 +222,8 @@
                                                     ${recipe.desc}
                                                 </div>
                                                 <div class="row d-flex align-items-center my-2">
-                                                    <div class="recipe_time col-10 p-0"><small class="text-muted">${recipe.approvalTime}</small></div>
+                                                    <div class="recipe_time col-2 p-0"><small class="text-muted">${recipe.restrictionTime}</small></div>
+                                                    <div class="restrict_reason col-8 p-0" style="color: red;">${recipe.restrictionReason}</div>
                                                     <a class="col-2 see_detail_btn" href="MainController?action=ViewRecipe&recipeId=${recipe.id}">See details</a>
                                                 </div>
                                             </div>
@@ -233,25 +235,24 @@
                     </div>
                 </div>
                 <div id="orders" class="tabcontent">
-                    <div class="subtab2">
-                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'pendingOrder')" id="defaultOpenSubTab2">
-                            Pending
-                        </button>
-                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'awaiting')">
-                            Awaiting Pickup
-                        </button>
-                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'intransit')">
-                            In Transit
-                        </button>
-                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'delivered')">
-                            Delivered
-                        </button>
-                        <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'cancelled')">
-                            Cancelled
-                        </button>
-                    </div>
-                    <div id="pendingOrder" class="subtabcontent2">
+                        <div class="subtab2">
+                            <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'pendingOrder')" id="defaultOpenSubTab2">
+                                Pending
+                            </button>
+                            <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'intransit')">
+                                In Transit
+                            </button>
+                            <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'delivered')">
+                                Delivered
+                            </button>
+                            <button class="subtablinks2 subtab-title" onclick="openSubTab2(event, 'cancelled')">
+                                Cancelled
+                            </button>
+                        </div>
+                        <div id="pendingOrder" class="subtabcontent2">
+
                         <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
+                            
                             <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 0}">
                                 <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
                                     <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
@@ -277,14 +278,14 @@
                                                 <div>
                                                     $${orderItem.price}
                                                 </div>
-                                                </div>
                                             </div>
+                                        </div>
                                     </c:forEach>
                                     <div>
                                         <div>
                                             <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
                                             <div class="d-flex justify-content-end" style="margin: 10px 0";>
-                                                <button type="button" onclick="window.location.href = 'MainController?action=CancelOrder&orderId='"
+                                                <button type="button" onclick="window.location.href = 'MainController?action=CancelOrder&orderId=${order.orderId}'"
                                                         style="height: 45px; width: 100px; border: 1px solid #56D262; border-radius: 50px;">
                                                     Cancel
                                                 </button>
@@ -295,7 +296,7 @@
                             </c:if>
                         </c:forEach>
                     </div>
-                    <div id="awaiting" class="subtabcontent2">
+                    <div id="intransit" class="subtabcontent2">
                         <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
                             <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 1}">
                                 <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
@@ -322,53 +323,8 @@
                                                 <div>
                                                     $${orderItem.price}
                                                 </div>
-                                                </div>
-                                            </div>
-                                    </c:forEach>
-                                    <div>
-                                        <div>
-                                            <div class="d-flex justify-content-end" style="margin: 10px 0;">Total: $${order.total}</div>
-                                            <div class="d-flex justify-content-end" style="margin: 10px 0";>
-                                                <button type="button" onclick="window.location.href = 'MainController?action=CancelOrder&orderId='"
-                                                        style="height: 45px; width: 100px; border: 1px solid #56D262; border-radius: 50px;">
-                                                    Cancel
-                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    </div>
-                    <div id="intransit" class="subtabcontent2">
-                        <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
-                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 2}">
-                                <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
-                                    <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
-                                        <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
-                                        <div class="col-4 d-flex justify-content-end align-items-center">${order.createTime}</div>
-                                    </div>
-                                    <c:forEach var="orderItem" items="${order.orderItems}">
-                                        <div class="d-flex align-items-center" style="height: 180px; border-bottom: 1px solid #D9D9D9;">
-                                            <div class="col-3 d-flex justify-content-center align-items-center">
-                                                <div>
-                                                    <img src="${orderItem.productImgUrl}" style="width: 160px; height: 160px" alt="alt"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="d-flex align-items-center" style="height: 50px; font-size: 20px;">
-                                                    <i class="bi bi-shop"></i>
-                                                    <span style="padding-left: 10px;">${orderItem.shopName}</span>
-                                                </div>
-                                                <div style="height: 100px; font-size: 22px; font-weight: bold;">${orderItem.productName}</div>
-                                                <div style="height: 30px;"> x ${orderItem.orderQuantity}</div>
-                                            </div>
-                                            <div class="col-2 d-flex justify-content-end align-items-center">
-                                                <div>
-                                                    $${orderItem.price}
-                                                </div>
-                                                </div>
-                                            </div>
                                     </c:forEach>
                                     <div>
                                         <div>
@@ -381,7 +337,7 @@
                     </div>
                     <div id="delivered" class="subtabcontent2">
                         <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
-                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 3}">
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 2}">
                                 <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
                                     <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
                                         <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
@@ -406,8 +362,8 @@
                                                 <div class="d-flex align-items-end justify-content-end" style="height: 100px;">
                                                     $${orderItem.price}
                                                 </div>
-                                                    <div class="d-flex justify-content-end" style="margin: 10px 0";>
-                                                        <button type="button" onclick="window.location.href = 'MainController?action=RateOrder&orderId=${orderItem.orderId}'"
+                                                <div class="d-flex justify-content-end" style="margin: 10px 0";>
+                                                    <button type="button" onclick="window.location.href = 'MainController?action=RateOrder&orderId=${orderItem.orderId}'"
                                                             style="height: 45px; width: 130px; border: 1px solid #56D262; border-radius: 50px;">
                                                         Rate product
                                                     </button>
@@ -426,7 +382,7 @@
                     </div>
                     <div id="cancelled" class="subtabcontent2">
                         <c:forEach var="order" items="${sessionScope.ORDER_LIST}"> 
-                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 4}">
+                            <c:if test="${order.buyerId == sessionScope.LOGIN_USER.id && order.statusId == 3}">
                                 <div class="my-3 px-3 py-1" style="background-color: #fff; border: 1px solid #D9D9D9; border-radius: 5px;">
                                     <div class="d-flex justify-content-center" style="border-bottom: 1px solid #D9D9D9; height: 50px;">
                                         <div class="col-8 d-flex align-items-center">Order number: ${order.orderNumber}</div>
@@ -451,8 +407,8 @@
                                                 <div>
                                                     $${orderItem.price}
                                                 </div>
-                                                </div>
                                             </div>
+                                        </div>
                                     </c:forEach>
                                     <div>
                                         <div>
@@ -481,7 +437,7 @@
             function toggleLikeButton(x) {
                 x.classList.toggle("liked");
             }
-            
+
             /*Making tab for sidebar*/
             function openTab(evt, tabName) {
                 // Declare all variables
@@ -557,6 +513,10 @@
 
             // Get the element with id="defaultOpen" and click on it
             document.getElementById("defaultOpenSubTab2").click();
+
+            function openCancelPopup() {
+                document.getElementById("confirm-cancel-order-popup").style.display = "block";
+            }
         </script>
 
     </body>

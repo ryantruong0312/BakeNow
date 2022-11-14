@@ -4,43 +4,51 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.RecipeDAO;
+import com.bakenow.core.model.Cart;
+import com.bakenow.core.model.OrderItem;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author tlminh
  */
-public class CreateRecipeController extends HttpServlet {
+public class AddToCartController extends HttpServlet {
 
     private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "RenderBlogHomeController";
+    private static final String SUCCESS = "MainController?action=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int authorId = Integer.parseInt(request.getParameter("authorId"));
-            String title = request.getParameter("title");
-            String desc = request.getParameter("desc");
-            int cookTime = Integer.parseInt(request.getParameter("cookTime"));
-            String imgUrl = request.getParameter("imgUrl");
-            String[] stepContents = request.getParameterValues("stepContent");
-            String[] ingredientNames = request.getParameterValues("ingredientName");
-            String[] amounts = request.getParameterValues("amount");
-            String[] tools = request.getParameterValues("toolName");
-            RecipeDAO dao = new RecipeDAO();
-            boolean checkInsert = dao.addRecipe(authorId, title, desc, cookTime, imgUrl, stepContents, ingredientNames, amounts, tools);
-            if (checkInsert) {
-                url = SUCCESS + "?returnFromCreation=1";
+            int productId = Integer.parseInt(request.getParameter("productId"));
+            int shopId = Integer.parseInt(request.getParameter("shopId"));
+            int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
+            String productName = request.getParameter("productName");
+            String shopName = request.getParameter("shopName");
+            String productImgUrl = request.getParameter("productImg");
+            double price = Double.parseDouble(request.getParameter("price"));
+            HttpSession session = request.getSession();
+            if (session != null) {
+                Cart cart = (Cart) session.getAttribute("CART");
+                OrderItem item = new OrderItem(0,0,productId,productName,orderQuantity,price,shopId,shopName,productImgUrl );
+                if (cart == null) {
+                    cart = new Cart();
+                }
+                boolean checkAdd = cart.addToCart(item);
+                if (checkAdd) {
+                    url = SUCCESS;
+                    session.setAttribute("CART", cart);
+                }
             }
         } catch (Exception e) {
-            log("Error at CreateRecipeController: " + e.toString());
+            log("Error at AddToCartController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

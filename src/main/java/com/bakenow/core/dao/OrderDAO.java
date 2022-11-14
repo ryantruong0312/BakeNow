@@ -27,6 +27,10 @@ public class OrderDAO {
     private static final String GET_PRODUCT_IMG = "SELECT imgUrl FROM Product WHERE id = ?";
     private static final String GET_SHOP_NAME = "SELECT name FROM Shop WHERE id = ?";
     private static final String GET_SHOP_ID_BY_PRODUCT_ID = "SELECT shopId FROM Product WHERE id = ?";
+    private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
+    private static final String GET_AVATAR_URL_BY_ID = "SELECT avatarUrl FROM [User] WHERE id = ?";
+    private static final String DELETE_ORDER_ITEMS = "DELETE FROM OrderItem WHERE orderId = ?";
+    private static final String CANCEL_ORDER = "DELETE FROM [Order] WHERE id = ?";
 
     public List<Order> getOrderList() throws SQLException {
         List<Order> orderList = new ArrayList<>();
@@ -45,10 +49,12 @@ public class OrderDAO {
                     String orderNumber = rs.getString("orderNumber");
                     double total = rs.getDouble("total");
                     int statusId = rs.getInt("statusId");
-                    orderList.add(new Order(orderId, orderNumber, buyerId, createTime, total, null, statusId));
+                    orderList.add(new Order(orderId, orderNumber, buyerId, "", "", createTime, total, statusId, null));
                 }
                 for (Order order : orderList) {
                     order.setOrderItems(getOrderItemsByOrderId(order.getOrderId()));
+                    order.setBuyerName(getDisplayNameById(order.getBuyerId()));
+                    order.setBuyerAvatarUrl(getAvatarUrlOfUserById(order.getBuyerId()));
                 }
             }
         } catch (Exception e) {
@@ -65,6 +71,69 @@ public class OrderDAO {
             }
         }
         return orderList;
+    }
+    
+    public String getDisplayNameById(int id) throws SQLException {
+        String name = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DISPLAY_NAME_BY_ID);
+                ptm.setInt(1, id);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    name = rs.getString("displayName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return name;
+    }
+
+    //Get avatar url of an account by providing user id
+    public String getAvatarUrlOfUserById(int id) throws SQLException {
+        String url = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_AVATAR_URL_BY_ID);
+                ptm.setInt(1, id);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    url = rs.getString("avatarUrl");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return url;
     }
 
     //Get all items of an order by providing the orderId
@@ -236,5 +305,32 @@ public class OrderDAO {
             }
         }
         return productImg;
+    }
+
+    public boolean cancelOrder(int orderId) throws SQLException {
+       boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_ORDER_ITEMS);
+                ptm.setInt(1, orderId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(CANCEL_ORDER);
+                ptm.setInt(1, orderId);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
     }
 }

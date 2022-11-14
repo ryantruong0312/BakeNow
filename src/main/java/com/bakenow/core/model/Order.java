@@ -15,6 +15,8 @@ public class Order {
     private int orderId;
     private String orderNumber;
     private int buyerId;
+    private String buyerName;
+    private String buyerAvatarUrl;
     private Date createTime;
     private double total;
     private int statusId;
@@ -23,15 +25,19 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, String orderNumber, int buyerId, Date createTime, double total, ArrayList<OrderItem> orderItems, int statusId) {
+    public Order(int orderId, String orderNumber, int buyerId, String buyerName, String buyerAvatarUrl, Date createTime, double total, int statusId, ArrayList<OrderItem> orderItems) {
         this.orderId = orderId;
         this.orderNumber = orderNumber;
         this.buyerId = buyerId;
+        this.buyerName = buyerName;
+        this.buyerAvatarUrl = buyerAvatarUrl;
         this.createTime = createTime;
         this.total = total;
-        this.orderItems = orderItems;
         this.statusId = statusId;
+        this.orderItems = orderItems;
     }
+
+    
 
     public int getOrderId() {
         return orderId;
@@ -87,6 +93,22 @@ public class Order {
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    public String getBuyerAvatarUrl() {
+        return buyerAvatarUrl;
+    }
+
+    public void setBuyerAvatarUrl(String buyerAvatarUrl) {
+        this.buyerAvatarUrl = buyerAvatarUrl;
     }
     
     

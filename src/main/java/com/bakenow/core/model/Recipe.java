@@ -31,11 +31,13 @@ public class Recipe {
     private int statusId;
     private String authorAvatarUrl;
     private ArrayList<Comment> comments;
+    private Date restrictionTime;
+    private String restrictionReason;
 
     public Recipe() {
     }
 
-    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer, String> steps, HashMap<String, String> ingredients, ArrayList<String> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl, ArrayList<Comment> comments) {
+    public Recipe(int id, int authorId, String authorName, Date createTime, Date approvalTime, int approverId, String approverName, String imgUrl, String title, String desc, HashMap<Integer, String> steps, HashMap<String, String> ingredients, ArrayList<String> tools, int cookTime, int voteCount, int statusId, String authorAvatarUrl, ArrayList<Comment> comments, Date restrictonTime, String restrictionReason) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -54,6 +56,8 @@ public class Recipe {
         this.statusId = statusId;
         this.authorAvatarUrl = authorAvatarUrl;
         this.comments = comments;
+        this.restrictionTime = restrictonTime;
+        this.restrictionReason = restrictionReason;
     }
 
     public int getId() {
@@ -198,6 +202,22 @@ public class Recipe {
 
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Date getRestrictionTime() {
+        return restrictionTime;
+    }
+
+    public void setRestrictionTime(Date restrictionTime) {
+        this.restrictionTime = restrictionTime;
+    }
+
+    public String getRestrictionReason() {
+        return restrictionReason;
+    }
+
+    public void setRestrictionReason(String restrictionReason) {
+        this.restrictionReason = restrictionReason;
     }
 
     

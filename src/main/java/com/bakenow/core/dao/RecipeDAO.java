@@ -31,7 +31,9 @@ public class RecipeDAO {
     private static final String GET_TOOLS_BY_ID = "SELECT name FROM RecipeItem WHERE recipeId = ? AND isIngredient = 0";
     private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
     private static final String GET_AVATAR_URL_BY_ID = "SELECT avatarUrl FROM [User] WHERE id = ?";
-    private static final String GET_RECIPE_COMMENTS_BY_ID = "SELECT userId, createTime, contents FROM Comment WHERE recipeId = ?";
+    private static final String GET_RECIPE_COMMENTS_BY_ID = "SELECT id, userId, createTime, contents FROM Comment WHERE recipeId = ?";
+    private static final String GET_RESTRICTION_TIME = "SELECT restrictionTime FROM RestrictionReason WHERE recipeId = ?";
+    private static final String GET_RESTRICTION_REASON = "SELECT reason FROM RestrictionReason WHERE recipeId = ?";
     private static final String ADD_RECIPE_COMMENT = "INSERT INTO Comment(userId, contents, createTime, recipeId) VALUES (?,?,?,?)";
     private static final String UPDATE_RECIPE_INFO = "UPDATE Recipe SET title = ?, [desc] = ?, cookTime = ?, imgUrl = ? WHERE id = ?";
     private static final String INSERT_RECIPE_INFO = "INSERT INTO Recipe(authorId, createTime, title, [desc], cookTime, imgUrl) OUTPUT Inserted.id VALUES(?,?,?,?,?,?)";
@@ -41,8 +43,13 @@ public class RecipeDAO {
     private static final String ADD_RECIPE_ITEM = "INSERT INTO RecipeItem(recipeId,name,amount,isIngredient) VALUES(?,?,?,?)";
     private static final String DELETE_RECIPE_VOTES = "DELETE FROM RecipeVote WHERE recipeId = ?";
     private static final String DELETE_RECIPE_COMMENTS = "DELETE FROM Comment WHERE recipeId = ?";
+    private static final String DELETE_RECIPE_COMMENT_BY_ID = "DELETE FROM Comment WHERE id = ?";
     private static final String DELETE_RECIPE_TODOLIST = "DELETE FROM TodoList WHERE recipeId = ?";
     private static final String DELETE_RECIPE = "DELETE FROM Recipe WHERE id = ?";
+    private static final String APPROVE_RECIPE = "UPDATE Recipe SET statusId = 1 WHERE id = ?";
+    private static final String UPDATE_RECIPE_APPROVER = "UPDATE Recipe SET approverId = ? WHERE id = ?";
+    private static final String UPDATE_RECIPE_APPROVAL_TIME = "UPDATE Recipe SET approvalTime = ? WHERE id = ?";
+    private static final String REJECT_RECIPE = "INSERT INTO RestrictionReason(restrictionTime, restricterId, recipeId, reason) VALUES (?,?,?,?)";
 
     public List<Recipe> getRecipeList() throws SQLException {
         List<Recipe> recipeList = new ArrayList<>();
@@ -66,7 +73,7 @@ public class RecipeDAO {
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
                     int statusId = rs.getInt("statusId");
-                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null));
+                    recipeList.add(new Recipe(id, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null, null, ""));
                 }
                 for (Recipe recipe : recipeList) {
                     String authorName = getDisplayNameById(recipe.getAuthorId());
@@ -75,6 +82,8 @@ public class RecipeDAO {
                     recipe.setAuthorName(authorName);
                     recipe.setApproverName(approverName);
                     recipe.setAuthorAvatarUrl(authorAvatarUrl);
+                    recipe.setRestrictionTime(getRestrictionTime(recipe.getId()));
+                    recipe.setRestrictionReason(getRestrictionReason(recipe.getId()));
                 }
             }
         } catch (Exception e) {
@@ -179,7 +188,7 @@ public class RecipeDAO {
                     String imgUrl = rs.getString("imgUrl");
                     int voteCount = rs.getInt("voteCount");
                     int statusId = rs.getInt("statusId");
-                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null);
+                    recipe = new Recipe(recipeId, authorId, "", createTime, approvalTime, approverId, "", imgUrl, title, desc, null, null, null, cookTime, voteCount, statusId, "", null, null, "");
                 }
                 recipe.setAuthorName(getDisplayNameById(recipe.getAuthorId()));
                 recipe.setApproverName(getDisplayNameById(recipe.getApproverId()));
@@ -188,8 +197,9 @@ public class RecipeDAO {
                 recipe.setIngredients(getRecipeIngredientsById(recipeId));
                 recipe.setTools(getRecipeToolsById(recipeId));
                 recipe.setComments(getRecipeCommentsById(recipeId));
+                recipe.setRestrictionTime(getRestrictionTime(recipe.getId()));
+                recipe.setRestrictionReason(getRestrictionReason(recipe.getId()));
 
-                System.out.println(recipe.getTitle());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,6 +217,69 @@ public class RecipeDAO {
         return recipe;
     }
 
+    public Date getRestrictionTime(int recipeId) throws SQLException{
+        Date restrictionTime = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_RESTRICTION_TIME);
+                ptm.setInt(1, recipeId);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    restrictionTime = rs.getDate("restrictionTime");
+                }else
+                    restrictionTime = Date.valueOf(java.time.LocalDate.now());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return restrictionTime;
+    }
+    
+    public String getRestrictionReason(int recipeId) throws SQLException{
+        String restrictionReason = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_RESTRICTION_REASON);
+                ptm.setInt(1, recipeId);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    restrictionReason = rs.getString("reason");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return restrictionReason;
+    }
+    
     //Get all steps of a recipe
     public HashMap<Integer, String> getRecipeStepsById(int recipeId) throws SQLException {
         HashMap<Integer, String> steps = new HashMap();
@@ -321,12 +394,13 @@ public class RecipeDAO {
                 ptm.setInt(1, recipeId);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
+                    int id = rs.getInt("id");
                     int userId = rs.getInt("userId");
                     Date createTime = rs.getDate("createTime");
                     String contents = rs.getString("contents");
                     String displayName = getDisplayNameById(userId);
                     String avatarUrl = getAvatarUrlOfUserById(userId);
-                    comments.add(new Comment(userId, displayName, avatarUrl, createTime, contents));
+                    comments.add(new Comment(id, userId, displayName, avatarUrl, createTime, contents));
                 }
             }
         } catch (Exception e) {
@@ -536,6 +610,90 @@ public class RecipeDAO {
             }
         }
         return result;
+    }
 
+    //Delete a single recipe comment by proving the commentId
+    public boolean deleteRecipeCommentById(int commentId) throws SQLException {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_RECIPE_COMMENT_BY_ID);
+                ptm.setInt(1, commentId);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean approveRecipe(int recipeId, int approverId) throws SQLException {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(APPROVE_RECIPE);
+                ptm.setInt(1, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(UPDATE_RECIPE_APPROVER);
+                ptm.setInt(1, approverId);
+                ptm.setInt(2, recipeId);
+                result = ptm.executeUpdate() > 0;
+                ptm = conn.prepareStatement(UPDATE_RECIPE_APPROVAL_TIME);
+                ptm.setDate(1, Date.valueOf(java.time.LocalDate.now()));
+                ptm.setInt(2, recipeId);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    //private static final String REJECT = "INSERT INTO RestrictionReason(restrictionTime, restricterId, recipeId, reason) VALUES (?,?,?,?)";
+    public boolean rejectRecipe(int recipeId, int restricterId, String reason) throws SQLException {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(REJECT_RECIPE);
+                ptm.setDate(1, Date.valueOf(java.time.LocalDate.now()));
+                ptm.setInt(2, restricterId);
+                ptm.setInt(3, recipeId);
+                ptm.setString(4, reason);
+                result = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
     }
 }

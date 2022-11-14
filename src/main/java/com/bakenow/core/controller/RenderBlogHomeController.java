@@ -6,8 +6,10 @@ package com.bakenow.core.controller;
 
 import com.bakenow.core.dao.OrderDAO;
 import com.bakenow.core.dao.RecipeDAO;
+import com.bakenow.core.dao.UserDAO;
 import com.bakenow.core.model.Order;
 import com.bakenow.core.model.Recipe;
+import com.bakenow.core.model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,9 +33,12 @@ public class RenderBlogHomeController extends HttpServlet {
             List<Recipe> recipeList = dao.getRecipeList();
             OrderDAO odao = new OrderDAO();
             List<Order> orderList = odao.getOrderList();
+            UserDAO udao = new UserDAO();
+            List<User> userList = udao.getUserList();
             HttpSession session = request.getSession();
             session.setAttribute("RECIPE_LIST", recipeList);
             session.setAttribute("ORDER_LIST", orderList);
+            session.setAttribute("USER_LIST", userList);
         } catch (Exception e) {
             log("Error at RenderBlogHomeController: " + e.toString());
         } finally {

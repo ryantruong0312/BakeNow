@@ -64,6 +64,26 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>EditMyPageProfileController</servlet-name>
         <servlet-class>com.bakenow.core.controller.EditMyPageProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteRecipeCommentController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.DeleteRecipeCommentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApproveRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.ApproveRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelOrderController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.CancelOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RejectRecipeController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.RejectRecipeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.AddToCartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -123,6 +143,26 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>EditMyPageProfileController</servlet-name>
         <url-pattern>/EditMyPageProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRecipeCommentController</servlet-name>
+        <url-pattern>/DeleteRecipeCommentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveRecipeController</servlet-name>
+        <url-pattern>/ApproveRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelOrderController</servlet-name>
+        <url-pattern>/CancelOrderController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RejectRecipeController</servlet-name>
+        <url-pattern>/RejectRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/AddToCartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
