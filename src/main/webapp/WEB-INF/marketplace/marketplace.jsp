@@ -54,7 +54,7 @@
                 </c:forEach>    
             </aside>
             <!--/ đây là đoạn thêm product vào -->
-            
+
             <div class="product_list col-9 my-3">
                 <c:forEach var="product" items="${requestScope.LIST_PRODUCT}">
                     <div class="product_card" style="margin-top: 0px;">
@@ -76,14 +76,81 @@
                             <!--dang lam product profile-->
                             <a href="MainController?action=NavToViewProduct&txtID=${product.getId()}"><div class="product_title link_modify--Product">${product.getName()}</div></a>
                             <!<!-- cai cho toviewProduct la gi v -->
-                            <p class="product_author"><iconify-icon inline style="color:#56D262;" icon="clarity:store-line" width="22" height="22"></iconify-icon><a href="${toViewShopProfile}">${product.getShopId()}</a></p>
                             <div class="product_info">
                                 <div class="product-star">
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized checked"></span>
-                                    <span class="fa fa-star fa-star-sized"></span>
-                                    <span class="fa fa-star fa-star-sized"></span>
+                                    <c:set var = "rating" scope = "page" value = "${product.getRating()}"/>
+                                    <c:choose>
+                                        <c:when test = "${rating <= 0.5}">
+                                                <span class="fa fa-star-half-o checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 1}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 1.5}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star-half-o checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 2}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 2.5}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star-half-o checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 3}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 3.5}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star-half-o checked"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 4}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 4.5}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star-half-o checked"></span>
+                                        </c:when>
+                                        <c:when test = "${rating <= 5}">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                        </c:when>
+                                    </c:choose> 
                                     <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${product.getReviewCount()})</span>
                                 </div>
                             </div>

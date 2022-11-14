@@ -41,9 +41,17 @@ public class RenderProductMarketPlaceController extends HttpServlet {
         String url = ERROR;
         try {
             ProductDAO pDao = new ProductDAO();
-            List<Product> pList = pDao.getAllProduct();
+            ProductCategoryDAO cDao = new ProductCategoryDAO();
             HttpSession session = request.getSession();
+            List<Product> pList = pDao.getAllProduct();
+            if(session.getAttribute("GET_I_CATEGORY")== null){
+            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
+            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
+            session.setAttribute("GET_I_CATEGORY", cIList);
+            session.setAttribute("GET_T_CATEGORY", cTList);
+            }
             request.setAttribute("LIST_PRODUCT", pList);
+            
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at RenderBlogHomeController: " + e.toString());

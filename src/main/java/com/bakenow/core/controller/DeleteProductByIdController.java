@@ -5,9 +5,10 @@
 package com.bakenow.core.controller;
 
 import com.bakenow.core.dao.ProductDAO;
+import com.bakenow.core.dao.ShopDAO;
+import com.bakenow.core.model.Shop;
 import com.bakenow.core.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
  */
 public class DeleteProductByIdController extends HttpServlet {
     private static final String ERROR="/WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS="/WEB-INF/profile/shop-profile-view.jsp"; //dang le edit cac kieu trong trang prodouct list ma ???
+    private static final String SUCCESS="ViewShopProfileController"; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,14 +39,17 @@ public class DeleteProductByIdController extends HttpServlet {
             String pid = request.getParameter("productId");
             ProductDAO dao = new ProductDAO();
             dao.deleteProductsById(pid);
+            ShopDAO sDao = new ShopDAO();
             HttpSession session = request.getSession();
             User user =(User) session.getAttribute("LOGIN_USER");
+            Shop shop = sDao.getShopByOwnerId(user.getId());
+            request.setAttribute("shopID",shop.getId());
             url = SUCCESS;
             if(user.getRoleId()==0 || user.getRoleId()==1 ){
-                url = "/WEB-INF/marketplace/marketplace.jsp";
+                url = "/WEB-INF/marketplace/marketplace.jsp";   
             }
         } catch (Exception e) {
-            log("Error at LoadProductByCategoryController: " + e.toString());
+            log("Error at DeleteProductByIdController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

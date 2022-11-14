@@ -156,7 +156,7 @@ public class MainController extends HttpServlet {
                     break;
                 case ACT_DELETE_PRODUCT_BY_ID:
                     url = DEST_DELETE_PRODUCT_BY_ID;
-                    break;
+                    break;  
                 default:
                     break;
             }

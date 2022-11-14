@@ -23,9 +23,6 @@
                         ADD NEW PRODUCT
                     </div>
                     <div class="d-flex justify-content-center my-3 py-3" style="background-color: #fff;">
-                        <c:if test="${requestScope.successMsg != null}">
-                        <h2>${requestScope.successMsg}</h2>
-                        </c:if>
                         <form action="AddProductController" method="post" enctype="multipart/form-data" class="add_product_form col-10">
                             <div class="py-2 details" > 
                                 <span style="font-size: 24px; font-weight: bold;">Title</span> 
@@ -68,42 +65,42 @@
                                             <span>Mfg.Date</span>
                                             <input type="date" value="" name="manuDate" required="" style="margin-left: 4px;">
                                             <span>${requestScope.PRODUCT_ERROR.getMnfDate()}</span>
-                                        </div>
-                                        <div class="details details_expDate col-5"  style="margin-left: 2px;">
-                                            <span>Exp.Date</span>
-                                            <input type="date" name="expDate" required="">
-                                        </div>
-                                        <div class="col-1"></div>
                                     </div>
-                                    <div class="details_row d-flex py-2">
-                                        <div class="col-1"></div>
-                                        <div class="details details_price col-5">
-                                            <span>Price</span>
-                                            <input min="0.01" type="number" step="0.01" name="productPrice" required="" style="margin-left: 37px;">
-                                            <span>${requestScope.PRODUCT_ERROR.getPrice()}</span>
-                                        </div>
-                                        <div class="details details_stock col-5" style="margin-left: 27px;">
-                                            <span>Stock</span>
-                                            <input min="1" type="number" name="stockQuantity" required="">
-                                             <span>${requestScope.PRODUCT_ERROR.getStock()}</span>
-                                        </div>
-                                        <div class="col-1"></div>
+                                    <div class="details details_expDate col-5"  style="margin-left: 2px;">
+                                        <span>Exp.Date</span>
+                                        <input type="date" name="expDate" required="">
                                     </div>
+                                    <div class="col-1"></div>
                                 </div>
-                                <div class="pt-3" > 
-                                    <div style="font-size: 24px; font-weight: bold;">Description</div>
+                                <div class="details_row d-flex py-2">
+                                    <div class="col-1"></div>
+                                    <div class="details details_price col-5">
+                                        <span>Price</span>
+                                        <input min="0.01" type="number" step="0.01" name="productPrice" required="" style="margin-left: 37px;">
+                                        <span>${requestScope.PRODUCT_ERROR.getPrice()}</span>
+                                    </div>
+                                    <div class="details details_stock col-5" style="margin-left: 27px;">
+                                        <span>Stock</span>
+                                        <input min="1" type="number" name="stockQuantity" required="">
+                                        <span>${requestScope.PRODUCT_ERROR.getStock()}</span>
+                                    </div>
+                                    <div class="col-1"></div>
                                 </div>
-                                <div class="details_description my-2">
-                                    <textarea class="py-2" type="text" style="" name="productDescription" placeholder="Describe your product..." required=""></textarea>
-                                </div>
-                                <div class="d-flex justify-content-end my-3">
-                                    <c:set var = "check" scope = "page" value = "${sessionScope.LOGIN_USER == null}"/>
+                            </div>
+                            <div class="pt-3" > 
+                                <div style="font-size: 24px; font-weight: bold;">Description</div>
+                            </div>
+                            <div class="details_description my-2">
+                                <textarea class="py-2" type="text" style="" name="productDescription" placeholder="Describe your product..." required=""></textarea>
+                            </div>
+                            <div class="d-flex justify-content-end my-3">
+                                <c:set var = "check" scope = "page" value = "${sessionScope.LOGIN_USER == null}"/>
                                 <c:choose>
                                     <c:when test = "${check == true}">
                                         <a class="px-2" href="MainController?action=Login">Login</a>
                                     </c:when>
                                     <c:when test = "${check == false}">
-                                       <input class="last_button mx-2" type="submit" name="" value="AddProduct">
+                                        <input class="last_button mx-2" type="submit" name="" value="Add Product">
                                     </c:when>
                                 </c:choose>
                                 <a class="last_button" style="padding-top: 5px;" href="">Cancel</a>
@@ -111,10 +108,21 @@
                         </form>
                     </div>
                 </div>
+            </div>               
+        </div>
+        <c:if test="${requestScope.successMsg != null}">
+        <div id="stupidnetbeans">
+            <div style="position: fixed; top: 0px;bottom: 0px; left: 0px; right: 0px; background: #5F6440; opacity: 50%;">
+            </div>
+            <div style=" height: 100px;position: absolute; left: 40%; top: 50%; opacity: 1; background: #fff; border-radius: 5px; border: 2px solid #56D262; ">
+                <h2 style=" text-align: center;">Inform</h2>
+                 <button style="position: absolute; right: 10px; top: 5px; " onclick="document.getElementById('stupidnetbeans').style.display = 'none'">&times;</button> 
+                <div style="padding: 0 50 0 50">
+                    ${requestScope.successMsg}
+                </div>
             </div>
         </div>
-    </div>
-
-    <%@include file="/WEB-INF/common/footer.jsp"%>
-</body>
+        </c:if>  
+        <%@include file="/WEB-INF/common/footer.jsp"%>
+    </body>
 </html>

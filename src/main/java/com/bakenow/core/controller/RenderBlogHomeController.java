@@ -36,7 +36,7 @@ public class RenderBlogHomeController extends HttpServlet {
             session.setAttribute("RECIPE_LIST", recipeList);
             List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
             List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-             session.setAttribute("GET_I_CATEGORY", cIList);
+            session.setAttribute("GET_I_CATEGORY", cIList);
             session.setAttribute("GET_T_CATEGORY", cTList);
             url = SUCCESS;
         } catch (Exception e) {

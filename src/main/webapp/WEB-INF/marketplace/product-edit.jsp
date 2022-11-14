@@ -25,10 +25,10 @@
                     <!--PRODUCT-->
                     <!--CATEGORY-->
                     <div class="d-flex justify-content-center my-3 py-3" style="background-color: #fff;">
-                        <form action="AddProductController" method="post" enctype="multipart/form-data"  class="edit_product_form col-10">
+                        <form action="EditProductController" method="post" enctype="multipart/form-data"  class="edit_product_form col-10">
                             <div class="py-2 details" > 
                                 <span style="font-size: 24px; font-weight: bold;">Title</span> 
-                                <input type="text" style="width: 500px; padding-left: 10px;" name="title" value="${requestScope.PRODUCT.name}" required="">
+                                <input type="text" style="width: 500px; padding-left: 10px;" name="title1" value="${requestScope.PRODUCT.name}" required="">
                             </div>
                             <div class="py-2 d-flex justify-content-center">
                                 <div class="col-4 py-2">
@@ -45,7 +45,7 @@
                                         </c:otherwise>
                                     </c:choose>  
                                     <div style="text-align: center;">
-                                        <input class="my-2 px-4" style="width: 300px; border: none;" type="file" name="img">
+                                        <input class="my-2 px-4" style="width: 300px; border: none;" type="file" name="img1">
                                     </div>
                                 </div>
                             </div>
@@ -57,11 +57,11 @@
                                     <div class="col-1"></div>
                                     <div class="details details_origin col-5">
                                         <span>Origin</span>
-                                        <input type="text" name="productOrigin" required="" value="${requestScope.PRODUCT.origin}" style="margin-left: 30px;">
+                                            <input type="text" name="productOrigin1" required="" value="${requestScope.PRODUCT.origin}" style="margin-left: 30px;">
                                     </div>
                                     <div class="details details_category col-5">
                                         <span>Category</span>
-                                        <select name="productCategory">
+                                        <select name="productCategory1">
                                             <c:forEach var="subICate" items="${sessionScope.GET_I_CATEGORY}" >
                                                 <c:forEach var="smallerICate" items="${subICate.getSmallerCatgory()}">
                                                     <option>${smallerICate.getName()}</option>
@@ -77,12 +77,12 @@
                                     <div class="details_row d-flex py-2">
                                         <div class="col-1"></div>
                                         <div class="details details_manuDate col-5" value="">
-                                        <span>Mfg.Date</span>
-                                        <input type="date" name="manuDate" required="" value="${requestScope.PRODUCT.mnfDate}" style="margin-left: 4px;">
+                                            <span>Mfg.Date</span>
+                                            <input type="date" name="manuDate1" required="" value="${requestScope.PRODUCT.mnfDate}" style="margin-left: 4px;">
                                     </div>
                                     <div class="details details_expDate col-5" value="" style="margin-left: 2px;">
                                         <span>Exp.Date</span>
-                                        <input type="date" value="${requestScope.PRODUCT.expDate}" name="expDate">
+                                        <input type="date"  required="" value="${requestScope.PRODUCT.expDate}" name="expDate1">
                                     </div>
                                     <div class="col-1"></div>
                                 </div>
@@ -90,11 +90,11 @@
                                     <div class="col-1"></div>
                                     <div class="details details_price col-5">
                                         <span>Price</span>
-                                        <input type="number" step="0.01" name="productPrice" required="" value="${requestScope.PRODUCT.price}" style="margin-left: 37px;">
+                                        <input  min="0.01" type="number" step="0.01" name="productPrice1" required="" value="${requestScope.PRODUCT.price}" style="margin-left: 37px;">
                                     </div>
                                     <div class="details details_stock col-5" style="margin-left: 27px;">
                                         <span>Stock</span>
-                                        <input type="number" name="stockQuantity" required=""  value="${requestScope.PRODUCT.stock}45">
+                                        <input min="1" type="number" name="stockQuantity1" required=""  value="${requestScope.PRODUCT.stock}">
                                     </div>
                                     <div class="col-1"></div>
                                 </div>
@@ -103,10 +103,13 @@
                                 <div style="font-size: 24px; font-weight: bold;">Description</div>
                             </div>
                             <div class="details_description my-2">
-                                <textarea class="py-2" type="text" style=" " name="title" value="" required=""> ${requestScope.PRODUCT.description}</textarea>
+                                <textarea class="py-2" type="text" style="" name="productDescription1" value="${requestScope.PRODUCT.description}" required=""> ${requestScope.PRODUCT.description}</textarea>
+                            </div>
+                            <div style="display: none">
+                                <input class="py-2" type="number" style="" name="productId1" value="${requestScope.PRODUCT.getId()}">
                             </div>
                             <div class="d-flex justify-content-end my-3">
-                                <input class="last_button mx-2" id="edit_product_btn" type="submit" name="action" value="Edit">
+                                <input class="last_button mx-2" id="edit_product_btn" name="" type="submit" value="Edit">
                                 <a class="last_button" style="padding-top: 5px;" href="">Cancel</a>
                             </div>
                         </form>
@@ -115,6 +118,24 @@
             </div>
         </div>
     </div>
+    <c:if test="${requestScope.PRODUCT_ERROR != null}">
+        <div id="stupidnetbeans">
+            <div style="position: fixed; top: 0px;bottom: 0px; left: 0px; right: 0px; background: #5F6440; opacity: 50%;">
+            </div>
+            <div style=" height: 100px;position: absolute; left: 40%; top: 50%; opacity: 1; background: #fff; border-radius: 5px; border: 2px solid #56D262; ">
+                <h2 style=" text-align: center;">Inform</h2>
+                <button style="position: absolute; right: 10px; top: 5px; " onclick="document.getElementById('stupidnetbeans').style.display = 'none'">&times;</button> 
+                <div style="padding: 0 50 0 50">
+                    ${PRODUCT_ERROR.getName()}
+                    ${PRODUCT_ERROR.getCategory()}
+                    ${PRODUCT_ERROR.getMnfDate()}
+                    ${PRODUCT_ERROR.getOrigin()}
+                    ${PRODUCT_ERROR.getPrice()}
+                    ${PRODUCT_ERROR.getStock()}
+                </div>
+            </div>
+        </div>
+    </c:if>  
     <%@include file="/WEB-INF/common/footer.jsp"%>
 </body>
 </html>

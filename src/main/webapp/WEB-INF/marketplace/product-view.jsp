@@ -14,6 +14,11 @@
         <title>View A Product - BakeNow</title>
         <link rel="stylesheet" href="assets/css/marketplace/product-view.css">
         <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+        <style> 
+            .checked {
+                color: orange;
+            }
+        </style>
     </head>
     <body>
         <%@include file="/WEB-INF/common/header.jsp"%>
@@ -25,13 +30,81 @@
             <div class="row">
                 <div class="product_info col-7">
                     <div class="product_info_container">
-                        <div class="product_info_title" style="font-size: 30px;">${requestScope.PRODUCT.name}</div>
+                        <div class="product_info_title" style=" width: 1377px ;font-size: 30px;">${requestScope.PRODUCT.name}</div>
                         <div class="product-star py-2 mx-0">
-                            <span class="fa fa-star fa-star-sized checked"></span>
-                            <span class="fa fa-star fa-star-sized checked"></span>
-                            <span class="fa fa-star fa-star-sized checked"></span>
-                            <span class="fa fa-star fa-star-sized"></span>
-                            <span class="fa fa-star fa-star-sized"></span>
+                            <c:set var = "rating" scope = "page" value = "${requestScope.PRODUCT.getRating()}"/>
+                            <c:choose>
+                                <c:when test = "${rating <= 0.5}">
+                                    <span class="fa fa-star-half-o checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 1}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 1.5}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-o checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 2}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 2.5}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-o checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 3}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 3.5}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-o checked"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 4}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 4.5}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-o checked"></span>
+                                </c:when>
+                                <c:when test = "${rating <= 5}">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </c:when>
+                            </c:choose> 
                             <span class="recipe_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(25)</span>
                         </div>
                         <div class="product_owner d-inline-block" style="width: 75%;">
@@ -61,7 +134,7 @@
                                             <a href="MainController?action=NavToEditProduct&productId=${requestScope.PRODUCT.id}"><li>Edit</li></a>
                                                 </c:if>
                                         <a href=""><li>Hide</li></a>
-                                        <a href="MainController?action=ToDeleteProduct&productId${requestScope.PRODUCT.id}"><li>Delete</li></a>
+                                        <a href="MainController?action=ToDeleteProduct&productId=${requestScope.PRODUCT.id}"><li>Delete</li></a>
                                                 <c:if test="${sessionScope.LOGIN_USER.roleId == 0 || sessionScope.LOGIN_USER.roleId == 1}">
                                             <a href=""><li>Discontinue</li></a>
                                                 </c:if>
@@ -121,7 +194,7 @@
                                 </li>
                                 <li class="product_details_item d-flex py-1 px-1">
                                     <div class="col-6">Category</div>
-                                   
+
                                     <div class="col-6">${requestScope.CATEGORY.name}</div>
                                 </li>
                                 <li class="product_details_item d-flex py-1 px-1">
@@ -141,105 +214,105 @@
                     </div>
                 </div>   
             </div>
-                    <div class="product_comment_add" style="margin-top: 200px;">
-                        <div class="" style="border: 1px solid #D9D9D9; border-radius: 5px; height: fit-content; background-color: #fff;">
-                            <span class="p-3" style="font-size: 24px; font-weight: bold;">Leave your comment here</span>
-                            <form class="p-2 mb-0" action="">
-                                <div class="p-1"> 
-                                    <textarea type="text" style="height: 150px; vertical-align: text-top; border: 1px solid #D9D9D9; padding: 10px;" class="col-12" name="commentContent" placeholder="Share your thought..."></textarea>
-                                </div>
-                                <div class="my-2 d-flex justify-content-end">
-                                    <input type="submit" class="px-2 product_comment_post_button" style="width: 100px; height: 45px;" name="action" value="Post">
-                                </div>
-                            </form>
+            <div class="product_comment_add" style="margin-top: 200px;">
+                <div class="" style="border: 1px solid #D9D9D9; border-radius: 5px; height: fit-content; background-color: #fff;">
+                    <span class="p-3" style="font-size: 24px; font-weight: bold;">Leave your comment here</span>
+                    <form class="p-2 mb-0" action="">
+                        <div class="p-1"> 
+                            <textarea type="text" style="height: 150px; vertical-align: text-top; border: 1px solid #D9D9D9; padding: 10px;" class="col-12" name="commentContent" placeholder="Share your thought..."></textarea>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>         
-        <div class="row product_interaction">
-            <div class="product_review_container col-6 d-flex justify-content-center">
-                <div class="product_review col-11 p-2">
-                    <ul class="py-1 px-2 list-unstyled">
-                        <c:forEach begin="1" end="3">
-                            <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
-                                <div class="d-flex" style="padding: 5px;">
-                                    <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
-                                    <div class="col-7 px-1">
-                                        <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
-                                        <div class="product_review_time" style="font-size: 14px;">20/09/2022 15:35</div>
-                                    </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <span class="fa fa-star fa-star-sized checked"></span>
-                                        <span class="fa fa-star fa-star-sized checked"></span>
-                                        <span class="fa fa-star fa-star-sized checked"></span>
-                                        <span class="fa fa-star fa-star-sized"></span>
-                                        <span class="fa fa-star fa-star-sized"></span>
-                                    </div>
-                                </div>
-                                <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
-                                <div class="product_review_content p-1">
-                                    Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
-                                </div>
-
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_comment_container col-6 d-flex justify-content-center">
-                <div class="product_comment col-11 p-2">
-                    <ul class="py-1 px-2 list-unstyled">
-                        <c:forEach begin="1" end="3">
-                            <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
-                                <div class="d-flex" style="padding: 5px;">
-                                    <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
-                                    <div class="col-11 px-1">
-                                        <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
-                                        <div class="product_comment_time" style="font-size: 14px;">20/09/2022 15:35</div>
-                                    </div>
-                                </div>
-                                <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
-                                <div class="product_comment_content p-1">
-                                    Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
-                                </div>
-                                <div class="product_comment_reply py-2 d-flex justify-content-end">
-                                    <button type="button" class="product_comment_reply_button btn px-2" style="width: 100px;" onclick="window.location.href = '${toReplyComment}';">Reply</button>
-                                </div>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                        <div class="my-2 d-flex justify-content-end">
+                            <input type="submit" class="px-2 product_comment_post_button" style="width: 100px; height: 45px;" name="action" value="Post">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <%@include file="/WEB-INF/common/footer.jsp"%>
-    <script>
-        document.getElementById("product_action_icon").onclick = () => {
-            if (document.getElementById("product_action_option").style.display === "block") {
-                document.getElementById("product_action_option").style.display = "none";
-            } else if (document.getElementById("product_action_option").style.display === "none") {
-                document.getElementById("product_action_option").style.display = "block";
-            }
-        };
+</div>         
+<div class="row product_interaction">
+    <div class="product_review_container col-6 d-flex justify-content-center">
+        <div class="product_review col-11 p-2">
+            <ul class="py-1 px-2 list-unstyled">
+                <c:forEach begin="1" end="3">
+                    <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
+                        <div class="d-flex" style="padding: 5px;">
+                            <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
+                            <div class="col-7 px-1">
+                                <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
+                                <div class="product_review_time" style="font-size: 14px;">20/09/2022 15:35</div>
+                            </div>
+                            <div class="col-4 d-flex justify-content-end">
+                                <span class="fa fa-star fa-star-sized checked"></span>
+                                <span class="fa fa-star fa-star-sized checked"></span>
+                                <span class="fa fa-star fa-star-sized checked"></span>
+                                <span class="fa fa-star fa-star-sized"></span>
+                                <span class="fa fa-star fa-star-sized"></span>
+                            </div>
+                        </div>
+                        <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
+                        <div class="product_review_content p-1">
+                            Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
+                        </div>
 
-        $(function () {
-            $(".button").on("click", function () {
-                var $button = $(this);
-                var oldValue = $button.parent().find(".order_quantity_holder").val();
-                if ($button.text() === "+") {
-                    var newVal = parseFloat(oldValue) + 1;
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
+    <div class="product_comment_container col-6 d-flex justify-content-center">
+        <div class="product_comment col-11 p-2">
+            <ul class="py-1 px-2 list-unstyled">
+                <c:forEach begin="1" end="3">
+                    <li class="p-1 my-1" style="border: 1px solid #D9D9D9; border-radius: 5px; background-color: #fff;">
+                        <div class="d-flex" style="padding: 5px;">
+                            <img class="col-1 align-items-center" src="assets/img/profile_icon.png" alt="profile image" style="width:35px; height:35px; border: 1px solid #D9D9D9; border-radius: 100px;"/>
+                            <div class="col-11 px-1">
+                                <a href="${pageScope.ToProfile}">${requestScope.RECIPE.authorName}Nguyễn Văn A</a>
+                                <div class="product_comment_time" style="font-size: 14px;">20/09/2022 15:35</div>
+                            </div>
+                        </div>
+                        <hr style="margin: 1px; color: #D9D9D9; height: 3px;">
+                        <div class="product_comment_content p-1">
+                            Đã thử và nhận ra bánh quá ngon đến nỗi ăn mấy ngày chưa hết!!!.
+                        </div>
+                        <div class="product_comment_reply py-2 d-flex justify-content-end">
+                            <button type="button" class="product_comment_reply_button btn px-2" style="width: 100px;" onclick="window.location.href = '${toReplyComment}';">Reply</button>
+                        </div>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<%@include file="/WEB-INF/common/footer.jsp"%>
+<script>
+    document.getElementById("product_action_icon").onclick = () => {
+        if (document.getElementById("product_action_option").style.display === "block") {
+            document.getElementById("product_action_option").style.display = "none";
+        } else if (document.getElementById("product_action_option").style.display === "none") {
+            document.getElementById("product_action_option").style.display = "block";
+        }
+    };
+
+    $(function () {
+        $(".button").on("click", function () {
+            var $button = $(this);
+            var oldValue = $button.parent().find(".order_quantity_holder").val();
+            if ($button.text() === "+") {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                // Don't allow decrementing below zero
+                if (oldValue > 0) {
+                    var newVal = parseFloat(oldValue) - 1;
                 } else {
-                    // Don't allow decrementing below zero
-                    if (oldValue > 0) {
-                        var newVal = parseFloat(oldValue) - 1;
-                    } else {
-                        newVal = 0;
-                    }
+                    newVal = 0;
                 }
-                $button.parent().find(".order_quantity_holder").val(newVal);
-            });
+            }
+            $button.parent().find(".order_quantity_holder").val(newVal);
         });
-    </script>
+    });
+</script>
 </body>
 </html>

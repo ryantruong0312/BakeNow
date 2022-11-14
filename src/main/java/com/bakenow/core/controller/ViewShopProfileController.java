@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,11 +70,16 @@ public class ViewShopProfileController extends HttpServlet {
             //3. 1 nguoui chu da login van coi duoc shop ng khac qua request dung ko?
             //        - vay thi xac bang viec request co thi chay trong request neu quequest = null thi chay trong session   
             //xem shop qua request
+            
             if (shopId != null) {
                 Shop randomViewShop = sDao.getShopById(shopId);
-                List<Product> pList = pDao.getAllProductByShopId(shopId);
+                Date doe = sDao.getShopEstablishDate(shopId);
+                int numOfP = sDao.getProductNumberOfShop(shopId);
+                List<Product> pList = pDao.getAllProductByShopId(shopId,1);
                 if (randomViewShop != null) {
                     request.setAttribute("SHOP_PROFILE", randomViewShop);
+                    request.setAttribute("DOE", doe);
+                    request.setAttribute("NOP", numOfP);
                 }
                 if (!pList.isEmpty()) {
                     request.setAttribute("SHOP_PRODUCTS_LIST", pList);
@@ -88,10 +94,14 @@ public class ViewShopProfileController extends HttpServlet {
                     if (tmpUser != null) { //neu co user
                         if (tmpUser.getRoleId() == 3) {//xem coi user co phai shopowner ko
                             Shop haveOwnerShop = (Shop) session.getAttribute("LOGIN_SHOP");//lay shop de in ra
+                            Date doe = sDao.getShopEstablishDate(Integer.toString(  haveOwnerShop.getId()));
+                            int numOfP = sDao.getProductNumberOfShop(Integer.toString(  haveOwnerShop.getId()));
                             if (haveOwnerShop != null) {
+                                request.setAttribute("DOE", doe);
                                 request.setAttribute("SHOP_PROFILE", haveOwnerShop);
+                                request.setAttribute("NOP", numOfP);
                             }
-                            List<Product> pList = pDao.getAllProductByShopId(Integer.toString(haveOwnerShop.getId()));
+                            List<Product> pList = pDao.getAllProductByShopId(Integer.toString(haveOwnerShop.getId()),1);
                             List<Product> pPList = pDao.getAllProductByShopId(Integer.toString(haveOwnerShop.getId()),0);
                             List<Product> pRList = pDao.getAllProductByShopId(Integer.toString(haveOwnerShop.getId()),2);
                             if (!pList.isEmpty()) {

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 /**
  *
  * @author Admin
@@ -20,6 +21,83 @@ public class ShopDAO {
     public static final String LOAD_ALL_SHOP = "select id,ownerId,[name],avatarUrl,[description],rating,ratingCount,productCount,email,phone,[address] from Shop";
     private static final String SEARCH_SHOP_BY_SHOPID ="select id,ownerId,[name],avatarUrl,[description],rating,ratingCount,productCount,email,phone,[address] from Shop where id = ?";
     private static final String GET_SHOP_BY_OWNER_ID ="select id,ownerId,[name],avatarUrl,[description],rating,ratingCount,productCount,email,phone,[address] from Shop where ownerId = ?";
+    private static final String GET_SHOP_ESTABLISHDATE ="select createTime from dbo.[User] u join Shop s on u.id = s.ownerId where s.id = ?";
+    private static final String GET_SHOP_NUMOFPRODUCT = "SELECT COUNT(id) AS count FROM Product where  shopId = ? and statusId = 1 ";
+    
+    public int getProductNumberOfShop(String shopId) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SHOP_NUMOFPRODUCT);
+                ptm.setString(1, shopId.trim());
+//                ptm.setInt(2, noOfProducts);
+                int numOfProduct = 0;
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    numOfProduct = rs.getInt(1);
+                    return numOfProduct;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            if (rs != null) {
+//                ptm = conn.prepareStatement(NUMBER_OF_ALL_PRODUCT);
+//                rs = ptm.executeQuery();
+//                if (rs.next()) {
+//                    this.numberOfProduct = rs.getInt("ROW_COUNT");
+//                }
+//                rs.close();
+//            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return 0;
+    }
+    public Date getShopEstablishDate(String ownerId) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SHOP_ESTABLISHDATE);
+                ptm.setString(1, ownerId.trim());
+//                ptm.setInt(2, noOfProducts);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    Date doe = rs.getDate("createTime");
+                    return doe;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            if (rs != null) {
+//                ptm = conn.prepareStatement(NUMBER_OF_ALL_PRODUCT);
+//                rs = ptm.executeQuery();
+//                if (rs.next()) {
+//                    this.numberOfProduct = rs.getInt("ROW_COUNT");
+//                }
+//                rs.close();
+//            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return null;
+    }
+    
     public List<Shop> getAllShop() throws SQLException {
         List<Shop> listShop = new ArrayList<>();
         Connection conn = null;

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 /**
  *
  * @author Admin
@@ -42,7 +43,48 @@ public class ProductDAO {
                                                  	(?,?,?,
                                                   ?,?,?,
                                                   ?,?,?,?,?,0)""";
-    public List<Product> getAllProductByShopId(String shopID,int statusId) throws SQLException {
+
+    private static final String EDIT_PRODUCT = """
+                                                 UPDATE Product
+                                                 SET categoryId = ?, imgUrl= ?, title= ?, origin= ?,
+                                                 mnfDate= ?, expDate= ?,[description]= ?, price= ?, stock= ?
+                                                 WHERE id = ?""";
+
+    public void editProDuct(int productId, int categoryId, String imgUrl, String title, String origin, Date mnfDate, Date expDate,
+            String description, double price, int stock) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(EDIT_PRODUCT);
+                ptm.setInt(1, categoryId);
+                ptm.setString(2, imgUrl);
+                ptm.setString(3, title);
+                ptm.setString(4, origin);
+                java.sql.Date manuDateSQLDate = new java.sql.Date(mnfDate.getTime());
+                ptm.setDate(5, manuDateSQLDate);
+                java.sql.Date expDateSQLDate = new java.sql.Date(expDate.getTime());
+                ptm.setDate(6, expDateSQLDate);
+                ptm.setString(7, description);
+                ptm.setDouble(8, price);
+                ptm.setInt(9, stock);
+                ptm.setInt(10, productId);
+                ptm.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public List<Product> getAllProductByShopId(String shopID, int statusId) throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -91,10 +133,9 @@ public class ProductDAO {
         }
         return listProduct;
     }
-    
-    
-    public void addNewProDuct(int shopId, int categoryId,Date createDate,String imgUrl,String title,String origin,Date mnfDate,Date expDate,
-            String description,double price,int stock) throws SQLException {
+
+    public void addNewProDuct(int shopId, int categoryId, Date createDate, String imgUrl, String title, String origin, Date mnfDate, Date expDate,
+            String description, double price, int stock) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
         try {
@@ -128,8 +169,7 @@ public class ProductDAO {
             }
         }
     }
-    
-    
+
     public List<Product> getAllProduct() throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection conn = null;
@@ -374,11 +414,12 @@ public class ProductDAO {
             }
         }
     }
-    public String classifyImgUrl(String imgUrl){
+
+    public String classifyImgUrl(String imgUrl) {
         if (imgUrl.contains(LOAD)) {
-            
+
         }
-    return null;
+        return null;
     }
-  
+
 }

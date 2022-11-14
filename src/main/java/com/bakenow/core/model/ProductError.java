@@ -39,20 +39,17 @@ public class ProductError {
         this.stock = stock;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-    public String getName() {
+   public String getName() {
         return name;
     }
 
     public String getMnfDate() {
         return mnfDate;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-   
 
     public String getCategory() {
         return category;

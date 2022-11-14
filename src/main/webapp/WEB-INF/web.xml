@@ -80,6 +80,10 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
         <servlet-name>DeleteRecipeController</servlet-name>
         <servlet-class>com.bakenow.core.controller.DeleteRecipeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditProductController</servlet-name>
+        <servlet-class>com.bakenow.core.controller.EditProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -155,6 +159,10 @@ cf. https://stackoverflow.com/questions/4928271/how-to-install-jstl-the-absolute
     <servlet-mapping>
         <servlet-name>DeleteRecipeController</servlet-name>
         <url-pattern>/DeleteRecipeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProductController</servlet-name>
+        <url-pattern>/EditProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

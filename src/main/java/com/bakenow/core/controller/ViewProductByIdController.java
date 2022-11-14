@@ -39,6 +39,10 @@ public class ViewProductByIdController extends HttpServlet {
         String url = ERROR;
             try {
             String productId = request.getParameter("txtID");
+            String productIdFromEdit = request.getParameter("productId1");
+                if (productIdFromEdit!= null) {
+                    productId = productIdFromEdit;  
+                }
             ProductDAO dao = new ProductDAO();
             Product product = dao.getProductsById(productId);//dang lam toi day
             ShopDAO sDao = new ShopDAO();
