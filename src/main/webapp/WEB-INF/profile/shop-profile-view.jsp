@@ -209,15 +209,15 @@
 
                                             <div class="col-6">
                                                 <label for="name" class="form-label">Display name</label>
-                                                <input type="text" class="form-control" id="name" name="name" value="${requestScope.SHOP_PROFILE.name}">
+                                                <input type="text" class="form-control" id="name" name="name" value="${requestScope.SHOP_PROFILE.getName()}">
                                                 <label for="name" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email" name="email" value="${requestScope.SHOP_PROFILE.email}">
+                                                <input type="email" class="form-control" id="email" name="email" value="${requestScope.SHOP_PROFILE.getEmail()}">
                                             </div>
                                             <div class="col-6">
                                                 <label for="date" class="form-label">Establish Date</label>
                                                 <input type="date" class="form-control" id="date" name="date" value="${requestScope.DOE}">
                                                 <label for="name" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="phone" name="phone" value="${requestScope.SHOP_PROFILE.phone}">
+                                                <input type="text" class="form-control" id="phone" name="phone" value="${requestScope.SHOP_PROFILE.getPhone()}">
                                             </div>
                                             <div class="col-12 d-flex justify-content-center pt-2">
                                                 <!--<p>Memeber since</p>-->
