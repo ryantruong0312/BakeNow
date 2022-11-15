@@ -173,6 +173,12 @@
                                         </div>
                                     </div>
                                     <div class="col-1"></div>
+                                    <input type="hidden" name="productId" value="${requestScope.PRODUCT.getId()}">
+                                    <input type="hidden" name="shopId" value="${requestScope.SHOP.getId()}">
+                                    <input type="hidden" name="productName" value="${requestScope.PRODUCT.getName()}">
+                                    <input type="hidden" name="shopName" value="${requestScope.SHOP.getName()}">
+                                    <input type="hidden" name="productImg" value="${requestScope.PRODUCT.getImgUrl()}">
+                                    <input type="hidden" name="price" value="${requestScope.PRODUCT.getPrice()}">
                                     <input type="submit" id="add_to_cart_btn" class="btn product_add-to-cart_btn col-5" name="action" value="AddToCart">
                                 </form>
                             </div>
