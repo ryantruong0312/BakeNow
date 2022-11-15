@@ -28,7 +28,7 @@ public class ProductDAO {
     private static final String GET_PRODUCT_BY_CATEGORY_ID = """
                                                           SELECT p.id,p.title,p.price,p.rating,p.reviewCount,p.imgUrl
                                                                  FROM Product p JOIN ProductCategory c ON c.id = p.categoryId
-                                                                 WHERE (c.id) = ?""";
+                                                                 WHERE (c.id) = ? and p.statusID = 1""";
     private static final String GET_PRODUCT_BY_SHOP_ID = "select id,shopId,categoryId,imgUrl,title,origin,mnfDate,expDate,[description],price,stock,rating,reviewCount from product where shopId = ?";
     private static final String GET_PRODUCT_FOR_DISPLAY_IN_SHOP = "select id,shopId,categoryId,imgUrl,title,origin,mnfDate,expDate,[description],price,stock,rating,reviewCount from product where shopId = ? and statusID = ?";
     private static final String SEARCH_PRODUCT_BY_NAME = "select id,shopId,categoryId,imgUrl,title,origin,mnfDate,expDate,[description],price,stock,rating,reviewCount from product where title like ? and statusID = 1";
