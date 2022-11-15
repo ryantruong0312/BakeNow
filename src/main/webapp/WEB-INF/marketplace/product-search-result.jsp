@@ -153,15 +153,7 @@
                                     <span class="product_text"  style="margin-top: 0px; padding-left: 0px; padding-right: 0px;">(${product.getReviewCount()})</span>
                                 </div>
                             </div>
-                            <div class="price">${product.getPrice()} $</div>
-                            <form action="Product_addToCart" class="d-flex" >                                                                                                   
-                                <input type="number" class="order_quantity_holder" name="orderQuantity" value="1">                                                                                                              
-                                <!--cái này thiệt sự là bỏ đi dùng cái input bình thường được rồi mà-->
-                                <button class="addToCartButton" type="submit" formaction="CartController?action=Add" id="createRecipeButton" value="Add to Cart">
-                                    <iconify-icon icon="lucide:shopping-cart" width="35" ></iconify-icon>
-                                    <p>Add to Cart</p>
-                                </button>
-                            </form>
+                            <div class="price">${product.getPrice()}</div>
                         </div>
                     </div>
                 </c:forEach>    
