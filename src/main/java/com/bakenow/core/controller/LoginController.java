@@ -4,7 +4,9 @@
  */
 package com.bakenow.core.controller;
 
+import com.bakenow.core.dao.ShopDAO;
 import com.bakenow.core.dao.UserDAO;
+import com.bakenow.core.model.Shop;
 import com.bakenow.core.model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -31,9 +33,17 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
             User loginUser = dao.checkLogin(username, password);
+            ShopDAO sDao = new ShopDAO();
+            //sau khi login chẹck coi co phai la nguoi ban do khong neu co 
+            //de vao trong sesion scope cai shop  id luon
+            //check user bằng cách nào đây ???
             if (loginUser != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("LOGIN_USER", loginUser);
+                if(loginUser.getRoleId() == 3){
+                    Shop shop = sDao.getShopByOwnerId(loginUser.getId());
+                    session.setAttribute("LOGIN_SHOP", shop);
+                }
                 url = SUCCESS;
             } else {
                 request.setAttribute("ERROR", "Incorrect userID or password !!!");

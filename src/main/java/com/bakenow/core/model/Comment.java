@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author tlminh
  */
 public class Comment {
+
     private int id;
     private int userId;
     private String userName;
@@ -78,5 +79,19 @@ public class Comment {
         this.contents = contents;
     }
 
-    
+    public boolean checkAvatarUrl() {
+        boolean check = this.avatarUrl.contains("\\assets\\img");
+        return check;
+    }
+
+    public String getImgName() {
+        try {
+            int index = this.avatarUrl.indexOf('/');
+            String after = this.avatarUrl.substring(index + 1);
+            return after;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

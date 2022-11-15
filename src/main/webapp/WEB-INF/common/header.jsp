@@ -8,7 +8,7 @@
     <c:url var="toMarketplace" value="MainController?action=NavToMarketplace"/>
     <c:url var="toMyPage" value="MainController?action=NavToMyPage"/>
     <c:url var="toManagement" value="MainController?action=NavToManagement"/>
-    <c:url var="toMyShop" value="MainController?action=NavToMyShop"/>
+    <c:url var="toShop" value="MainController?action=NavToViewShopProfile"/>
     <c:url var="logout" value="MainController?action=Logout"/>
 
     <div style="width:1440px; margin:0 auto;">
@@ -65,8 +65,8 @@
                                     <span>My Page</span>
                                 </a>
                             </c:if>
-                            <c:if test="${sessionScope.LOGIN_USER.roleId == 3}">   
-                                <a href="${toMyShop}" class="account-nav">
+                            <c:if test="${sessionScope['LOGIN_USER'].roleId == 3}">   
+                                <a href="MainController?action=NavToViewShopProfile&shopId=${sessionScope['LOGIN_SHOP'].id}" class="account-nav">
                                     <i class="bi bi-shop"></i>
                                     <span>My Shop</span>
                                 </a>

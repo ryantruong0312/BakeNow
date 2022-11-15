@@ -50,6 +50,8 @@ public class MainController extends HttpServlet {
     private static final String DEST_VIEW_RECIPE = "ViewRecipeController";
     private static final String ACT_COMMENT_RECIPE = "Comment";
     private static final String DEST_COMMENT_RECIPE = "CommentRecipeController";
+    private static final String ACT_COMMENT_PRODUCT = "Post";
+    private static final String DEST_COMMENT_PRODUCT = "CommentProductController";
     private static final String ACT_NAV_CREATE_RECIPE = "NavToCreateRecipe";
     private static final String DEST_NAV_CREATE_RECIPE = "RenderCreateRecipeController";
     private static final String ACT_NAV_EDIT_RECIPE = "NavToEditRecipe";
@@ -70,28 +72,37 @@ public class MainController extends HttpServlet {
     private static final String ACT_NAV_MARKETPLACE = "NavToMarketplace";
     // đáng lẽ ở đây phải là gọi đến servlet của market place để load dữ liệu chứ nhỉ
     private static final String DEST_NAV_MARKETPLACE = "RenderProductMarketPlaceController"; //vì tránh thay đổi trong web.xml sr vì tên ko được chuẩn
+    private static final String ACT_NAV_VIEW_PRODUCT_BY_CATE = "NavToViewProductByCategory";
+    private static final String DEST_NAV_VIEW_PRODUCT_BY_CATE = "LoadProductByCategoryController";
     private static final String ACT_NAV_VIEW_PRODUCT = "NavToViewProduct";
-    private static final String DEST_NAV_VIEW_PRODUCT = "/WEB-INF/marketplace/product-view.jsp";
-    private static final String ACT_NAV_ADD_PRODUCT = "NavToAddProduct";
-    private static final String DEST_NAV_ADD_PRODUCT = "/WEB-INF/marketplace/product-add.jsp";
+    private static final String DEST_NAV_VIEW_PRODUCT = "ViewProductByIdController";
+    private static final String ACT_TO_ADD_PRODUCT = "NavToAddProduct";
+    private static final String DEST_TO_ADD_PRODUCT = "/WEB-INF/marketplace/product_add.jsp";
     private static final String ACT_NAV_EDIT_PRODUCT = "NavToEditProduct";
-    private static final String DEST_NAV_EDIT_PRODUCT = "/WEB-INF/marketplace/product-edit.jsp";
-    private static final String ACT_ADD_TO_CART = "AddToCart";
+    private static final String DEST_NAV_EDIT_PRODUCT = "LoadAProductBeforeEditController";
+    private static final String ACT_ADD_TO_CART = "Add to cart";
     private static final String DEST_ADD_TO_CART = "AddToCartController";
     private static final String ACT_NAV_CART = "NavToCart";
     private static final String DEST_NAV_CART = "/WEB-INF/marketplace/cart-view.jsp";
     private static final String ACT_NAV_SHOP_PROFILE = "toViewShopProfile";
     private static final String DEST_NAV_SHOP_PROFILE = "/WEB-INF/profile/shop-profile-view.jsp";
-    
     private static final String ACT_CANCEL_ORDER = "CancelOrder";
     private static final String DEST_CANCEL_ORDER = "CancelOrderController";
-
+    private static final String ACT_NAV_SHOPPROFILE = "NavToViewShopProfile";
+    private static final String DEST_NAV_SHOPPROFILE = "ViewShopProfileController";
+    private static final String ACT_SEARCH_PRODUCT_BY_NAME = "Search";
+    private static final String DEST_SEARCH_PRODUCT_BY_NAME = "SearchProductByNameController";
+    private static final String ACT_DELETE_PRODUCT_BY_ID = "ToDeleteProduct";
+    private static final String DEST_DELETE_PRODUCT_BY_ID = "DeleteProductByIdController";
+    private static final String ACT_EDIT_SHOP_PROFILE = "ToEditShopProfile";
+    private static final String NAV_EDIT_SHOP_PROFILE = "EditShopProfileController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String action = request.getParameter("action");
+            System.out.println(request.getQueryString());
             switch (action) {
                 case ACT_NAV_BLOG_HOME:
                     url = DEST_NAV_BLOG_HOME;
@@ -165,8 +176,8 @@ public class MainController extends HttpServlet {
                 case ACT_NAV_VIEW_PRODUCT:
                     url = DEST_NAV_VIEW_PRODUCT;
                     break;
-                case ACT_NAV_ADD_PRODUCT:
-                    url = DEST_NAV_ADD_PRODUCT;
+                case ACT_TO_ADD_PRODUCT:
+                    url = DEST_TO_ADD_PRODUCT;
                     break;
                 case ACT_NAV_EDIT_PRODUCT:
                     url = DEST_NAV_EDIT_PRODUCT;
@@ -177,12 +188,27 @@ public class MainController extends HttpServlet {
                 case ACT_NAV_CART:
                     url = DEST_NAV_CART;
                     break;
-                case ACT_NAV_SHOP_PROFILE:
-                    url = DEST_NAV_SHOP_PROFILE;
+                case ACT_NAV_VIEW_PRODUCT_BY_CATE:
+                    url = DEST_NAV_VIEW_PRODUCT_BY_CATE;
                     break;
                 case ACT_CANCEL_ORDER:
                     url = DEST_CANCEL_ORDER;
                     break;
+                case ACT_NAV_SHOPPROFILE:
+                    url = DEST_NAV_SHOPPROFILE;
+                    break;
+                case ACT_SEARCH_PRODUCT_BY_NAME:
+                    url = DEST_SEARCH_PRODUCT_BY_NAME;
+                    break;
+                case ACT_DELETE_PRODUCT_BY_ID:
+                    url = DEST_DELETE_PRODUCT_BY_ID;
+                    break;  
+                case ACT_EDIT_SHOP_PROFILE:
+                    url = NAV_EDIT_SHOP_PROFILE;
+                    break;  
+                case ACT_COMMENT_PRODUCT:
+                    url = DEST_COMMENT_PRODUCT;
+                    break;  
                 default:
                     break;
             }

@@ -14,13 +14,17 @@ import java.util.Objects;
 public class Product {
 
     private int id;
-    private int categoryId;
     private int shopId;
+    private int categoryId;
     private Date createTime;
     private Date approveTime;
-    private String name;
-    private String description;
+    private int approverID;
     private String imgUrl;
+    private String name;
+    private String origin;
+    private Date mnfDate;
+    private Date expDate;   
+    private String description;
     private double price;
     private int stock;
     private double rating;
@@ -28,6 +32,64 @@ public class Product {
     private int statusId;
 
     private Product() {
+    }
+
+    public void setApproverID(int approverID) {
+        this.approverID = approverID;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public void setMnfDate(Date mnfDate) {
+        this.mnfDate = mnfDate;
+    }
+
+    public void setExpDate(Date expDate) {
+        this.expDate = expDate;
+    }
+
+    public int getApproverID() {
+        return approverID;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public Date getMnfDate() {
+        return mnfDate;
+    }
+
+    public Date getExpDate() {
+        return expDate;
+    }
+
+    public Product(int id, int shopId, int categoryId, String imgUrl, String name, String origin, Date mnfDate, Date expDate, String description, double price, int stock, double rating, int reviewCount) {
+        this.id = id;
+        this.shopId = shopId;
+        this.categoryId = categoryId;
+        this.imgUrl = imgUrl;
+        this.name = name;
+        this.origin = origin;
+        this.mnfDate = mnfDate;
+        this.expDate = expDate;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.rating = rating;
+        this.reviewCount = reviewCount;
+    }
+
+    public Product(int id, int shopId, String name, String imgUrl, double price, double rating, int reviewCount) {
+        this.id = id;
+        this.shopId = shopId;
+        this.name = name;
+        this.imgUrl = imgUrl;
+        this.price = price;
+        this.rating = rating;
+        this.reviewCount = reviewCount;
     }
     
     public Product(int id, String name, double price, double rating, int reviewCount){
@@ -166,4 +228,17 @@ public class Product {
         return imgUrl;
     }
 
+    public boolean checkimgUrl(){
+        boolean check = this.imgUrl.contains("\\assets\\img");
+           return check;
+    }
+    public String getImgName(){
+        try {
+            int index = this.imgUrl.indexOf('/');
+            String after =this.imgUrl.substring(index+1);
+            return after;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }

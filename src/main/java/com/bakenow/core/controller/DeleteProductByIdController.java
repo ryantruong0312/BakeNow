@@ -4,26 +4,24 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
-import com.bakenow.core.model.CategoryGroup;
-import com.bakenow.core.model.Product;
+import com.bakenow.core.dao.ShopDAO;
+import com.bakenow.core.model.Shop;
+import com.bakenow.core.model.User;
 import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 /**
  *
  * @author Admin
  */
-public class RenderProductMarketPlaceController extends HttpServlet {
-    public  static String SUCCESS="/WEB-INF/marketplace/marketplace.jsp";
-    public  static String ERROR="/WEB-INF/errorpages/error.jsp";
+public class DeleteProductByIdController extends HttpServlet {
+    private static final String ERROR="/WEB-INF/errorpages/error.jsp";
+    private static final String SUCCESS="ViewShopProfileController"; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,27 +36,27 @@ public class RenderProductMarketPlaceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            ProductDAO pDao = new ProductDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
+            String pid = request.getParameter("productId");
+            ProductDAO dao = new ProductDAO();
+            dao.deleteProductsById(pid);
+            ShopDAO sDao = new ShopDAO();
             HttpSession session = request.getSession();
-            List<Product> pList = pDao.getAllProduct();
-            if(session.getAttribute("GET_I_CATEGORY")== null){
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-            session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
-            }
-            request.setAttribute("LIST_PRODUCT", pList);
-            
+            User user =(User) session.getAttribute("LOGIN_USER");
+            Shop shop = sDao.getShopByOwnerId(user.getId());
+            request.setAttribute("shopID",shop.getId());
             url = SUCCESS;
+            if(user.getRoleId()==0 || user.getRoleId()==1 ){
+                url = "/WEB-INF/marketplace/marketplace.jsp";   
+            }
         } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
+            log("Error at DeleteProductByIdController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

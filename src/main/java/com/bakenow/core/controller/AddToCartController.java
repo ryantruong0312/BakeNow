@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class AddToCartController extends HttpServlet {
 
     private static final String ERROR = "WEB-INF/errorpages/error.jsp";
-    private static final String SUCCESS = "MainController?action=";
+    private static final String SUCCESS = "MainController?action=NavToMarketplace";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

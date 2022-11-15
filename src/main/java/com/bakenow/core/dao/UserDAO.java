@@ -19,6 +19,7 @@ import java.util.List;
  * @author tlminh
  */
 public class UserDAO {
+
     private static final String LOGIN = "SELECT id, displayName, bio, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User] "
             + " WHERE username=? AND password=?";
     private static final String CHECK_DUPLICATE = "SELECT id FROM [User] WHERE username = ?";
@@ -26,7 +27,9 @@ public class UserDAO {
     private static final String GET_USER = "SELECT displayName, bio, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User] WHERE id = ?";
     private static final String GET_USER_LIST = "SELECT id, displayName, bio, dob, email, phone, address, roleId, createTime, avatarUrl FROM [User]";
     private static final String UPDATE_USER = "UPDATE [User] SET displayName = ?, bio = ?, dob = ?, email = ?, phone = ?, address = ?, avatarUrl = ? WHERE id = ?";
-    
+    private static final String GET_DISPLAY_NAME_BY_ID = "SELECT displayName FROM [User] WHERE id = ?";
+    private static final String GET_AVATAR_URL_BY_ID = "SELECT avatarUrl FROM [User] WHERE id = ?";
+
     public User checkLogin(String username, String password) throws SQLException {
         User user = null;
         Connection conn = null;
@@ -68,8 +71,8 @@ public class UserDAO {
         }
         return user;
     }
-    
-    public boolean checkDuplicate(String username) throws SQLException{
+
+    public boolean checkDuplicate(String username) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -87,14 +90,20 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return check;
     }
-    
-    public boolean insertUser(String username, String password, int roleId) throws SQLException{
+
+    public boolean insertUser(String username, String password, int roleId) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -108,14 +117,20 @@ public class UserDAO {
                 ptm.setString(3, password);
                 ptm.setInt(4, 3);
                 ptm.setDate(5, Date.valueOf(java.time.LocalDate.now()));
-                check = ptm.executeUpdate()> 0;
+                check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return check;
     }
@@ -159,7 +174,38 @@ public class UserDAO {
         }
         return user;
     }
-    
+
+    public String getDisplayNameById(int id) throws SQLException {
+        String name = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DISPLAY_NAME_BY_ID);
+                ptm.setInt(1, id);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    name = rs.getString("displayName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return name;
+    }
+
     public List<User> getUserList() throws SQLException {
         List<User> userList = new ArrayList<>();
         Connection conn = null;
@@ -182,6 +228,7 @@ public class UserDAO {
                     Date createTime = rs.getDate("createTime");
                     String avatarUrl = rs.getString("avatarUrl");
                     userList.add(new User(userId, "", "", displayName, dob, email, phone, address, roleId, bio, createTime, avatarUrl));
+
                 }
             }
         } catch (Exception e) {
@@ -198,6 +245,39 @@ public class UserDAO {
             }
         }
         return userList;
+    }
+    
+    //Get avatar url of an account by providing user id
+    public String getAvatarUrlOfUserById(int id) throws SQLException {
+        String url = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        ptm = conn.prepareStatement(GET_AVATAR_URL_BY_ID);
+        ptm.setInt(1, id);
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    url = rs.getString("avatarUrl");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return url;
+
     }
 
     public boolean updateRecipe(int userId, String displayName, String bio, String phone, Date dob, String email, String address, String avatarUrl) throws SQLException {
@@ -231,3 +311,4 @@ public class UserDAO {
         return check;
     }
 }
+

@@ -4,25 +4,31 @@
  */
 package com.bakenow.core.controller;
 
+import com.bakenow.core.dao.CommentDAO;
 import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
+import com.bakenow.core.dao.ShopDAO;
+import com.bakenow.core.dao.UserDAO;
 import com.bakenow.core.model.CategoryGroup;
+import com.bakenow.core.model.Comment;
 import com.bakenow.core.model.Product;
+import com.bakenow.core.model.Shop;
+import com.bakenow.core.model.User;
 import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class RenderProductMarketPlaceController extends HttpServlet {
-    public  static String SUCCESS="/WEB-INF/marketplace/marketplace.jsp";
+public class ViewProductByIdController extends HttpServlet {
+
+   public  static String SUCCESS="/WEB-INF/marketplace/product-view.jsp";
     public  static String ERROR="/WEB-INF/errorpages/error.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,27 +39,37 @@ public class RenderProductMarketPlaceController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(jakarta.servlet.http.HttpServletRequest request, HttpServletResponse response)
+            throws jakarta.servlet.ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try {
-            ProductDAO pDao = new ProductDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
-            HttpSession session = request.getSession();
-            List<Product> pList = pDao.getAllProduct();
-            if(session.getAttribute("GET_I_CATEGORY")== null){
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-            session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
+            try {
+            String productId = request.getParameter("txtID");
+            String productIdFromEdit = request.getParameter("productId1");
+                if (productIdFromEdit!= null) {
+                    productId = productIdFromEdit;  
+                }
+            ProductDAO dao = new ProductDAO();
+            Product product = dao.getProductsById(productId);//dang lam toi day
+            ShopDAO sDao = new ShopDAO();
+            CommentDAO cDao = new CommentDAO();
+            List<Comment> comList = cDao.getProductCommentsById(Integer.parseInt(productId.trim()));
+            Shop shop = sDao.getShopById( String.valueOf(product.getShopId()));
+            UserDAO uDao = new UserDAO();
+//            List<User> userlist = uDao.
+            ProductCategoryDAO pCDao = new ProductCategoryDAO();
+            CategoryGroup pC = pCDao.getCategoryById(String.valueOf(product.getCategoryId()));
+            if (product != null) {
+                request.setAttribute("PRODUCT", product);
+                request.setAttribute("SHOP", shop);
+                request.setAttribute("CATEGORY", pC);
+                request.setAttribute("PRODUCTCOMMENT", comList);
+               url= SUCCESS;
             }
-            request.setAttribute("LIST_PRODUCT", pList);
-            
-            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
-        } finally {
+            log("Error at LoadProductByCategoryController: "+ e.toString());
+        }
+        finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

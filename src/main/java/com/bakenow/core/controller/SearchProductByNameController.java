@@ -4,9 +4,7 @@
  */
 package com.bakenow.core.controller;
 
-import com.bakenow.core.dao.ProductCategoryDAO;
 import com.bakenow.core.dao.ProductDAO;
-import com.bakenow.core.model.CategoryGroup;
 import com.bakenow.core.model.Product;
 import java.io.IOException;
 import java.util.List;
@@ -14,16 +12,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 
 /**
  *
  * @author Admin
  */
-public class RenderProductMarketPlaceController extends HttpServlet {
-    public  static String SUCCESS="/WEB-INF/marketplace/marketplace.jsp";
-    public  static String ERROR="/WEB-INF/errorpages/error.jsp";
+public class SearchProductByNameController extends HttpServlet {
+    public  static String SUCCESS="/WEB-INF/marketplace/product-search-result.jsp";
+    public  static String ERROR="/WEB-INF/marketplace/product-search-result.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,23 +33,19 @@ public class RenderProductMarketPlaceController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try {
-            ProductDAO pDao = new ProductDAO();
-            ProductCategoryDAO cDao = new ProductCategoryDAO();
-            HttpSession session = request.getSession();
-            List<Product> pList = pDao.getAllProduct();
-            if(session.getAttribute("GET_I_CATEGORY")== null){
-            List<CategoryGroup> cIList = cDao.getAllOfABigCategory(1);
-            List<CategoryGroup> cTList = cDao.getAllOfABigCategory(2);
-            session.setAttribute("GET_I_CATEGORY", cIList);
-            session.setAttribute("GET_T_CATEGORY", cTList);
+            try {
+            String searchTxt = request.getParameter("searchTxt");
+            ProductDAO dao = new ProductDAO();
+            List<Product> listProduct = dao.getProductsByName(searchTxt.trim());
+            if (listProduct.size()>0) {
+                request.setAttribute("PRODUCT_SEARCH_LIST", listProduct);
+                request.setAttribute("SEARCH_TXT", searchTxt);
+               url= SUCCESS;
             }
-            request.setAttribute("LIST_PRODUCT", pList);
-            
-            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at RenderBlogHomeController: " + e.toString());
-        } finally {
+            log("Error at LoadProductByCategoryController: "+ e.toString());
+        }
+        finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

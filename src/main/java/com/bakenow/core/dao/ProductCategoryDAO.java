@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class ProductCategoryDAO {
     public static final String GET_CATEGORY = "select id,name from ProductCategory where parentId = ?";
+    public static final String GET_CATEGORY_BY_ID = "select id,name from ProductCategory where id = ?";
+    public static final String GET_CATEGORY_ID_BY_NAME = "select id from ProductCategory where name like ?";
 
     //get all category except for the bigest one (id 1 and 2)
     public List<CategoryGroup> getAllOfABigCategory(int categoryid) throws SQLException {
@@ -71,6 +73,82 @@ public class ProductCategoryDAO {
         }
         return IlistCategory;
     }
+    
+    public CategoryGroup getCategoryById(String categoryId) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_CATEGORY_BY_ID);
+                ptm.setString(1, categoryId);
+//                ptm.setInt(2, noOfProducts);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    return new CategoryGroup(id,name); 
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            if (rs != null) {
+//                ptm = conn.prepareStatement(NUMBER_OF_ALL_PRODUCT);
+//                rs = ptm.executeQuery();
+//                if (rs.next()) {
+//                    this.numberOfProduct = rs.getInt("ROW_COUNT");
+//                }
+//                rs.close();
+//            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+       return null;
+    }
+    public int getCategoryIdByName(String categoryName) throws SQLException{
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_CATEGORY_ID_BY_NAME);
+                ptm.setString(1, "%"+categoryName.trim()+"%");
+//                ptm.setInt(2, noOfProducts);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    return id; 
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            if (rs != null) {
+//                ptm = conn.prepareStatement(NUMBER_OF_ALL_PRODUCT);
+//                rs = ptm.executeQuery();
+//                if (rs.next()) {
+//                    this.numberOfProduct = rs.getInt("ROW_COUNT");
+//                }
+//                rs.close();
+//            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return 0;
+    }
+    
+    
 }
 // lam sao cho tot nhi select cai to nhat a ??
 // hay select cai 
